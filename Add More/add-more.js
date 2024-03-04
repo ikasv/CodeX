@@ -33,13 +33,6 @@ function modifyCloneTemplate(dublicate_clone_template, clone_template_id, type){
                 dublicate_clone_template.find('.question').attr('name', "faq["+clone_template_id+"][question]").val('');
                 dublicate_clone_template.find('.answer').attr('name', "faq["+clone_template_id+"][answer]").val('');
             break;
-            
-        case 'key_ingredients':
-                dublicate_clone_template.find('img').remove();
-                dublicate_clone_template.find('.images').attr('name', "key_ingredients["+clone_template_id+"][images]").val('');
-                dublicate_clone_template.find('.heading').attr('name', "key_ingredients["+clone_template_id+"][heading]").val('');
-                dublicate_clone_template.find('.description').attr('name', "key_ingredients["+clone_template_id+"][description]").val('');
-            break;
     }
  
 }
