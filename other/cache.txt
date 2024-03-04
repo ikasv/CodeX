@@ -1,0 +1,6 @@
+ if(!Cache::has('hotels'))
+            {
+                Cache::put('hotels',  $hotels  , now()->addMinutes(60));
+            }else{
+                $hotels = Cache::get('hotels');
+            }

@@ -1,0 +1,31 @@
+.split-outer {
+  overflow: hidden;
+}
+.split-inner {
+  display: inline-block;
+}
+
+jQuery(document).ready(function() {
+text_split();
+});
+        
+function text_split(){
+gsap.registerPlugin(SplitText, ScrollTrigger);
+const innerSplit = SplitText.create(".text_split, .text_split p", {
+    type: "lines",
+    linesClass: "split-inner"
+  }),
+  outerSplit = SplitText.create(".text_split, .text_split p", {
+    type: "lines",
+    linesClass: "split-outer"
+  });
+
+ScrollTrigger.batch(innerSplit.lines, {
+  start: "top 90%",
+  once: true,
+  onEnter: batch => gsap.to(batch, {yPercent: 0, duration: 1.5, stagger: 0.1, ease: "power4" })
+});
+gsap.set(innerSplit.lines, {yPercent: 100});
+ScrollTrigger.addEventListener("refreshInit", () => gsap.set(innerSplit.lines, {yPercent: 0}));
+}  
+    

@@ -1,0 +1,6 @@
+use File;
+$gallery_files = File::files(public_path('images/gallery'));
+
+@foreach($gallery_files as $item)
+	<img src="{{ asset('images/gallery/'.basename($item)) }}"/>
+@endforeach

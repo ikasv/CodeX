@@ -1,0 +1,26 @@
+/* Rating Stars */
+    input[name='rating']{ display:none; }
+    
+    .rating-star, .user-stars { direction: rtl; }
+    .user-stars > .selected-star, .user-stars > .selected-star ~ i { color: #f6a300!important; }
+    .rating-star > .star:hover, 
+    .rating-star > .star:hover ~ .star,
+    .rating-star > input:checked ~ .star
+    { color: #f6a300!important; }
+    /* End Rating Stars */
+	
+<div class="rating-star text-left">
+	<input type="radio" name="rating" class="rating" value="5" id="star_5"><label for="star_5" class="fa fa-star star"></i></label>
+	<input type="radio" name="rating" class="rating" value="4" id="star_4"><label for="star_4" class="fa fa-star star"></i></label>
+	<input type="radio" name="rating" class="rating" value="3" id="star_3"><label for="star_3" class="fa fa-star star"></i></label>
+	<input type="radio" name="rating" class="rating" value="2" id="star_2"><label for="star_2" class="fa fa-star star"></i></label>
+	<input type="radio" name="rating" class="rating" value="1" id="star_1"><label for="star_1" class="fa fa-star star"></i></label>
+</div>
+
+<div class="user-stars align-self-center">
+	<i class="fa fa-star {{ $review->rating == 5 ? 'selected-star' : '' }}"></i>
+	<i class="fa fa-star {{ $review->rating == 4 ? 'selected-star' : '' }}"></i>
+	<i class="fa fa-star {{ $review->rating == 3 ? 'selected-star' : '' }}"></i>
+	<i class="fa fa-star {{ $review->rating == 2 ? 'selected-star' : '' }}"></i>
+	<i class="fa fa-star {{ $review->rating == 1 ? 'selected-star' : '' }}"></i>
+</div>

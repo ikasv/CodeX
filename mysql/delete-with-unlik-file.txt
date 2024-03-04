@@ -1,0 +1,27 @@
+ if(isset($_GET['delete_id'])):
+        $delete_id                              =   $_GET['delete_id'];
+        
+        $f_coaching_sql                         =   "select logo, brochure from coaching where id = $delete_id";
+        $f_coaching_result                      =   mysqli_query($mysql, $f_coaching_sql);
+        $f_coaching_row                         =   (object) mysqli_fetch_assoc($f_coaching_result);
+        
+        $u_logo                                 =   __DIR__."/images/coaching/logo/".$f_coaching_row->logo;
+        $u_brochure                             =    __DIR__."/images/coaching/brochure/".$f_coaching_row->brochure;
+        
+        $d_coaching_sql                         =   "delete from coaching where id = $delete_id";
+        $d_coaching_result                      =   mysqli_query($mysql, $d_coaching_sql);
+        
+        if($d_coaching_result):
+            $_SESSION["error_msg"]              = "<div class='alert alert-success'>Successfully deleted</div>";
+           
+            if (file_exists($u_logo)): unlink($u_logo); endif;
+            if (file_exists($u_brochure)): unlink($u_brochure); endif;
+            
+            echo "<script>window.location.href  = 'https://scholarshiploan.com/app/admin/coaching.php';</script>";
+            exit;
+        else:
+            $_SESSION["error_msg"]              = "<div class='alert alert-danger'>failed to delete</div>";
+            echo "<script>window.location.href  = 'https://scholarshiploan.com/app/admin/coaching.php';</script>";
+            exit;
+        endif;
+    endif;

@@ -1,0 +1,7 @@
+   $item_arr                         =  $products;
+            
+            $item_arr[]                         =  (object) array(
+                "id"                                                    => 0,
+                                                                    "name"=> $request->search,
+                                                                    "suggestion_type" =>  "suggestion",
+                                                            );

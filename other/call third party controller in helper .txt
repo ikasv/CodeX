@@ -1,0 +1,11 @@
+ # Zoho Inventory Intance
+    if(!function_exists('zoho_inventory')):
+        function zoho_inventory(){
+            include(APPPATH.'controllers/Zoho/ZohoInventory.php');
+            
+            if(class_exists(ZohoInventory::class)):
+                return new ZohoInventory;
+            endif;
+        }
+    endif;
+    # End Zoho Inventory Intance

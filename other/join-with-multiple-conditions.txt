@@ -1,0 +1,7 @@
+ $course_list            =   Paper::select('papers.*', 'results.user_id')
+                                            ->leftJoin('results', function ($join) use ($user_id) {
+                                                $join->on('results.paper_id', '=', 'papers.id')->on('results.user_id', '=', DB::raw($user_id));
+                                            })
+                                            ->orderBy('papers.id', 'desc')
+                                            ->where('papers.package_id',$package_id)
+                                            ->get();

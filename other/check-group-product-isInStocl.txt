@@ -1,0 +1,16 @@
+$cart_items = getCartItems();
+        $isInStock                  =   array();
+        foreach ($cart_items as $product) {
+            # Update Quantity
+            $isInStock[]                   =   check_product_stock($product->id, $product->qty);
+            
+            foreach($isInStock as $isIn):
+                foreach($isIn as $val):
+                    if(!$val):
+                        return "Product Out Of Stock";
+                    endif;
+                endforeach;
+            endforeach;
+           
+            # End Update Quantity
+        }

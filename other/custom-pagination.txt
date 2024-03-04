@@ -1,0 +1,20 @@
+	use Illuminate\Pagination\LengthAwarePaginator;
+	
+	# Custom Pagination
+ 	if (!function_exists('custom_pagination')) {
+     	function custom_pagination($items, $perPage = 1, $currentPage = 1){
+     	    
+     	    $offSet = ($currentPage * $perPage) - $perPage;
+     	    
+     	    if(count($items) > $perPage):
+     	        $itemsForCurrentPage = array_slice($items, $offSet, $perPage, true);
+     	    endif;
+     	    
+     	    $items_with_pagination = new LengthAwarePaginator($itemsForCurrentPage ?? $items, count($items), $perPage, 1);
+     	    return $items_with_pagination;
+     	}
+    }
+ 	# End Custom Pagination
+	
+
+$valid_offers_with_pagination                                               =   custom_pagination($valid_offers, 2, request()->page ?? 1);

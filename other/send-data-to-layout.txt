@@ -1,0 +1,18 @@
+Step 1 : php artisan make:provider ContentServiceProvider
+Step 2 : config/app.php
+			'providers' => [
+				...,
+				App\Providers\ContentServiceProvider::class
+			]
+Step 3  :  
+
+			public $nav_categories;
+			
+			public function boot()
+			{
+				$this->nav_categories     =    Category::where('show_menu', 1)->get();
+
+				view()->composer('layouts.app', function($view) {
+					$view->with(['nav_categories' => $this->nav_categories]);
+				});
+			}

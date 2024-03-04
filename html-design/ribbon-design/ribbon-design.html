@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Css Design Flag</title>
+    <style>
+        .ribbon-title {
+            position: relative;
+            text-align-last: center;
+            padding: 0.5rem;
+        }
+
+        .ribbon-title:after {
+            width: 100%;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to right, rgb(249 249 249) 0%, rgba(255, 255, 255, 0) 69%);
+            height: 100%;
+        }
+
+        .ribbon-section {
+            width: 150px;
+            background-color: orange;
+            clip-path: polygon(100% 0%, 91% 51%, 100% 100%, 0 100%, 0 52%, 0 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ribbon-section">
+        <div class="ribbon-title">
+            Featured
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title> Problem Solving  </title>
+
+    
+    
+    
+    <!-- FIXME: change the hardcoded www.cs.utah.edu/... refs below to be relative -->
+
+<!-- Main CSS -->
+<link href="https://www.cs.utah.edu/~germain/Styles/topics.css" rel="stylesheet" type="text/css"/>
+
+
+  <!-- Lecture/Lab/Assignment Style CSS -->
+  <link href="https://www.cs.utah.edu/~germain/Styles/popups.css"         rel="stylesheet" type="text/css"/>
+   
+
+
+  <!-- For In-line Tabs -->
+  <script type="text/javascript" src="https://www.cs.utah.edu/~germain/PPS/JS_Libraries/Tab_Panes/tabpane.js"></script>
+  <link type="text/css" rel="StyleSheet" href="https://www.cs.utah.edu/~germain/PPS/JS_Libraries/Tab_Panes/tab.webfx.css" />
+
+  
+
+  <!-- For Syntax Highlighting -->
+  <script type="text/javaScript" src="https://www.cs.utah.edu/~germain/PPS/JS_Libraries/JQuery/jquery-1.2.3.min.js"></script> 
+  <script type="text/javascript" src="https://www.cs.utah.edu/~germain/PPS/JS_Libraries/Chili/jquery.chili.pack.js"></script>
+  <script type="text/javascript"> 
+    ChiliBook.recipeFolder     = "https://www.cs.utah.edu/~germain/PPS/JS_Libraries/Chili/";  
+    ChiliBook.stylesheetFolder = "https://www.cs.utah.edu/~germain/PPS/JS_Libraries/Chili/";  
+  </script>
+
+  <!-- For code setoff box -->
+  <link href="https://www.cs.utah.edu/~germain/Styles/code_styles.css"    rel="stylesheet" type="text/css"/>
+
+   
+
+
+
+    <meta name="AUTHOR" content="H. James de St. Germain"/>
+  </head>
+
+  <body>
+
+    <!-- Last Updated Summer 2008 -->
+    <!-- H. James de St. Germain -->
+    <!-- University of Utah -->
+
+    <div id="topics_header">
+
+      <h1> Problem Solving </h1>
+
+      <p class="synopsis">
+        Solving problems is the core of computer science.  Programmers must first
+        understand how a human solves a problem, then understand how to translate this
+        "algorithm" into something a computer can do, and finally how to "write" the
+        specific syntax (required by a computer) to get the job done.  It is sometimes the
+        case that a machine will solve a problem in a completely different way than a
+        human.
+      </p>
+
+    </div>
+
+    <div id="topics_body">
+
+      <h1> Problem Solving </h1>
+
+      <p>
+        Computer Programmers are problem solvers.  In order to solve a problem on a
+        computer you must:
+      </p>
+
+      <ol>
+        <li>
+        <p>Know how to <b>represent</b> the information (data) describing the problem.</p></li>
+
+        <li>
+          <p>
+            Determine the steps to <b>transform</b> the information from one representation
+            into another.
+          </p>
+        </li>
+      </ol>
+
+      <h2> Information Representation </h2>
+
+      <p>
+        A computer, at heart, is really dumb.  It can only really know about a few
+        things... numbers, characters, booleans, and lists (called arrays) of these items.
+        (See Data Types).  Everything else must be "approximated" by combinations of these
+        data types.
+      </p>
+
+      <p>
+        A good programmer will "encode" all the "facts" necessary to represent a problem
+        in variables (See Variables).  Further, there are "good ways" and "bad ways" to
+        encode information.  Good ways allow the computer to easily "compute" new
+        information.
+      </p>
+
+      <h2> Algorithm </h2>
+
+      <p>
+        An algorithm (see Algorithm) is a set of specific steps to solve a problem.  Think
+        of it this way: if you were to tell your 3 year old neice to play your favorite
+        song on the piano (assuming the neice has never played a piano), you would have to
+        tell her where the piano was, and how to sit on the bench, and how to open the
+        cover, and which keys to press, and which order to press them in, etc, etc, etc.
+      </p>
+
+      <p>
+        The core of what good programmers do is being able to define the steps necessary
+        to accomplish a goal.  Unfortunately, a computer, only knows a very restricted and
+        limited set of possible steps.  For example a computer can add two numbers.  But
+        if you want to find the average of two numbers, this is beyond the basic
+        capabilities of a computer.  To find the average, you must:
+      </p>
+
+      <ol>
+        <li> First: Add the two numbers and save this result in a variable </li>
+        <li> Then:  Divide this new number the number two, and save this result in a variable.</li>
+        <li> Finally: provide this number to the rest of the program (or print it for the user).</li>
+      </ol>
+
+      <!--
+      <h2> Computing </h2>
+
+      <p>
+        We "compute" all the time.  Computing is the act of solving problems (or coming up
+        with a plan to solve problems) in an organized manner.  We don't need computers to
+        "compute".  We can use our own brain.  
+      </p>
+      -->
+
+      <h2> Encapsulation and Abstraction and Complexity Hiding </h2>
+
+      <p>
+        Computer scientists like to use the fancy word "Encapsulation" to show how smart
+        we are.  This is just a term for things we do as humans every day.  It is combined
+        with another fancy term: "Abstraction".
+      </p>
+
+      <p>
+        Abstraction is the idea of "ignoring the details".  For example, a forest is
+        really a vastly complex ecosystem containing trees, animals, water paths, etc,
+        etc, etc.  But to a computer scientist (and to a normal person), its just "a
+        forest".
+      </p>
+
+      <p>
+        For example, if your professor needs a cup of coffee, and asks you the single
+        item: "Get me a cup of coffee", he has used both encapsulation and abstraction.
+        The number of steps required to actually get the coffee are enumerable.
+        Including, getting up, walking down the hall, getting in your car, driving to a
+        coffee stand, paying for the coffee, etc, etc, etc.  Further, the idea of what a
+        cup of coffee is, is abstract.  Do you bring a mug of coffee, or a Styrofoam cup?
+        Is it caffeinated or not?  Is it freshly brewed or from concentrate? Does it come
+        from Africa or America?
+      </p>
+
+      <p>
+        All of this information is <b>TOO MUCH</b> and we would quickly be unable to
+        funciton if we had to remember all of these details.  Thus we "abstract away" the
+        details and only remember the few important items.
+      </p>
+
+      <p>
+        This brings us to the idea of "Complexity Hiding".  Complexity hiding is the idea
+        that most of the times details don't matter.  In a computer program, as simple an
+        idea as drawing a square on the screen involves hundreds (if not thousands) of
+        (low level) computer instructions.  Again, a person couldn't possible create
+        interesting programs if every time they wanted to do something, they had to
+        re-write (correctly) every one of those instructions.  By "ecapsulating" what is
+        meant by "draw square" and "reusing" this operation over and over again, we make
+        programming tractable.
+      </p>
+
+      <h2> Encapsulation </h2>
+
+      <p>
+        The idea behind encapsulation is to store the information necessary to a
+        particular idea in a set of variables associated with a single "object".  We then
+        create functions to manipulate this object, regardless of what the actual data is.
+        From that point on, we treat the idea from a "high level" rather than worry about
+        all the parts (data) and actions (functions) necessary to represent the object in
+        a computer.
+      </p>
+        
+
+      <h2> Brute Force </h2>
+
+      <p>
+        Brute force is a technique for solving problems that relies on a computers speed
+        (how fast it can repeat steps) to solve a problem.  For example, if you wanted to
+        know how many times the number 8 goes into the number 100, you could do the
+        following:
+      </p>
+
+      <pre class="code">
+        <code class="pseudocode">
+          count = 0;
+          number = 100;
+          while the number is greater than 8
+             subtract 8 from the number
+             add one to the count
+          end // start the while again
+        </code>
+      </pre>
+
+      <p>
+        Of course this is a silly way for a computer (or a human) to solve this
+        problem. The real way we would do it is:</p>
+
+      <pre class="code">
+        <code class="pseudocode">
+          count = 100 / 8;   // divide by 8
+        </code>
+      </pre>
+
+      <p>
+        When in doubt, you can often use "brute force" to solve a problem, but it often saves time
+        (at least computer time) to think about the problem and solve it in an elegant manner.
+      </p>
+
+      
+
+<hr/>
+
+<a href="https://www.cs.utah.edu/~germain/PPS/Topics/index.html"> Back to Topics List </a>
+
+
+    </div>
+
+  </body>
+
+</html>

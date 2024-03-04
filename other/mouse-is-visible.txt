@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky JS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+        
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        .post {
+            border: 1px dashed grey;
+            margin-right: 50px;
+            margin-bottom: 20px;
+        }
+
+        .right-sidebar {
+            height: 100vh;
+            overflow-y: scroll;
+        }
+
+        .left-sidebar::-webkit-scrollbar,
+        .right-sidebar::-webkit-scrollbar {
+            width: 0;
+        }
+
+
+        .left-sidebar {
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .left-sidebar div {
+            display: none;
+        }
+
+        .sticky {
+            height: 100vh;
+            display: flex !important;
+            position: -webkit-sticky;
+            align-items: end;
+            position: sticky;
+            top: 0;
+            background-color: yellow;
+            padding: 50px;
+            font-size: 20px;
+            opacity: 1;
+        }
+        
+        .post{
+            height: 100%;
+        }
+        
+        .cfade{
+            opacity: 1;
+            animation: 1s linear 0s 1 alternate fade;
+        }
+        
+        @keyframes fade {
+            0% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            75% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 left-sidebar">
+                        <!-- <div id='sticky-content' class="sticky"></div> -->
+                        <div id="sticky1" class="sticky-items sticky">
+                            <p class="">
+                                
+                                1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id
+                                laborum iure reiciendis iusto aperiam, odio esse voluptate, non
+                                officia cum soluta deleniti quae ipsam fugiat, atque doloribus
+                                ad! Odit mollitia consequatur, unde blanditiis quis eveniet
+                                impedit quod nihil, rem culpa maxime nulla ab, voluptatum
+                                repellendus voluptatibus non odio quidem commodi.
+                            </p>
+                        </div>
+                        <div id="sticky2" class="sticky-items">
+                            <p class="">
+                                2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+                                dolores facere dolor voluptates optio ipsa autem quaerat beatae,
+                            deleniti expedita architecto ducimus similique voluptate velit
+                            praesentium. Repellendus aperiam ducimus blanditiis nam quasi
+                            sint impedit, quam accusamus, vero unde atque, necessitatibus
+                            veniam commodi enim quia expedita quaerat et. Voluptates, ut.
+                            Officiis, distinctio. Voluptatem esse magnam dolores omnis
+                            explicabo sunt minus laboriosam neque odio, officia quasi? Esse
+                            nesciunt accusamus nostrum accusantium, vel possimus odio modi
+                            facere ex sequi odit sunt, quos at eum ipsum. Nostrum architecto
+                            cum aliquam, aperiam voluptatibus corporis saepe, modi magnam,
+                            in corrupti recusandae quas alias accusamus delectus dolorum!
+                            Nemo sed exercitationem totam aliquid sunt, pariatur minus
+                        </p>
+                            
+                        </div>
+                        <div id="sticky3" class="sticky-items">
+                            <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, aliquam?</p></div>
+                        <div id="sticky4" class="sticky-items"><p class="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cum optio nostrum, at dolorem consequuntur ducimus rem! Eum excepturi perferendis maiores!</p></div>
+                    </div>
+                    <div class="col-md-6 right-sidebar" id="ss">
+                        <div class="post" id="Sticky1" data-sticky_target="sticky1">
+                            One date
+                        </div>
+                        <div class="post" id="Sticky2" data-sticky_target="sticky2">
+                            Another date
+                        </div>
+                        <div class="post" id="Sticky3" data-sticky_target="sticky3">
+                            And another date
+                        </div>
+                        <div class="post" id="Sticky4" data-sticky_target="sticky4">
+                            And one more date
+                        </div>
+                        <div style="height: 800px"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        
+        $.fn.isInViewport = function() {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+
+        $(".right-sidebar").on("mousewheel", function (e) {
+            $(".post").each(function () {
+
+                if($(this).isInViewport()){
+                    sticky_target = $(this).attr('data-sticky_target');
+                    if(!$(this).next().isInViewport()){
+                        $('#'+sticky_target).prev().removeClass('sticky');
+                        $('#'+sticky_target).next().removeClass('sticky');
+                    }
+
+                    if(!$('#'+sticky_target).hasClass('sticky')){
+                        $('#'+sticky_target+' p').addClass('cfade');
+                        $('#'+sticky_target).addClass('sticky');
+                    }
+                }
+            });
+        });
+
+        $(".left-sidebar").on("mousewheel", ".sticky", function (e) {
+            var delta = e.originalEvent.deltaY;
+            if (delta > 0) {
+                // going down
+                if ($(".sticky").next().hasClass("sticky-items")) {
+                    $(".sticky").next().addClass("sticky");
+                    $(this).removeClass("sticky");
+                }
+            } else {
+                if ($(".sticky").prev().hasClass("sticky-items")) {
+                    $(".sticky").prev().addClass("sticky");
+                    $(this).removeClass("sticky");
+                }
+            } // going up
+
+            return false;
+        });
+
+    </script>
+</body>
+
+</html>

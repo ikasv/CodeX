@@ -1,0 +1,377 @@
+
+text/x-generic products.blade.php ( HTML document, UTF-8 Unicode text, with CRLF line terminators )
+@extends('layouts.app')
+
+@section('content')
+    <style>
+        .fixed-position{ position: fixed; }
+        .accordion-body label:hover{ cursor: pointer; text-decoration: underline; }
+        .accordion-body input{ cursor: pointer; margin-right: 10px; }
+        .accordion-body label{ color: #000; font-weight: 500; }
+        .accordian-sidenav{ position: sticky; top: 10%; max-height: 90vh; overflow-y: auto; }
+        .category-text p{ font-size: medium; }
+        .accordion strong{ letter-spacing: 3px; font-weight: 300; }
+        .accordian-sidenav-slider{ top: 0; left: 0; width: 90vw; height: 100vh; position: fixed; z-index: 9999; background-image: url("{{ asset('public/front/images/side-push-bg.jpg') }}"); }
+        .fa-close:before{ content: '\274c'; }   
+        .accordian-sidenav-slider .accordion{ position: sticky; max-height: 90vh; overflow-y: auto; }
+        .product-details .short_description p, .product-details .ingredients p{ margin:0; }
+</style>
+
+<!-- Start main-content -->
+<div class="main-content-area">
+    <!-- Section: page title -->
+    <section class="page-title divider layer-overlay overlay-dark-8 section-typo-light bg-img-center" data-tm-bg-img="images/bg/bg7.jpg">
+      <div class="container pt-90 pb-90">
+        <!-- Section Content -->
+        <div class="section-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h2 class="title text-white"><?php if($single_category){ echo $single_category->page_title;}else{ echo "All Products";} ?></h2>
+              <nav role="navigation" class="breadcrumb-trail breadcrumbs">
+                <div class="breadcrumbs">
+                  <span class="trail-item trail-begin">
+                    <a href="{{ url('/') }}"><span>Home</span></a>
+                  </span>
+                  <!-- <span><i class="fa fa-angle-right"></i></span> -->
+                  <!-- <span class="trail-item"><a href="#"><span>Pages</span></a></span> -->
+                  <span><i class="fa fa-angle-right"></i></span>
+                  <span class="trail-item trail-end text-theme-colored1">Products</span>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="">
+      <div class="products-container container pb-90">
+        <div class="section-content">
+          <div class="row">
+            <div class="accordian-sidenav col-lg-4 col-xl-3">
+                <div class="row px-3 close-btn-row">
+                    <div class="col-6">
+                      <h2>FILTER</h2>
+                    </div>
+                    <div class="col-6 align-self-center">
+                        <i class="fa fa-times fa-close-sidenav" style="float:right;font-size:25px;"></i>
+                    </div>
+                </div>
+              <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"aria-controls="flush-collapseOne">
+                      <strong>AVAILABILITY</strong>
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <input type="checkbox" class="stock-chekbox" value="1" name="in_stock" id="in_stock" onchange="filterData();">
+                          <label for="in_stock">In Stock</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <input type="checkbox" class="stock-chekbox" value="0" name="out_of_stock" id="out_of_stock" onchange="filterData();">
+                          <label for="out_of_stock">Out of Stock</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"aria-controls="flush-collapseTwo">
+                      <strong>PRICE</strong>
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="customRange" class="form-label">₹0.00</label>
+                          <label for="customRange" class="form-label" style="float:right;">₹5000.00</label>
+                          <input id="customRange" class="price-check" type="text" onchange="filterData();">
+                            
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                @foreach ($categories as $category)
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-heading_{{ $category->id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse_{{ $category->id }}" aria-expanded="false"aria-controls="flush-collapse_{{ $category->id }}">
+                      <strong>{{ $category->name }}</strong>
+                    </button>
+                  </h2>
+                  <div id="flush-collapse_{{ $category->id }}" class="accordion-collapse collapse" aria-labelledby="flush-heading_{{ $category->id }}" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        @php
+                        $categories = App\Models\Category::where('show_menu', '1')->where('parent_id', $category->id)->get();
+                        @endphp
+                      @foreach ($categories as $sub_cat)
+                      <div class="row">
+                        <div class="col-md-12">
+                          <input type="checkbox" name="{{ $sub_cat->name }}" class="sorting-chekbox" <?php if(isset($single_category) && $sub_cat->name == $single_category->name){ echo 'checked="checked"'; } ?> id="{{ $sub_cat->id }}" value="{{ $sub_cat->id }}" onchange="filterData();">
+                          <label for="{{ $sub_cat->id }}">{{ $sub_cat->name }}</label>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
+                  </div>
+                </div>
+                @endforeach
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false"aria-controls="flush-collapseFive">
+                      <strong>SIZE</strong>
+                    </button>
+                  </h2>
+                  <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-12">
+                                  <input type="checkbox" class="weight-chekbox" name="1000.00" value="1000.00" id="1000.00" onchange="filterData();">
+                                  <label for="1000.00">1000 ml Pack</label>
+                                </div>
+                                <div class="col-12">
+                                  <input type="checkbox" class="weight-chekbox" name="500.00" value="500.00" id="500.00" onchange="filterData();">
+                                  <label for="500.00">500 ml Pack</label>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-8 col-xl-9">
+              <div class="category-text mb-4">
+                <div class="row">
+                  <p class="text-dark">Shop our range of luxurious and deliciously fragrant bath and body essentials for an instant wake-me-up every morning.</p>
+                </div>
+                <div class="row">
+                  <div class="col-6 align-self-center">
+                    <div class="total-products">
+                      <p class="mb-0 text-dark d-inline count-total-products"><?php echo $products->count().' Products';?></p>
+                      <div class="filter-btn d-none">
+                        <button class="btn btn-theme-colored1 py-2" style="font-weight:500;"><i class="fa fa-filter"></i>Filter</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 align-self-center">
+                    <div class="product-sorting-dropdown" style="float:right;">
+                      <select name="SortBy" id="SortBy" data-default-sortby="best-selling" class="p-2" style="border-color:#e8e8e1">
+                        <option value="best-selling" selected="selected">Best selling</option>
+                        <option value="title-ascending">Sort</option>
+                        <option value="manual">Featured</option>
+                        <option value="title-ascending">Alphabetically, A-Z</option>
+                        <option value="title-descending">Alphabetically, Z-A</option>
+                        <option value="price-ascending">Price, low to high</option>
+                        <option value="price-descending">Price, high to low</option>
+                        <option value="created-ascending">Date, old to new</option>
+                        <option value="created-descending">Date, new to old</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Isotope Gallery Grid -->
+              
+              <div class="container" id="products-list">
+              <div class="row list">
+                @foreach($products as $product)
+                <div class="col-lg-4 col-md-4 col-12 mb-4">
+                  <!-- Isotope Item Start -->
+                  <div class="isotope-item cat1 cat3">
+                    <div class="isotope-item-inner">
+                        <a href="{{ url('product-details').'/'.$product->slug }}">
+                        <div class="product">
+                          <div class="product-header">
+                            <span class="onsale">{{ $product->label }}</span>
+                            <div class="thumb image-swap">
+                              @if($product->featured_image != '')
+                              <img src="{{ asset('uploads/product').'/'.$product->featured_image }}" class="product-main-image img-responsive img-fullwidth" width="300" height="300" alt="product">
+                              <img src="{{ asset('uploads/product').'/'.$product->featured_image }}" class="product-hover-image img-responsive img-fullwidth" alt="product">
+                            @else
+                            <img src="{{ asset('public/front') }}/images/Products-Images/Aloe vera Juice.jpg" class="product-main-image img-responsive img-fullwidth" width="300" height="300" alt="product">
+                            <img src="{{ asset('public/front') }}/images/Products-Images/Aloe vera Juice.jpg" class="product-hover-image img-responsive img-fullwidth" alt="product">
+                            @endif
+                            </div>
+                            <div class="product-button-holder">
+                              <ul class="shop-icons">
+                                <li class="item"><span href="#" class="button btn-quickview" title="Product quick view"></span></li>
+                                <!--<li class="item"><span href="#" class="button tm-btn-add-to-cart ">Add to cart</span></li>-->
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="product-details">
+                            <h5 class="product-title limit-2">{{ $product->product_name }}</h5>
+                            <div class="mb-1 text-gray">{!! $product->short_description !!}</div>
+                            <div class="mb-1 text-gray d-none SortViaCategory">{{ $product->category_ids }}</div>
+                            <div class="mb-1 text-gray d-none SortViaWeight">{{ $product->weight }}</div>
+                            <div class="mb-1 text-gray d-none SortViaStock">{{ $product->stock_status }}</div>
+                            <div class="mb-1 text-gray d-none SortViaPrice">{{ str_replace(".00","",$product->price) }}</div>
+                            <span class="price">
+                              <del><span class="amount"><span class="currency-symbol">₹</span>{{ $product->mrp_price }}</span></del>
+                              <ins><span class="amount"><span class="currency-symbol">₹</span>{{ $product->price }}</span></ins>
+                            </span>
+                          </div>
+                        </a>
+                            @if($product->isInCart == true && $product->isInStock == true)
+                                <div class="product-details bg-primary py-1 add-to-cart-wrapper">
+                                    <a href="{{ url('cart') }}"><h4 class="text-white text-center">View Cart</h4></a>
+                                </div>
+                            @elseif($product->isInStock == false)
+                                <div class="product-details bg-danger py-1 add-to-cart-wrapper">
+                                      <h4 class="text-white text-center">Out of Stock</h4>
+                                </div>
+                            @elseif($product->isInCart == false)
+                                <div class="product-details bg-dark py-1 add-to-cart-wrapper">
+                                    <div class="cart-button">
+                                      <h4 class="text-white text-center add-to-cart" data-productid="{{ $product->id }}" data-quantity="1">Add to Cart</h4>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                      </div>
+                    </div>
+                  <!-- Isotope Item End -->
+                </div>
+                
+                @endforeach
+        
+              </div>
+              <!-- End Isotope Gallery Grid -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+<!-- end main-content -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
+<script>
+
+$("#customRange").slider({
+  min: 0,
+  max: 5000,
+  step: 100,
+  value: 100,
+  range: true,
+});
+
+    $(document).ready(function () {
+        filterData(); 
+    });
+    var ProductsListNew = new List('products-list', {
+                      valueNames: ['SortViaCategory', 'SortViaWeight', 'SortViaStock', 'SortViaPrice'],
+                    });
+                    
+                    
+    function filterData(){
+        
+        var priceList = $('.price-check').map( function() {
+            return this.value;
+        }).get().join(",");
+        var priceListArray = priceList.split(',');
+        var firstPriceList = priceListArray[0];
+        var secondPriceList = priceListArray[1];
+        
+        var productsList = $(".sorting-chekbox:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var productsListArray = productsList.split(',');
+        
+        var productsList_weight = $(".weight-chekbox:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var productsList_weightArray = productsList_weight.split(',');
+        
+        var productsList_stock = $(".stock-chekbox:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var productsList_stockArray = productsList_stock.split(',');
+        
+        
+        var count   = ProductsListNew.filter(function(item) {
+        result = true;
+            if (productsList != "") {
+                
+                if(productsListArray.some(data=> item.values().SortViaCategory.includes(data))==false){
+                    result = false;
+                }
+                
+            }
+            
+            if (priceList != "") {
+                if( ((parseInt(firstPriceList) <= item.values().SortViaPrice) && (parseInt(secondPriceList) >= item.values().SortViaPrice)) ==false){
+                    result = false;
+                }
+                
+            }
+            
+            if (productsList_weight!= ""){
+                
+                 if(productsList_weightArray.includes(item.values().SortViaWeight)==false){
+                    result = false;
+                }
+                
+            }
+            
+            if (productsList_stock!= ""){
+                
+                 if(productsList_stockArray.includes(item.values().SortViaStock)==false){
+                    result = false;
+                }
+                
+            }
+            return result;
+        });
+        
+        $('.count-total-products').text(count.length+' Products');
+    }
+    
+</script>
+<script>
+
+function myFunction(x) {
+  if (x.matches) { 
+      
+    $('.accordian-sidenav .row').removeClass("d-none");
+    $('.accordian-sidenav').addClass("accordian-sidenav-slider");
+    $('.accordian-sidenav-slider').removeClass("accordian-sidenav");
+  } 
+  else {
+    $('.accordian-sidenav .close-btn-row').addClass("d-none");
+  }
+}
+
+var x = window.matchMedia("(max-width: 991.98px)")
+myFunction(x); 
+x.addListener(myFunction);
+
+  $('.accordian-sidenav-slider').hide();
+  $('.filter-btn').click(function (e) { 
+    e.preventDefault();
+    $('.accordian-sidenav-slider').show();
+    $('body').addClass("fixed-position");
+  });
+  $('.fa-close-sidenav').click(function (e) { 
+    e.preventDefault();
+    $('.accordian-sidenav-slider').hide();
+    $('body').removeClass("fixed-position");
+  });  
+
+</script>
+
+@endsection

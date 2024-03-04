@@ -1,0 +1,170 @@
+
+Css First Rule :
+
+tilde (~)
+
+
+#====> Basic Selectors /  Rational Selectors<====#
+1. *
+	#container * 
+2. id
+3. class
+4. Tag
+
+#====> Combinator Selectors <====#
+
+1. The next most common selector is the descendant selector
+	li a {
+  text-decoration: none;
+}
+
+This is referred to as an adjacent selector
+
+2. ul + p {
+   color: red;
+}
+
+3. X > Y
+ child combinator
+ 
+ 4.This sibling combinator is similar to X + Y, but it's less strict.
+ X ~ Y
+ 
+ #====> Attribute Selectors <====#
+ 
+ 1. X[title]
+ a[title] {
+   color: green;
+}
+
+2. X[href="foo"]
+a[href="https://code.tutsplus.com"] {
+  color: #83b348; /* Envato green */
+}
+
+3. X[href*="foo"]
+a[href*="tutsplus"] {
+  color: #83b348; /* Envato green */
+}
+
+********* use ^ and $, to reference the beginning and end of a string, respectively. ******
+
+===> a[href^="http"] 
+===> X[href$=".jpg"]
+
+4. X[data-*="foo"]
+a[data-filetype="image"] {
+   color: red;
+}
+
+a[href$=".jpg"],
+a[href$=".jpeg"],
+a[href$=".png"],
+a[href$=".gif"] {
+   color: red;
+}
+
+** <a href="path/to/image.jpg" data-filetype="image"> Image Link </a>
+
+a[data-filetype="image"] {
+   color: red;
+}
+
+5. X[foo~="bar"]
+ a[data-info~="external"] {
+   color: red;
+}
+
+a[data-info~="image"] {
+   border: 1px solid black;
+}
+
+#====> Pseudo Selectors <====#
+
+1. X:visited and X:link
+a:link { color: red; }
+a:visited { color: purple; }
+
+2. X:checked
+input[type=radio]:checked {
+   border: 1px solid black;
+}
+
+3.X:after & X:before
+The before and after pseudo classes are great. Every day, it seems, people are finding new and creative ways to use them effectively. 
+
+According to the CSS3 Selectors specification, you should technically use the pseudo element syntax of two colons ::. However, to remain compatible, the user-agent will accept a single colon usage as well. 
+
+4. X:hover
+Keep in mind that older versions of Internet Explorer don't respond when the :hover pseudo class is applied to anything other than an anchor tag.
+
+5. X:not(selector) ==> The negation pseudo class
+
+div:not(#container) {
+   color: blue;
+}
+
+*:not(p) {
+  color: green;
+}
+
+6. X::pseudoElement
+
+p::first-line {}
+
+p::first-letter {}
+
+
+#====> Nth Child and Type Selectors <====#
+
+1. X:nth-child(n)
+li:nth-child(3) {
+   color: red;
+}
+
+Please note that nth-child accepts an integer as a parameter, but this is not zero-based. If you wish to target the second list item, use li:nth-child(2).
+
+
+2. X:nth-last-child(n)
+li:nth-last-child(2) {
+   color: red;
+}
+
+3. X:nth-of-type(n)
+ul:nth-of-type(3) {
+   border: 1px solid black;
+}
+
+4. X:nth-last-of-type(n)
+ul:nth-last-of-type(3) {
+   border: 1px solid black;
+}
+
+5. X:first-child
+ul li:first-child {
+   border-top: none;
+}
+
+6. X:last-child
+ul > li:last-child {
+   color: green;
+}
+
+7. X:only-child
+div p:only-child {
+   color: red;
+}
+
+8. X:only-of-type
+li:only-of-type {
+   font-weight: bold;
+}
+
+9. X:first-of-type
+ul:first-of-type > li:nth-child(2) {
+   font-weight: bold;
+}
+
+ul:first-of-type li:nth-last-child(1) {
+   font-weight: bold;   
+}

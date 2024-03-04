@@ -1,0 +1,93 @@
+<?php include("include/header.php");?>
+
+<style>
+.form-control {
+    border: none;
+    border-bottom: 1px solid #DBDBDB !important;
+}
+
+.form-control:focus {
+    border: none;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.form {
+    padding: 10rem 5rem 5rem 5rem;
+}
+
+label {
+    color: #4f65d3;
+    margin-bottom: 0;
+}
+
+.bg-form-left {
+    background: url('<?= base_url('public/front/images/updates/education-loan1.svg');?>') no-repeat;
+    background-color: #fec10d40;
+}
+
+.section-form {
+    padding: 0;
+}
+</style>
+<section class="section-form" id="form">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 bg-form-left">
+
+            </div>
+
+            <div class="col-md-8">
+                <form class="row g-3 form">
+                    <div class="col-md-12 mb-4">
+                        <h3 style="font-weight: 700;">APPLY FOR EDUCATION LOAN</h3>
+                        <p style="color: #6c7fe1;">Apply for a loan at the best interest rate to fund your education
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="inputEmail4" class="form-label">First Name</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="First Name">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="inputPassword4" class="form-label">Last name</label>
+                        <input type="password" class="form-control" id="inputPassword4" placeholder="Last Name">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="inputEmail4" class="form-label">Mobile Number</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="Mobile Number">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="inputPassword4" class="form-label">Email</label>
+                        <input type="password" class="form-control" id="inputPassword4" placeholder="Email">
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <label for="inputPassword4" class="form-label">City</label>
+                        <input type="password" class="form-control" id="inputPassword4" placeholder="City">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="inputPassword4" class="form-label">Place Of study</label>
+                        <input type="password" class="form-control" id="inputPassword4" placeholder="Place of study">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="inputPassword4" class="form-label">Time of study</label>
+                        <input type="date" class="form-control" id="inputPassword4" placeholder="City">
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="inputPassword4" class="form-label">Loan Amount(Rs.)</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="Loan Amount (Rs.)">
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary" style="border-radius: 0;width: 100%;">Sign
+                            in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php include("include/footer.php");?>

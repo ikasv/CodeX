@@ -1,0 +1,129 @@
+########### CSS
+
+    .clone-template{ background: aliceblue; position:relative;}
+    .remove-clone-template-row { position: absolute; top: 12px; right: 10px; background: red; color: #fff; padding: 8px; border-radius: 50%; font-size: 12px; cursor:pointer; }
+
+########### !CSS
+
+
+########### HTML
+	<div class="card">
+		<div class="card-body">
+			 <form  method="post" action="{{ route('product_faq_store') }}" id="how_faq">
+				  @csrf
+					@if($faq_data)
+						@foreach($faq_data->items as $faq)
+							<div class="card p-4 clone-template" data-clone-template-id="{{ $loop->iteration }}">
+								@if($loop->index != 0)
+									<span class="remove-clone-template-row fa fa-trash" onclick="removeCloneTemplateRow(this)"></span>
+								@endif
+								<div class="row product-faq-row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="question">Question</label>
+											 <input type="hidden" name="product_id" value="{{ $product->id }}" required>
+											<input type="text" class="form-control question" placeholder="Enter question" name="faq[{{ $loop->iteration }}][question]" id="question" value="{{ $faq->question }}" required>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="answer">Answer</label>
+										   <textarea class="form-control answer" placeholder="Enter answer" name="faq[{{ $loop->iteration }}][answer]" id="answer" required>{{ $faq->answer }}</textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						@endforeach
+					@else
+						<div class="card p-4 clone-template" data-clone-template-id="1">
+							<div class="row product-faq-row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="question">Question</label>
+								 <input type="hidden" name="product_id" value="{{ $product->id }}" required>
+								<input type="text" class="form-control question" placeholder="Enter question" name="faq[1][question]" id="question" required>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="answer">Answer</label>
+							   <textarea class="form-control answer" placeholder="Enter answer" name="faq[1][answer]" id="answer" required></textarea>
+							</div>
+						</div>
+					</div>
+						</div>
+					@endif
+					<div class="col-md-12 text-right">
+						<button type="button" class="btn btn-warning text-white" onclick="add_more()">Add More</button>
+					</div>
+						<div class="col-md-12">
+							<div class="form-group text-center">
+								<input type="submit" value="Submit" class="btn btn-primary">                                                
+							</div>
+						</div>
+				</form>
+        </div>
+	</div>
+########### !HTML
+
+
+// Add More
+
+function removeCloneTemplateRow(el){
+	$(el).parents('.clone-template').remove();
+}
+
+
+var remove_combo_btn_html = '';
+var  count             =   0;
+function add_more(){
+    
+    var faq_card_id            =   $('.clone-template').last().attr('data-clone-template-id');
+    count                  =   parseInt(faq_card_id) + 1;
+    
+	remove_combo_btn_html	= 	'<span class="remove-clone-template-row fa fa-trash" onclick="removeCloneTemplateRow(this)"></span>';
+
+	var combo_html = $('.clone-template').first().clone();
+	combo_html.attr('data-clone-template-id', count);;
+	combo_html.find('.question').attr('name', "faq["+count+"][question]").val('');
+	combo_html.find('.answer').attr('name', "faq["+count+"][answer]").val('');
+	combo_html.append(remove_combo_btn_html);
+	$(".clone-template").last().after(combo_html);
+}
+// End Add More
+
+
+############ PHP - laravel
+	# Fetch 
+		$additional_info                =   ProductAdditionalInfoModel::where("product_id", $id)->first();
+		if($additional_info->faq != ''):
+                $faq_data              =   json_decode($additional_info->faq);
+        endif;
+	# !Fetch
+
+	# FAQ
+    public function product_faq_store(Request $request){
+        
+        if($request->product_id):
+            $inputs['product_id']           =   $id                   =   $request->product_id;
+        else:
+            $id                             =   "";
+        endif;
+        
+        
+        $arr                            =   array(
+                                                    'product_id'                =>    $id,
+                                                    'items'                     =>     $request->faq ? array_values($request->faq) : ''
+                                                );
+     
+        $result                         =   ProductAdditionalInfoModel::updateOrCreate(
+                                                ['product_id'       =>  $id],
+                                                ['faq'              =>  json_encode($arr)]
+                                            );
+            
+        return back();
+    }
+    
+    # !FAQ 
+
+############ !PHP - laravel

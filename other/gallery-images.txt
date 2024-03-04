@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Bootstrap 5.3.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+    <style>
+      #image-gallery-section #image-gallery-input { display: block; }
+
+      #image-gallery-section .imageThumb { max-height: 100px; border: 1px solid; padding: 1px; cursor: pointer; }
+      #image-gallery-section .item { position: relative; display: inline-block; margin: 10px 10px 0 0; }
+      #image-gallery-section .remove { display: block; background: #525252a3; border-radius: 50%; height: 26px; width: 26px; color: white; text-align: center; cursor: pointer; position: absolute; top: 3px; right: 3px; }
+      #image-gallery-section .remove:hover { background: white; color: black; }
+      #image-gallery-section .fa-remove { font-size: 12px; }
+    </style>
+  </head>
+
+  <body>
+    
+    <section class="image-gallery-section" id="image-gallery-section">
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Upload your images</h3>
+          <input type="file" id="image-gallery-input" name="files[]" multiple />
+        </div>
+      </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        //  Gallery Image Preview
+        $(document).ready(function () {
+
+            if (window.File && window.FileList && window.FileReader) {
+                
+            $("#image-gallery-input").on("change", function (e) {
+                var files                   =   e.target.files,
+                filesLength                 =   files.length;
+
+                var html_view               =   '';
+
+                for (var i = 0; i < filesLength; i++) {
+                var f                     =   files[i];
+                var fileReader            =   new FileReader();
+                    
+                
+
+                fileReader.onload         =   function (e) {
+                                                                var file = e.target;
+
+                                                                //   Html View
+                                                                    html_view               =   `<span class="item">
+                                                                                                    <img class="imageThumb" src="${e.target.result}" title="${file.name}"/>
+                                                                                                    <span class="remove">
+                                                                                                        <i class="fa fa-remove"></i>
+                                                                                                    </span>
+                                                                                                </span>`;
+                                                                //   End Html View
+
+                                                                $(html_view).insertAfter("#image-gallery-input");
+
+                                                                $(".remove").click(function () {
+                                                                    $(this).parent(".item").remove();
+                                                                });
+                                                            };
+                fileReader.readAsDataURL(f);
+                }
+            });
+            } else {
+            alert("Your browser doesn't support to File API");
+            }
+        });
+        //  End Gallery Image Preview
+
+          
+    </script>
+  </body>
+</html>

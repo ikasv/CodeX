@@ -1,0 +1,11 @@
+const removeCartItem = (cart_product_id) => {
+    alert(cart_product_id);
+    axios({
+      method: "post",
+      url: Global.API_URL + "removeFromCart",
+      data: { product_id: cart_product_id },
+      headers: { "Content-Type": "application/json" },
+    }).then((response) => {
+      console.log(response.data);
+    });
+  };

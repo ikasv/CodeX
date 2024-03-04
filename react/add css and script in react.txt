@@ -1,0 +1,12 @@
+npm i react-helmet
+
+import {Helmet} from "react-helmet";
+
+<Helmet>
+	<link rel="stylesheet" href={process.env.PUBLIC_URL + 'assets/css/fontawesome.css'} />
+</Helmet>
+
+<Helmet>
+	<script src={ process.env.PUBLIC_URL + "assets/js/bootstrap.bundle.min.js" } type="text/javascript" />
+</Helmet>
+     

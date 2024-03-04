@@ -1,0 +1,36 @@
+# ==> Download All Documents
+    public function download_all_visa_upload_document($id)
+    {
+        $where              = "form_id='".$id."'";
+        $this->db->where($where);
+        $data['docs']       = $this->db->get('tbl_doc_visa')->row();
+        
+        $str                =  $data['docs']->doc_file;
+        $files_name_arr     = explode(',',$str);
+        $image_doc          = array(
+            $data['docs']->image1,$data['docs']->image1
+        );
+        $final_zip_docs     = array_merge($image_doc, $files_name_arr);
+        $directory          = 'public/images/user_docs/visa';
+    
+        $this->zip_download($directory, $final_zip_docs);
+
+        $this->session->set_userdata('error_msg','<div class="alert alert-success">Documents Downloding successfully.</div>');
+        redirect('viadmin/sitedata/visa_doc_list/'.$id);     
+    }
+  
+    # Download zip file
+    public function zip_download($directory, $final_zip_docs)
+    { 
+        foreach($final_zip_docs as $files)
+    {
+        $image_file_path    =   FCPATH.''.$directory.'/'.$files;
+
+        if (file_exists($image_file_path)) 
+        {
+            $this->zip->read_file($image_file_path);
+        }
+    }
+    $this->zip->download(''.time().'.zip');
+    }
+    # End download zip file

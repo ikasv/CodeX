@@ -1,0 +1,15 @@
+{{ collections.all.products | json }}
+
+{% assign someProduct = all_products.mercedes-c63s.variants %}
+
+{{ someProduct | json }}
+
+{% comment %}
+{% for product in collections.all.products %}
+    {% if product.tags contains "entries-plan" %}
+        {% for variant_product in product.variants %}
+          {{ variant_product | json }}
+        {% endfor %}
+      {% endif %}
+{% endfor %}
+{% endcomment %}

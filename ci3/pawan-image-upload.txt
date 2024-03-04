@@ -1,0 +1,34 @@
+
+    if($_FILES['photo']['name']==''){
+        $file_name='dfdf';//$this->input->post('old_image');
+}
+else{
+    
+$config['upload_path'] = './uploads/employment_seeker/photos';
+        $config['allowed_types']= 'gif|jpg|png';
+        $config['remove_spaces'] = TRUE;
+           $config['encrypt_name'] = TRUE;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if (!empty($_FILES['photo']['name'])) {
+
+            if (!$this->upload->do_upload('photo'))
+            { 
+            
+                $error = array('error' => $this->upload->display_errors());
+                $this->session->set_flashdata('Image Could not Uploaded...', $error['error']);
+            }
+            else
+            { 
+                if($this->input->post('photo')){ unlink('./public/uploads/photos/employment_seeker/'.$this->input->post('photo')); }
+                $d= array('upload_data' => $this->upload->data());
+                $file_name=$this->upload->data('file_name');
+            }
+        }
+}
+
+
+echo $file_name;
+
+    exit;

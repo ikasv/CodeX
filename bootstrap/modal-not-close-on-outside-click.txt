@@ -1,0 +1,7 @@
+$('#myModal').modal({backdrop: 'static', keyboard: false})  
+
+ <button data-target="#myModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+    Launch demo modal
+ </button>`
+ 
+<div id="modal" class="modal hide fade in" data-keyboard="false" data-backdrop="static">

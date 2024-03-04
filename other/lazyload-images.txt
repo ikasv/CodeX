@@ -1,0 +1,12 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
+
+<img data-original="#" >
+
+
+<script type="text/javascript">
+
+	$("img").lazyload({
+	    effect : "fadeIn"
+	});
+
+</script>

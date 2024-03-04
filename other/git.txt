@@ -1,0 +1,5 @@
+fatal: unable to access 'https://gitlab.photostop.in/honeycomb-internal/vendor-portal.git/': Could not resolve host: gitlab.photostop.in
+
+git config --global --unset http.proxy
+git config --global user.name "user name"
+git config --global user.email "user email"

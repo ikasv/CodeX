@@ -1,0 +1,17 @@
+
+    public function delete_item($id)
+    {
+        $this->db->where('id', $id);
+        $file_name =  $this->db->get('tbl_item')->row()->image;
+        $directory = "public/images/item";
+        $file_path    =   FCPATH . '' . $directory . '/' . $file_name;
+        if (is_file($file_path)) :
+            if (file_exists($file_path)) :
+                unlink($file_path);
+            endif;
+        endif;
+        $where            = "id = $id";
+        $this->Action_model->delete_query($where, 'tbl_item');
+        $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert">Deleted Successfully.</div>');
+        redirect('admin/item/item-list');
+    }

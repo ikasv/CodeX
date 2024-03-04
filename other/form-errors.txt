@@ -1,0 +1,9 @@
+@if($errors->any())
+    {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
+@endif
+
+@php
+  $fieldName = "pricing.$loop->iteration.discount";
+@endphp
+
+@error($fieldName) <span class="text-danger">{{ $message }}</span> @enderror

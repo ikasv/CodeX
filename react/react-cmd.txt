@@ -1,0 +1,25 @@
+https://github.com/facebook/create-react-app/blob/main/packages/cra-template/template/README.md
+
+ <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
+
+npx create-react-app demo
+cd demo
+npm start
+
+npm install node-sass
+
+npm install react-scripts
+
+npm install react-router-dom
+
+npm install react-contentful
+
+npm i contentful
+
+npm install --save contentful @contentful/rich-text-html-renderer
+
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+
+npm install @contentful/rich-text-react-renderer
+
+npm i react-script-tag

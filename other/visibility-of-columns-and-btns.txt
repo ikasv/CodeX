@@ -1,0 +1,25 @@
+
+     // Wrap All
+                $( ".buttons-columnVisibility" ).wrapAll( "<div class='pt-4 container collpase-visibility-btns'><details><div class='py-4 container'></div><summary class='text-danger'>Column Visibility</summary></details></div>");
+                // End Wrap All
+				
+		 <th class="text-center toggle">Currency</th>
+
+		// 
+           var visibleColumns           =   ['Monthly Breakdown', 'Total', 'Leave Taken', 'Entitlements']
+           $('.buttons-columnVisibility').map(function(){
+            var columnName              =   $(this).find('span').text();
+
+            if(!visibleColumns.includes(columnName)){
+                console.log(columnName);
+                $(this).trigger('click');
+            }
+            // console.log($(this).find('span').text());
+        })
+        // 
+		
+			{
+                extend: 'columnsToggle',
+				columns: '.toggle',
+            },
+             

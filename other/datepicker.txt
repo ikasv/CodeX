@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.21.1/jquery.daterangepicker.min.js" integrity="sha512-jM36zj/2doNDqDlSIJ+OAslGvZXkT+HrtMM+MMgVxCqax1AIm1XAfLuUFP7uMSavUxow+z/T2CRnSu7PDaYu2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.21.1/daterangepicker.css" integrity="sha512-rl6l4lw3xK70bXQTEm+0py1Frc9yXsf/nhsm7eM2+X6movmsFGKPJRpwIJZWkLAqKauVxUUjiKnTV6+PcRC0cg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <input type="text" id="date">
+    <input type="text" id="date1" autocomplete="off">
+    <script>
+	var current_date    =   new Date();
+	
+	/
+	$('#dob_'+i).dateRangePicker(
+            {   
+                autoClose: true,
+                format: 'YYYY-MM-DD',
+                startOfWeek: 'monday',// or monday
+                singleDate:true,
+                lookBehind: true,
+                duration: 500,
+                singleMonth: true,
+                showTopbar: false,
+                monthSelect: true,
+                startDate: moment().format(( current_date.getFullYear() - 100 ) +"-"+ ( current_date.getMonth() + 1 ) +"-"+ ( current_date.getDate() )),
+                endDate: moment().format(( current_date.getFullYear() - 12 ) +"-"+ ( current_date.getMonth() + 1 ) +"-"+ ( current_date.getDate() )),
+                yearSelect: function(current) {
+                    return [( current_date.getFullYear() - 110 ), ( current_date.getFullYear() - 12 )];
+                },
+            }
+        );
+	/
+	
+	
+        console.log(moment().subtract(4, 'months').format('YYYY-MM-DD'));
+        $('#date').daterangepicker({
+            singleDatePicker: true,
+            autoApply:true,
+            showDropdowns:true,
+            minYear: 2021,
+            maxYear: 2022,
+            startDate:6,
+            endDate:7,
+            linkedCalendars:true
+        });
+
+        $('#date1').dateRangePicker(
+            {
+                autoClose: true,
+                format: 'YYYY-MM-DD',
+                startOfWeek: 'monday',// or monday
+                singleDate:true,
+                lookBehind: true,
+                duration: 500,
+                singleMonth: true,
+                showTopbar: false,
+                monthSelect: true,
+                startDate: moment().format('1998-03-26'),
+                endDate: moment().format('2022-03-26'),
+                yearSelect: function(current) {
+                    return [1998, 2022];
+                },
+            }
+        );
+    </script>
+</body>
+</html>

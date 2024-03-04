@@ -1,0 +1,40 @@
+import React, { Suspense } from "react";
+// import Slider from '../components/Slider'
+import Welcome from '../components/Welcome'
+import Service from '../components/Service'
+import ClientPartnershipModel from '../components/ClientPartnershipModel'
+import WhyChooseUs from '../components/WhyChooseUs'
+import Features from '../components/Features'
+import MobilePlatform from '../components/MobilePlatform'
+import PricingPlans from '../components/PricingPlans'
+import Feedback from '../components/Feedback'
+import Blogs from '../components/Blogs'
+
+/* wait 100 ms to render component */
+const Slider = React.lazy(
+    () =>
+      new Promise((resolve, reject) =>
+        setTimeout(() => resolve(import('../components/Slider')), 100)
+      )
+  );
+
+function Home() {
+    return (
+       <>
+        <Suspense  fallback={<img src=""/>}>
+            <Slider/>
+        </Suspense>
+        <Welcome/>
+        <Service/>
+        <ClientPartnershipModel/>
+        <WhyChooseUs/>
+        <Features/>
+        <MobilePlatform/>
+        <PricingPlans/>
+        <Feedback/>
+        <Blogs/>
+       </>
+    )
+}
+
+export default Home

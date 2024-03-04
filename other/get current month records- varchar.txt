@@ -1,0 +1,13 @@
+  # Get Current Month List
+  if (!function_exists('getCurrentMonthBirthdayList')) {
+    function getCurrentMonthBirthdayList(){
+      $currentMonth = date('m');
+      $users     = User::select('name', 'dob')
+                        ->where('id', '!=', 1)
+                        ->where('status', 1)
+                        ->whereRaw("DATE_FORMAT(str_to_date( `dob`, '%d-%m-%Y' ), '%m') = ?",[$currentMonth])
+                        ->get();
+      return $users;
+    }
+  }
+  # End Get Current Month List

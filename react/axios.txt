@@ -1,0 +1,5 @@
+  useEffect(() => {
+    axios.get(Global.API_URL + "home").then((response) => {
+      setSiteData(response.data);
+    });
+  }, []);

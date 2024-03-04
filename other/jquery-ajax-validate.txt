@@ -1,0 +1,36 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script>
+        $('#awb-form').validate({
+            rules:{
+                    awb_courier         :   "required",
+                    awb_tracking_code   :   {
+                                                required: true,
+                                                minlength: 3
+                                            }
+            },
+            messages:{
+                awb_courier             :   "Please choose courier",
+                awb_tracking_code       :   {
+                                                required    :   "Please enter AWB tracking code",
+                                            }
+            },
+            submitHandler:function(form){
+                $.ajax({
+                        url             :   form.action,
+                        method          :   form.method,
+                        data            :   $(form).serialize(),
+                        dataType        :   'json',
+                        success         :   function(res){
+                                                if(res.status){
+                                                    $('.ajax-msg').html(`<div class='alert alert-success'>${res.message}</div>`);
+                                                }else{
+                                                    $('.ajax-msg').html(`<div class='alert alert-danger'>${res.message}</div>`);
+                                                }
+                                            }
+                        
+                });
+            }
+            
+        });
+    </script>

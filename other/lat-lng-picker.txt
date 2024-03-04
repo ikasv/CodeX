@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-0BpxXTLKE8irgN3IEu6gwNgx9YXYGV4&libraries=places"></script>
+
+    <style>
+      #map > div:first-child {
+        height: 100vh !important;
+        position: relative !important;
+      }
+    </style>
+</head>
+<body>
+    <div>
+    <form>
+  <label for="location">Pickup Location:</label>
+  <input type="text" id="location" placeholder="Enter location">
+  <button type="button" id="locate">Locate</button>
+  <br>
+  <label for="latitude">Latitude:</label>
+  <input type="text" id="latitude" readonly>
+  <br>
+  <label for="longitude">Longitude:</label>
+  <input type="text" id="longitude" readonly>
+</form>
+
+</div>
+<div>
+
+    <div id="map"></div>
+</div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-0BpxXTLKE8irgN3IEu6gwNgx9YXYGV4&libraries=places&callback=initMap"></script>
+
+<script>
+  // Initialize the map
+  function initMap() {
+    // Initialize the Geocoder
+  var geocoder = new google.maps.Geocoder();
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 26.8832596, lng: 75.7399248 },
+      zoom: 12
+    });
+
+    // Initialize the Places service
+    var placesService = new google.maps.places.PlacesService(map);
+
+    // Add a click event listener to the map
+    map.addListener('click', function(event) {
+      // Get the clicked location's latitude and longitude
+      var latitude = event.latLng.lat();
+      var longitude = event.latLng.lng();
+
+      // Create a LatLng object
+    var latLng = new google.maps.LatLng(latitude, longitude);
+
+        // Use the Geocoder to get the address
+        geocoder.geocode({ 'location': latLng }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          var formattedAddress = results[0].formatted_address;
+
+          // Display the address in the "address" div
+          // document.getElementById('address').textContent = 'Address: ' + formattedAddress;
+
+          console.log(formattedAddress);
+
+        } else {
+          alert('No address found for this location.');
+        }
+      } else {
+        alert('Geocoder failed due to: ' + status);
+      }
+    });
+
+      // Update the input fields with latitude and longitude
+      document.getElementById('latitude').value = latitude;
+      document.getElementById('longitude').value = longitude;
+    });
+
+    // Add an event listener to the "Locate" button
+    document.getElementById('locate').addEventListener('click', function() {
+      var locationInput = document.getElementById('location').value;
+
+      // Use the Places service to geocode the location input
+      placesService.textSearch({ query: locationInput }, function(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results[0]) {
+          var location = results[0].geometry.location;
+
+          // Set the map center to the geocoded location
+          map.setCenter(location);
+
+          // Update the input fields with latitude and longitude
+          document.getElementById('latitude').value = location.lat();
+          document.getElementById('longitude').value = location.lng();
+        } else {
+          alert('Location not found');
+        }
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

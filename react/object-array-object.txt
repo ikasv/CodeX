@@ -1,0 +1,119 @@
+Object => Array => Object
+
+# List.jsx 
+	
+	********** List.jsx	***********
+	
+	import React, { useEffect, useState } from "react";
+import "./MatchDetails.scss";
+import MatchDetailsCard from "./MatchDetailsCard";
+
+const MatchDetails = () => {
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Host": "cricket-live-data.p.rapidapi.com",
+        "X-RapidAPI-Key": "aa19f0e50fmsh6091597463c66d4p1a803ajsn3b004eb08d1a",
+      },
+    };
+
+    fetch("https://cricket-live-data.p.rapidapi.com/results", options)
+      .then((response) => response.json())
+      .then((response) => {
+        setResult(response);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  //   console.log(result);
+  return (
+    <>
+      <section className="complete-matches-details mt-4">
+        <div className="container">
+          <div className="row">
+            {Object.entries(result).map(([key, value], i) => {
+              return value.map(function (item, index) {
+                return <MatchDetailsCard key={index} items={item} />;
+              });
+            })}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default MatchDetails;
+
+	********** End List.jsx ********
+	
+# Item.jsx
+	********** Item.jsx ********
+	import React from "react";
+import vs from "../../public/images/vs.png";
+
+const MatchDetailsCard = ({ items }) => {
+  return (
+    <>
+      <div className="col-md-6 mx-auto my-2">
+        <div className="card">
+          <div className="card-body">
+            <div className="card-title">{items.match_title}</div>
+            <div className="row">
+              <div className="col-md-6">{items.match_subtitle}</div>
+              <div className="col-md-5">{items.date}</div>
+              <div className="col-md-12">
+                {items.away.name}{" "}
+                <img src={vs} style={{ width: "3%", margin: "0 10px" }} />{" "}
+                {items.home.name}
+              </div>
+              <div className="col-md-6">{items.result}</div>
+              <div className="col-md-6">
+                <div className="badge bg-success">{items.status}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default MatchDetailsCard;
+
+	
+	********** End Item.jsx ********
+	
+	
+	############# Response Schema ##############
+	{
+    "results":[
+    0:{
+    "away":{...},
+    "date":"2020-09-20T14:00:00+00:00",
+    "home":{...},
+    "id":2432999,
+    "match_subtitle":"2nd Match",
+    "match_title":"Delhi Capitals v Kings XI Punjab at Dubai International Cricket Stadium (night), T20.",
+    "result":"Match tied (Delhi Capitals won the one-over eliminator)",
+    "series_id":608,
+    "status":"Complete",
+    "venue":"Dubai International Cricket Stadium (night)"
+    }
+    1:{
+    "away":{...},
+    "date":"2020-09-20T14:00:00+00:00",
+    "home":{...},
+    "id":2432999,
+    "match_subtitle":"2nd Match",
+    "match_title":"Delhi Capitals v Kings XI Punjab at Dubai International Cricket Stadium (night), T20.",
+    "result":"Match tied (Delhi Capitals won the one-over eliminator)",
+    "series_id":608,
+    "status":"Complete",
+    "venue":"Dubai International Cricket Stadium (night)"
+    }
+    ]
+}

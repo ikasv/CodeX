@@ -1,0 +1,12 @@
+       $.ajax({
+            type: "POST",
+            url: "{{ url('getSubCategory') }}",
+            dataType:'json',
+            data: { "_token": "{{ csrf_token() }}", course_id : course_id },
+            success: function (data) {
+            alert(data)
+            },
+            error: function () {
+               alert('Some Error Occured.');
+            }
+        });

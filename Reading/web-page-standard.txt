@@ -1,0 +1,127 @@
+==> The 10 Most Important HTML Tags You Need to Know for SEO
+==> Ref  : https://www.greengeeks.in/blog/html-tags-for-seo/
+==> Ref  : https://github.com/necolas/idiomatic-html#general-principles
+==> Link : Link: https://validator.w3.org/ ( For HTML Validation)
+
+************************************ SEO Tips ***********************************
+
+### The internet is a daily battle for attention. ###
+
+### SEO Formula — It’s all about quality content and readability. ###
+
+### SEO Formula — If you find the best keywords and write the correct content, you can build a high-traffic blog (that’s almost a guarantee). ###
+
+### we need to stop focusing on how we can hack and grow the number of views our content gets. And instead, focus on how we can make each reader care about what we’re saying. ###
+
+### The more data you can provide, the better the content will be. ###
+
+### Don’t be afraid of creating catchy titles and headlines to engage your audience. ###
+
+### It’s All About the Quality ###
+
+1. Use Title Tags
+
+# Perhaps one of the most important HTML tags for SEO is that of the title.
+# Syntax : <title>First step for SEO </title>
+
+2. Fine-Tune Meta Description Tags
+
+# Another vital HTML tag for SEO is the meta description. 
+# Syntax : <meta name="description" content="Buy high-quality bicycle parts and save money while riding through Nevada.">
+
+3. Don’t Underestimate Header Tags
+
+# Header tags are often used to break up the content to make it easier to read. In reality, about 55% of visitors will only spend 15 seconds at most skimming your content.
+#   <h1></h1> – usually reserved for webpage titles.
+    <h2></h2> – highlights the topic of the title.
+    <h3></h3> – reflects points in regards to the topic.
+    <h4></h4> – supports points from <h3>.
+    <h5></h5> – not often used, but great for supporting points of <h4>.
+
+4. Add Alt Tags in Images
+
+# An important part of engaging the audience is using images. In fact, you can get about 94% more views if you use graphics in your articles.
+# Unfortunately, search engines cannot determine what images are trying to convey. That’s when the ALT tag comes into play.
+# Syntax : <img src="Cooking.jpg" alt="cooking pork and onions">
+
+5. Building Links
+
+# One aspect you may want to consider is using “nofollow” links. This creates a link to a webpage but tells search engines to ignore the connection. In other words, you won’t help improve the domain authority of an external site.
+# Syntax : <a href="http://somerandomwebsite.com/" rel="nofollow">your anchor text</a>
+
+6. Add Open Graph Tags
+
+# Open graph tags help in boosting search and display abilities for social media. For instance, Facebook will use open graph to display information if your content is shared.
+# Syntax : <meta name="og:title" property="og:title" content="The Title of Your Article">
+
+7. Twitter Card Tags
+
+# Open graph isn’t the only way to customize data for social media. Twitter has its own platform called “Cards.” Twitter Cards work similar to OG with the exception that these are specifically for Twitter.
+# Syntax : <meta name="twitter:card" content="summary">
+
+8. The Robots Tag
+
+# The robots tag is a useful element if you want to prevent certain articles from being indexed. These can stop crawlers from sites like Google from accessing the content.
+# Syntax : <meta name="robots" content="noindex, nofollow">
+# You want to be careful when using these HTML tags for SEO, though. You don’t want to accidentally hurt your rankings for the particular page.
+
+9. Use Canonical Tags when Appropriate
+
+# When you create a website, it may be accessible in a variety of ways. For instance, all of these can link to the same site:
+    http://www.yourwebsite.com
+    https://www.yourwebsite.com
+    http://yourwebsite.com
+    https://yourwebsite.com
+# These essentially tell sites like Google what domains are the most important to you.
+# Syntax : <link rel="canonical" href="https://yourwebsite.com/">
+# This tells Google that “https://yourwebsite.com/” is the URL of which you’re focusing.
+# So instead of having rankings spread across the different variations of your domain name, you’re specifically telling Google which one you want to rank.
+
+10. Responsive Site Meta Tags
+
+# About 48% of people will use a mobile search to find information about a product or business. This means you need to focus attention on responsive and mobile designs.
+# It’s crucial to have a mobile-friendly website to succeed today.
+# Syntax : <meta name="viewport" content="width=device-width, initial-scale=1">
+
+************************************ END SEO ***********************************
+
+************************************ HTML Format  ***********************************
+
+# Link :https://github.com/necolas/idiomatic-html#general-principles
+
+1.  Always use lowercase tag and attribute names.
+2.  Write one discrete element per line.
+3.  Use one additional level of indentation for each nested element.
+4.  Use valueless boolean attributes (e.g. checked rather than checked="checked").
+5.  Always use double quotes to quote attribute values.
+6.  Omit the type attributes from link stylesheet, style and script elements.
+7.  Always include closing tags.
+8.  Don't include a trailing slash in self-closing elements.
+9.  Keep line-length to a sensible maximum, e.g., 80 columns.
+10 . Attribute order    => 1:class, 2:id, 3:data-name, 4:Everything else
+    # Syntax : <a class="[value]" id="[value]" data-name="[value]" href="[url]">[text]</a>
+
+11. Naming =>
+    # Naming is hard, but very important. 
+    # It's a crucial part of the process of developing a maintainable code base, and ensuring that you have a relatively scalable interface between your HTML and CSS/JS.
+    # Use clear, thoughtful, and appropriate names for HTML classes. The names should be informative both within HTML and CSS files.
+    # Avoid systematic use of abbreviated class names. Don't make things difficult to understand.
+
+12. Whitespace => Use whitespace to improve readability.
+
+13. Exceptions and slight deviations =>
+    # Elements with multiple attributes can have attributes arranged across multiple lines in an effort to improve readability and produce more useful diffs.
+    # Example:
+
+    =>   <a class="[value]"
+            data-action="[value]"
+            data-id="[value]"
+            href="[url]">
+            <span>[text]</span>
+        </a>
+
+14. IMPORTANT
+    ### Validating HTML Code ### 
+    => Link: https://validator.w3.org/
+
+************************************ End HTML Format  ***********************************

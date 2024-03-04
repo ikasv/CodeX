@@ -1,0 +1,6 @@
+# Android 
+-> Bottom Navigation
+-> Side Bar Menu
+-> Recycler VIew
+-> Retrofit ( Get Data )
+-> Picasso ( Image Showing )

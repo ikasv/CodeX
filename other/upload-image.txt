@@ -1,0 +1,14 @@
+    private function uploadimage($request,$folder,$file){
+        $destinationPath = 'uploads/'.$folder;
+        $imgName='';
+        //if($request->hasfile('logo')) 
+        if($request->hasfile($file)) 
+        { 
+          $file = $request->file($file);
+          $extension = $file->getClientOriginalExtension();
+          $filename =time().rand(10,100).'.'.$extension;
+          $file->move($destinationPath, $filename);
+          $imgName = $filename;
+        }
+        return $imgName;
+    }

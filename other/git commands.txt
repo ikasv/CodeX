@@ -1,0 +1,44 @@
+
+git init
+git add README.md
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/userName/repoName.git
+git push --force origin master
+
+git pull origin developing
+
+ git branch --show-current
+ 
+ git switch developing
+ 
+ 
+ Here is the complete process to create a local repo and push the changes to new remote branch
+
+Creating local repository:-
+
+Initially user may have created the local git repository.
+
+$ git init :- This will make the local folder as Git repository,
+
+Link the remote branch:-
+
+Now challenge is associate the local git repository with remote master branch.
+
+$ git remote add RepoName RepoURL
+
+usage: git remote add []
+
+Test the Remote
+
+$ git remote show --->Display the remote name
+
+$ git remote -v --->Display the remote branches
+
+Now Push to remote
+
+$git add . ----> Add all the files and folder as git staged'
+
+$git commit -m "Your Commit Message" - - - >Commit the message
+
+$git push - - - - >Push the changes to the upstream

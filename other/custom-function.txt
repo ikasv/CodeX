@@ -1,0 +1,15 @@
+<script>
+  $.fn.appendAttr = function(attrName, suffix) {
+    this.attr(attrName, function(i, val) {
+        return val + suffix;
+    });
+    return this;
+  };
+
+ 
+  
+  $(document).ready(function() {
+        $('.pagination a').appendAttr('href', '&tag=All');
+  });
+</script>
+          

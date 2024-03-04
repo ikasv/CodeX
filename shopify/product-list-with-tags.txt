@@ -1,0 +1,5 @@
+{% for product in collections.all.products %}   
+{% if product.tags contains "organic" %} 
+ {% include 'product-list-item' %}  
+{% endif %}
+{% endfor %}

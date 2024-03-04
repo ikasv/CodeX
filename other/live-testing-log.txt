@@ -1,0 +1,9 @@
+		use Log;
+		
+		
+		$id    = 1;
+
+        Log::debug('New Message for debug');
+        Log::info('User is accessing a single todo', ['todo' => $id]);
+        Log::warning('User is trying to delete a single todo', ['user' => $id]);
+        Log::error('Todo not found by user for deleting', ['user' => $id]);

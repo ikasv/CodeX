@@ -1,0 +1,19 @@
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v19.7.2 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>MBBS Admissions in India- NEET Counselling Consultants in Delhi</title>
+	<meta name="description" content="Looking for MBBS Admissions in India? Mediplor is India’s one of the leading Medical Education Consultants in Delhi. Call us for NEET Counselling Assistance 2022 %" />
+	<link rel="canonical" href="https://mediplor.in/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="MBBS Admissions in India- NEET Counselling Consultants in Delhi" />
+	<meta property="og:description" content="Looking for MBBS Admissions in India? Mediplor is India’s one of the leading Medical Education Consultants in Delhi. Call us for NEET Counselling Assistance 2022 %" />
+	<meta property="og:url" content="https://mediplor.in/" />
+	<meta property="og:site_name" content="Mediplor" />
+	<meta property="article:modified_time" content="2022-09-22T07:54:52+00:00" />
+	<meta property="og:image" content="https://mediplor.in/wp-content/uploads/2022/09/Mediplor-website-banner-3-1.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Est. reading time" />
+	<meta name="twitter:data1" content="21 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://mediplor.in/","url":"https://mediplor.in/","name":"MBBS Admissions in India- NEET Counselling Consultants in Delhi","isPartOf":{"@id":"https://mediplor.in/#website"},"about":{"@id":"https://mediplor.in/#organization"},"primaryImageOfPage":{"@id":"https://mediplor.in/#primaryimage"},"image":{"@id":"https://mediplor.in/#primaryimage"},"thumbnailUrl":"https://mediplor.in/wp-content/uploads/2022/09/Mediplor-website-banner-3-1.jpg","datePublished":"2022-07-13T06:57:47+00:00","dateModified":"2022-09-22T07:54:52+00:00","description":"Looking for MBBS Admissions in India? Mediplor is India’s one of the leading Medical Education Consultants in Delhi. Call us for NEET Counselling Assistance 2022 %","breadcrumb":{"@id":"https://mediplor.in/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://mediplor.in/"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"https://mediplor.in/#primaryimage","url":"https://mediplor.in/wp-content/uploads/2022/09/Mediplor-website-banner-3-1.jpg","contentUrl":"https://mediplor.in/wp-content/uploads/2022/09/Mediplor-website-banner-3-1.jpg","width":800,"height":500},{"@type":"BreadcrumbList","@id":"https://mediplor.in/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]},{"@type":"WebSite","@id":"https://mediplor.in/#website","url":"https://mediplor.in/","name":"Mediplor","description":"Medical Education Consultants","publisher":{"@id":"https://mediplor.in/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://mediplor.in/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://mediplor.in/#organization","name":"Mediplor","url":"https://mediplor.in/","sameAs":[],"logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://mediplor.in/#/schema/logo/image/","url":"https://mediplor.in/wp-content/uploads/2022/06/cropped-logo-1.png","contentUrl":"https://mediplor.in/wp-content/uploads/2022/06/cropped-logo-1.png","width":250,"height":80,"caption":"Mediplor"},"image":{"@id":"https://mediplor.in/#/schema/logo/image/"}}]}</script>
+	<!-- / Yoast SEO plugin. -->

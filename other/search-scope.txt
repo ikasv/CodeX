@@ -1,0 +1,6 @@
+public function scopeSearch($query, $column, $search){
+        return $query->where($column, 'like', '%' . $search . '%')
+        ->orWhere($column, 'like', '%' . $search )
+        ->orWhere($column, 'like', '' . $search . '%')
+        ->orWhere($column, 'like', '' . $search . '');
+    }

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_navigation_menu" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+////////////////////
+
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Favorites"/>
+    <item
+        android:id="@+id/music"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_music_24"
+        android:title="Music"/>
+    <item
+        android:id="@+id/location"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_location_on_24"
+        android:title="Places"/>
+    <item
+        android:id="@+id/profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Profile"/>
+</menu>
+
+///////////////////
+
+package com.example.fragmentapp;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
+public class MainActivity extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+     bottomNavigationView = findViewById(R.id.bottom_navigation);
+     bottomNavigationView.setSelectedItemId(R.id.home);
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_layout, new HomeFragment()).commit();
+
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+         @Override
+         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+             switch (item.getItemId()){
+                 case R.id.home:
+                     Toast.makeText(getApplicationContext(), "Home Click", Toast.LENGTH_SHORT).show();
+                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new HomeFragment()).commit();
+                     break;
+                 case R.id.music:
+                     Toast.makeText(getApplicationContext(), "Music Click", Toast.LENGTH_SHORT).show();
+                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new MusicFragment()).commit();
+                     break;
+                 case R.id.location:
+                     Toast.makeText(getApplicationContext(), "Location Click", Toast.LENGTH_SHORT).show();
+                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new OtherFragment()).commit();
+                     break;
+                 case R.id.profile:
+                     Toast.makeText(getApplicationContext(), "Profile Click", Toast.LENGTH_SHORT).show();
+                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new ProfileFragment()).commit();
+                     break;
+                 default:
+                     Toast.makeText(getApplicationContext(), "Default", Toast.LENGTH_SHORT).show();
+
+             }
+             return true;
+         }
+     });
+    }
+}

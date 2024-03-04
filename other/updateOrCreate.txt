@@ -1,0 +1,2 @@
+AppInfo::updateOrCreate(['app_id' => $postData['appId']],
+                        ['contact_email' => $postData['contactEmail']]);

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script>
+</head>
+<body onmousewheel="fun()">
+
+<h1>All Mouse Events<h1>
+<p class="mouseClick">Mouse Click</p>	
+<p class="mouseDoubleClick">Mouse Double Click</p>	
+<p class="mouseEnter">Mouse Enter</p>	
+<p class="mouseUpDown">Mouse Up</p>	
+
+<span id='m' style="color:pink"></span>
+<p class="mousehover">Mouse Hover</p>	
+<p class="mouseCtxMenu" >Mouse Context Menu</p>	
+<p class="mouseOver">Mouse over</p>	
+
+<b>Hide/Show Using toggle() : <b><span class="mouseToggle">Mouse Toogle</span>	<br>
+
+
+<p class="mouseMove">Mouse Move</p>	
+<i>SlideUp/SlideDown Using toggle() : <i><span class="mouseSideToggle">Mouse Slide</span>	
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+          // function fun(){alert('hi');}
+       
+document.addEventListener('wheel', function(event)
+{
+ if (event.deltaY < 0)
+ {
+  console.log('scrolling up');
+  document.getElementById('m').textContent= 'scrolling up'+event.deltaY;
+ }
+ else if (event.deltaY > 0)
+ {
+  console.log('scrolling down');
+  document.getElementById('m').textContent= 'scrolling down'+event.deltaY;
+ }
+});
+		$('.mouseClick').click(function(){
+			$('.mouseClick').css('color','red');
+		});
+
+		$('.mouseDoubleClick').dblclick(function(){
+			$(this).css('color','orange');
+		});
+
+		$('.mouseEnter').mouseenter(function(){
+			$(this).css('color','green');
+		    $(this).text('Mouse Entered!');
+		});
+        
+		$('.mouseEnter').mouseout(function(){
+			$(this).css('color','red');
+		    $(this).text('Mouse Leaved!');
+		});
+
+        $('.mouseUpDown').mousedown(function(){
+			$(this).css('color','green');
+		    $(this).text('Mouse Pressed!');
+		});
+
+		$('.mouseUpDown').mouseup(function(){
+			$(this).css('color','red');
+		    $(this).text('Mouse Released!');		
+		});
+
+        $('.mousehover').hover(function(){
+			$(this).css('color','green');
+		    $(this).text('Mouse Hovered!');
+		},function(){
+			$(this).css('color','blue');
+		    $(this).text('Mouse Hovered Out!');	
+		});
+
+        $('.mouseOver').mouseover(function(){
+			$(this).css('color','green');
+		    $(this).text('Mouse Overed!');
+		});
+   
+           $('.mouseOver').mouseout(function(){
+			$(this).css('color','red');
+		    $(this).text('Mouse Out!');
+		});
+		
+		$('.mouseMove').mousemove(function(e){
+			$(this).css('color','red');
+		    $(this).text('Mouse Moved from '+e.pageX+' to '+e.pageY);
+		});
+
+		$('b').click(function(e){
+			$('.mouseToggle').toggle();
+		});
+
+		$('i').click(function(e){
+			$('.mouseSideToggle').slideUp().css('background-color','blue');
+	        $('.mouseSideToggle').slideDown().css('background-color','red');
+	    });
+
+
+	</script>
+</body>
+</html>

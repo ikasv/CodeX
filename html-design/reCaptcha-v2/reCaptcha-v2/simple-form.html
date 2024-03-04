@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google reCaptcha-v2 in Codiginter 3 - Simple Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Lato", sans-serif;
+        }
+
+        pre {
+            display: block;
+            padding-top: 13.5px;
+            margin: 0 0 10px;
+            font-size: 16px;
+            line-height: 1.42857143;
+            color: #333;
+            word-break: break-all;
+            word-wrap: break-word;
+            background-color: #fff5f5b8;
+            border-left: 4px solid red;
+            border-radius: 4px;
+        }
+
+        .tag {
+            color: orangered;
+        }
+
+        .keyword {
+            color: #905;
+        }
+
+        .css {
+            color: blueviolet;
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .html {
+            color: orangered;
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .vx-container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto
+        }
+
+        @media (min-width:576px) {
+            .vx-container {
+                max-width: 540px
+            }
+        }
+
+        @media (min-width:768px) {
+            .vx-container {
+                max-width: 720px
+            }
+        }
+
+        @media (min-width:992px) {
+            .vx-container {
+                max-width: 960px
+            }
+        }
+
+        @media (min-width:1200px) {
+            .vx-container {
+                max-width: 1140px
+            }
+        }
+
+        img {
+            width: 100%;
+            max-width: fit-content;
+        }
+
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .sidebar a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .sidebar a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        div.content {
+            margin-left: 200px;
+            padding: 1px 16px;
+            height: 1000px;
+        }
+
+        .mandatory {
+            color: red;
+        }
+
+        section {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 992px;
+            padding: 30px;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-bottom: 1.6rem;
+        }
+
+        .highlight {
+            border: 2px solid purple;
+            padding: 2px;
+        }
+
+        a {
+            color: #0d6efd;
+            text-decoration: underline;
+        }
+
+        .note {
+            margin-bottom: 15px;
+        }
+
+        .note h2 {
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            padding: 14px 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <a class="active" href="index.html">Home</a>
+        <a href="simple-form.html">Simple Form</a>
+        <a href="ajax-form.html">Ajax Form</a>
+    </div>
+
+    <div class="content">
+        <br>
+        <pre>
+            <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Simple Form : Integrate Google reCaptcha-v2 in Codiginter 3</h3>
+            <g2>Steps :</h2>
+            1.  Create Form 
+                 
+                    <span class="mandatory">Mandatory things to create form: </span>   
+                    => <span class="keyword">method</span>     : "post"
+                    => <span class="keyword">action </span>       : url
+                    => <span class="keyword">name</span>  attribute is compulsory in input, select, radio button, checkbox, textarea tag.
+           
+            2.  Get reCaptcha Google Key and Google Secret    
+            
+            3. Add reCaptcha in form 
+            
+            4. Verified Google reCaptcha 
+
+            5.  Finish        
+        </pre>
+
+        <section id="step-1">
+            <div class="vx-container">
+                <div class="note">
+                    <h2>Step 1 : Create Form</h2>
+                </div>
+
+                <pre>
+                    &lt;<span class="tag">form</span> method="post" action="submit-form"&gt;
+                        &lt;<span class="tag">input</span> type="text" name="name" placeholder="Enter Name"&gt;
+                        &lt;br&gt;&lt;br&gt;
+                        &lt;<span class="tag">input</span> type="email" name="name" placeholder="Enter Email"&gt;
+                        &lt;br&gt;&lt;br&gt;
+                        &lt;<span class="tag">input</span> type="mobile" name="name" placeholder="Enter Mobile"&gt;
+                        &lt;br&gt;&lt;br&gt;
+                        &lt;<span class="tag">textarea </span> name="address" placeholder="Enter Address"&gt;&lt;<span class="tag">/textarea </span>&gt;
+                        &lt;br&gt;&lt;br&gt;
+                        &lt;<span class="tag">input</span> type="submit" value="Submit"&gt;
+                    &lt;<span class="tag">/form</span>&gt;
+                </pre>
+                <h2>Output : </h2>
+                <img src="images/simple-form.PNG">
+            </div>
+        </section>
+
+        <section id="step-2">
+            <div class="vx-container">
+                <div class="note">
+                    <h2>Step 2 : Get reCaptcha Google Key and Google Secret </h2>
+                </div>
+
+                <p>In this step we have to create google app and then we will use google key and google secret on
+                    codeigniter.
+                    <br><br>So go here: <a href="https://www.google.com/recaptcha/admin" target="_blank">Google
+                        Recaptcha Admin</a>.
+                </p>
+                <br>
+                <h2>Screen 1 :</h2>
+                <img src="images/google-recaptcha-step-1.png">
+                <br><br>
+                <h2>Screen 2 :</h2>
+                <img src="images/get-google-recaptcha-key.png">
+            </div>
+        </section>
+
+        <section id="step-3">
+            <div class="form-vx-container">
+                <div class="note">
+                    <h2>Step 3 : Add reCaptcha in form</h2>
+                </div>
+                <pre>
+                    <b>Add Script               : </b> &lt;script src='https://www.google.com/recaptcha/api.js'&gt;&lt;/script&gt;
+                    <b>Add key in form      :</b> &lt;div class="g-recaptcha" data-sitekey="( Paset Your Key Here)"&gt;&lt;/div&gt;
+                
+            <span class="html">Html</span>
+                &lt;<span class="tag">form</span> method="post" action="submit-form"&gt;
+                    &lt;?php 
+                            $msg =  $this->session->flashdata('session_msg'); 
+                            if($msg): 
+                                    echo $msg;
+                            endif; 
+                    ?&gt;
+                    &lt;<span class="tag">input</span> type="text" name="name" placeholder="Enter Name"&gt;
+                    &lt;br&gt;&lt;br&gt;
+                    &lt;<span class="tag">input</span> type="email" name="name" placeholder="Enter Email"&gt;
+                    &lt;br&gt;&lt;br&gt;
+                    &lt;<span class="tag">input</span> type="mobile" name="name" placeholder="Enter Mobile"&gt;
+                    &lt;br&gt;&lt;br&gt;
+                    &lt;<span class="tag">textarea </span> name="address" placeholder="Enter Address"&gt;&lt;<span class="tag">/textarea </span>&gt;
+                    &lt;br&gt;&lt;br&gt;
+                    <span class="highlight">&lt;<span class="tag">div</span> class="g-recaptcha" data-sitekey="( Paset Your Key Here)"&gt;&lt;<span class="tag">/div</span>&gt;</span>
+                    &lt;<span class="tag">input</span> type="submit" value="Submit"&gt;
+                &lt;<span class="tag">/form</span>&gt;
+                </pre>
+                <h2>Google reCaptch V2 will be show :</h2>
+                <img src="images/recaptcha.png">
+            </div>
+        </section>
+
+        <section id="step-4">
+            <div class="form-vx-container">
+                <div class="note">
+                    <h2>Step 4 : Verified Google reCaptcha </h2>
+                </div>
+                <pre>
+    public function submit_form"()
+    {
+        $this->load->library('session');
+
+        if($this->input->post())
+        {
+            # reCaptcha
+            $recaptchaResponse  = trim($this->input->post('g-recaptcha-response'));
+            $userIp=$this->input->ip_address();
+            $secret             = $this->config->item('<span class="tag">Secret Key Here</span>');
+            $url  = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$recaptchaResponse."&remoteip=".$userIp;
+            $ch                 = curl_init(); 
+            curl_setopt($ch, CURLOPT_URL, $url); 
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+            $output             = curl_exec($ch); 
+            curl_close($ch);      
+            $status             = json_decode($output, true);
+            # End reCaptcha
+
+            if ($status['success']) 
+            {
+                    $data = array(
+                    'name'        => $this->input->post('name'),
+                    'email'       => $this->input->post('email'),
+                    'mobile'      => $this->input->post('mobile'),
+                    'address'     => $this->input->post('address')
+                    );
+
+                $result =  $this->Action_model->insert_data($data,'tbl_contact');
+                    if($result)
+                    {
+                        $this->session->set_flashdata('session_msg','&lt;div class="alert alert-success" role="alert"&gt;Thanks for your feedback.&lt;/div&gt;');
+                        redirect('contact');
+                    }
+                    else
+                    {
+                        $this->session->set_flashdata('session_msg', '&lt;div class="alert alert-danger" role="alert"&gt;Failed to submit. Try again.&lt;/div&gt;');
+                        redirect('contact');    
+                    }
+            }
+            else
+            { 
+                $this->session->set_flashdata('session_msg', '&lt;div class="alert alert-danger" role="alert"&gt;Please Check Google Captcha 
+                to submit form. Try again.&lt;/div&gt;');
+                redirect('contact');  
+            }
+        }   
+    }
+                </pre>
+            </div>
+        </section>
+
+        <section id="step-5">
+            <div class="vx-container">
+                <div class="note">
+                    <h2>Step 5 : Finish ! Thanks for reading.</h2>
+                </div>
+            </div>
+        </section>
+        <br><br>
+    </div>
+
+
+</body>
+
+</html>

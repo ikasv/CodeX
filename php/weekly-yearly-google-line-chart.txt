@@ -1,0 +1,462 @@
+***************** Weekly / Monthly ********
+<div class="col-md-12">
+            <?php
+                # Weekly
+                    $weekly_records                 =    "select * from mbbs_scholars WHERE clg_id = $user_id and created_at > DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+                    $result                         =   mysqli_query($mysql, $weekly_records);   
+                
+                    $monday_total_count             =   0;
+                    $monday_active_count            =   0;
+                    $monday_deactive_count          =   0;
+                
+                    $tuesday_total_count          =   0;
+                    $tuesday_active_count         =   0;
+                    $tuesday_deactive_count       =   0;
+                
+                
+                    $wednesday_total_count        =   0;
+                    $wednesday_active_count       =   0;
+                    $wednesday_deactive_count     =   0;
+                
+                    $thursday_total_count         =   0;
+                    $thursday_active_count        =   0;
+                    $thursday_deactive_count      =   0;
+                
+                    $friday_total_count           =   0;
+                    $friday_active_count          =   0;
+                    $friday_deactive_count        =   0;
+                
+                    $saturday_total_count         =   0;
+                    $saturday_active_count        =   0;
+                    $saturday_deactive_count      =   0;
+                
+                    $sunday_total_count           =   0;
+                    $sunday_active_count          =   0;
+                    $sunday_deactive_count        =   0;
+    
+    while($row             =   mysqli_fetch_assoc($result)){
+        
+        switch(strtolower(getWeekday($row['created_at']))):
+            case 'monday':
+                    $monday_total_count         += 1;
+                    $row['status']   ==  1 ? $monday_active_count  += 1 : $monday_active_count;
+                    $row['status']   ==  0 ? $monday_deactive_count  += 1 : $monday_deactive_count;
+                break;
+                    
+            case 'tuesday':
+                    $tuesday_total_count += 1;
+                    $row['status']   ==  1 ? $tuesday_active_count  += 1 : $tuesday_active_count;
+                    $row['status']   ==  0 ? $tuesday_deactive_count  += 1 : $tuesday_deactive_count;
+                break;
+
+            case 'wednesday':
+                    $wednesday_total_count += 1;
+                    $row['status']   ==  1 ? $wednesday_active_count  += 1 : $wednesday_active_count;
+                    $row['status']   ==  0 ? $wednesday_deactive_count  += 1 : $wednesday_deactive_count;
+                break;
+
+            case 'thursday':
+                    $thursday_total_count += 1;
+                    $row['status']   ==  1 ? $thursday_active_count  += 1 : $thursday_active_count;
+                    $row['status']   ==  0 ? $thursday_deactive_count  += 1 : $thursday_deactive_count;
+                break;
+
+            case 'friday':
+                    $friday_total_count += 1;
+                    $row['status']   ==  1 ? $friday_active_count  += 1 : $friday_active_count;
+                    $row['status']   ==  0 ? $friday_deactive_count  += 1 : $friday_deactive_count;
+                break;
+
+            case 'saturday':
+                    $saturday_total_count += 1;
+                    $row['status']   ==  1 ? $saturday_active_count  += 1 : $saturday_active_count;
+                    $row['status']   ==  0 ? $saturday_deactive_count  += 1 : $saturday_deactive_count;
+                break;
+
+            case 'sunday':
+                    $sunday_total_count += 1;
+                    $row['status']   ==  1 ? $sunday_active_count  += 1 : $sunday_active_count;
+                    $row['status']   ==  0 ? $sunday_deactive_count  += 1 : $sunday_deactive_count;
+                break;
+        endswitch;
+
+    }  
+
+            function getWeekday($date) {
+                return date('l', strtotime($date));
+            }
+            # !Weekly
+                    
+            # Montly
+                    $weekly_records                 =    "select * from mbbs_scholars WHERE clg_id = $user_id and created_at > DATE_SUB(NOW(), INTERVAL 1 YEAR)";
+                    $result                         =   mysqli_query($mysql, $weekly_records);   
+                
+                    $january_total_count             =   0;
+                    $january_active_count            =   0;
+                    $january_deactive_count          =   0;
+                
+                    $february_total_count          =   0;
+                    $february_active_count         =   0;
+                    $february_deactive_count       =   0;
+                
+                
+                    $march_total_count        =   0;
+                    $march_active_count       =   0;
+                    $march_deactive_count     =   0;
+                
+                    $april_total_count         =   0;
+                    $april_active_count        =   0;
+                    $april_deactive_count      =   0;
+                
+                    $may_total_count           =   0;
+                    $may_active_count          =   0;
+                    $may_deactive_count        =   0;
+                
+                    $june_total_count         =   0;
+                    $june_active_count        =   0;
+                    $june_deactive_count      =   0;
+                
+                    $july_total_count           =   0;
+                    $july_active_count          =   0;
+                    $july_deactive_count        =   0;
+                
+                    $august_total_count           =   0;
+                    $august_active_count          =   0;
+                    $august_deactive_count        =   0;
+                
+                    $september_total_count           =   0;
+                    $september_active_count          =   0;
+                    $september_deactive_count        =   0;
+                
+                    $october_total_count           =   0;
+                    $october_active_count          =   0;
+                    $october_deactive_count        =   0;
+                
+                    $november_total_count           =   0;
+                    $november_active_count          =   0;
+                    $november_deactive_count        =   0;
+                
+                    $december_total_count           =   0;
+                    $december_active_count          =   0;
+                    $december_deactive_count        =   0;
+    
+    while($row             =   mysqli_fetch_assoc($result)){
+	    
+        switch(strtolower(getMontly($row['created_at']))):
+
+            case 'january':
+                    $january_total_count         += 1;
+                    $row['status']   ==  1 ? $january_active_count  += 1 : $january_active_count;
+                    $row['status']   ==  0 ? $january_deactive_count  += 1 : $january_deactive_count;
+                break;
+                    
+            case 'february':
+                    $february_total_count += 1;
+                    $row['status']   ==  1 ? $february_active_count  += 1 : $february_active_count;
+                    $row['status']   ==  0 ? $february_deactive_count  += 1 : $february_deactive_count;
+                break;
+
+            case 'march':
+                    $march_total_count += 1;
+                    $row['status']   ==  1 ? $march_active_count  += 1 : $march_active_count;
+                    $row['status']   ==  0 ? $march_deactive_count  += 1 : $march_deactive_count;
+                break;
+
+            case 'april':
+                    $april_total_count += 1;
+                    $row['status']   ==  1 ? $april_active_count  += 1 : $april_active_count;
+                    $row['status']   ==  0 ? $april_deactive_count  += 1 : $april_deactive_count;
+                break;
+
+            case 'may':
+                    $may_total_count += 1;
+                    $row['status']   ==  1 ? $may_active_count  += 1 : $may_active_count;
+                    $row['status']   ==  0 ? $may_deactive_count  += 1 : $may_deactive_count;
+                break;
+
+            case 'june':
+                    $june_total_count += 1;
+                    $row['status']   ==  1 ? $june_active_count  += 1 : $june_active_count;
+                    $row['status']   ==  0 ? $june_deactive_count  += 1 : $june_deactive_count;
+                break;
+
+            case 'july':
+                    $july_total_count += 1;
+                    $row['status']   ==  1 ? $july_active_count  += 1 : $july_active_count;
+                    $row['status']   ==  0 ? $july_deactive_count  += 1 : $july_deactive_count;
+                break;
+
+            case 'august':
+                    $august_total_count += 1;
+                    $row['status']   ==  1 ? $august_active_count  += 1 : $august_active_count;
+                    $row['status']   ==  0 ? $august_deactive_count  += 1 : $august_deactive_count;
+                break;
+
+            case 'september':
+                    $september_total_count += 1;
+                    $row['status']   ==  1 ? $september_active_count  += 1 : $september_active_count;
+                    $row['status']   ==  0 ? $september_deactive_count  += 1 : $september_deactive_count;
+                break;
+
+            case 'october':
+                    $october_total_count += 1;
+                    $row['status']   ==  1 ? $october_active_count  += 1 : $october_active_count;
+                    $row['status']   ==  0 ? $october_deactive_count  += 1 : $october_deactive_count;
+                break;
+
+            case 'november':
+                    $november_total_count += 1;
+                    $row['status']   ==  1 ? $november_active_count  += 1 : $november_active_count;
+                    $row['status']   ==  0 ? $november_deactive_count  += 1 : $november_deactive_count;
+                break;
+
+            case 'december':
+                    $december_total_count += 1;
+                    $row['status']   ==  1 ? $december_active_count  += 1 : $december_active_count;
+                    $row['status']   ==  0 ? $december_deactive_count  += 1 : $december_deactive_count;
+                break;
+        endswitch;
+
+    }  
+
+            function getMontly($date) {
+                return date('F', strtotime($date));
+            }
+            # !Monthly        
+                
+            ?>
+            
+            <style>
+                .btn-chart {
+                    border: 1px solid #002f7e;
+                    border-radius: 0;
+                    color: #002f7e;
+                }
+                
+                .btn-chart.active {
+                    background: #002f7e;
+                    border-radius: 0;
+                    color: #fff;
+                }
+                
+                #weekly_line_chart, #yearly_line_chart{
+                    width: 100%; height: 400px
+                }
+            </style>
+            
+            <div class="card w-100">
+                <div class="switch-buttons m-4" style="display: flex; justify-content: end;">
+                    <span class='btn btn-chart active' data-linechart="weekly">Weekly</span>
+                    <span class='btn btn-chart' data-linechart="yearly">Yearly</span>
+                </div>
+                <div id="weekly_line_chart" ></div>
+                <div id="yearly_line_chart" style="display:none;"></div>
+            </div>
+        </div>
+		
+		
+		********************* Js ***********************
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    
+    $('.btn-chart').click(function(){
+       $('.btn-chart').removeClass('active'); 
+       $(this).addClass('active'); 
+       
+       $line_chart_type =   $(this).attr('data-linechart');
+       
+       if($line_chart_type == 'weekly'){
+           $('#weekly_line_chart').show();
+           $('#yearly_line_chart').hide();
+           drawWeeklyLineChart();
+       }
+       
+       if($line_chart_type == 'yearly'){
+           $('#yearly_line_chart').show();
+           $('#weekly_line_chart').hide();
+           drawMonthlyLineChart();
+       }
+       
+    });
+    
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawWeeklyLineChart);
+      google.charts.setOnLoadCallback(drawMonthlyLineChart);
+
+      function drawWeeklyLineChart() {
+                // 
+                    $monday_total_count             =   0;
+                    $monday_active_count            =   0;
+                    $monday_deactive_count          =   0;
+                
+                    $tuesday_total_count          =   0;
+                    $tuesday_active_count         =   0;
+                    $tuesday_deactive_count       =   0;
+                
+                
+                    $wednesday_total_count        =   0;
+                    $wednesday_active_count       =   0;
+                    $wednesday_deactive_count     =   0;
+                
+                    $thursday_total_count         =   0;
+                    $thursday_active_count        =   0;
+                    $thursday_deactive_count      =   0;
+                
+                    $friday_total_count           =   0;
+                    $friday_active_count          =   0;
+                    $friday_deactive_count        =   0;
+                
+                    $saturday_total_count         =   0;
+                    $saturday_active_count        =   0;
+                    $saturday_deactive_count      =   0;
+                
+                    $sunday_total_count           =   0;
+                    $sunday_active_count          =   0;
+                    $sunday_deactive_count        =   0;
+        // 
+
+          
+          
+        var data = google.visualization.arrayToDataTable([
+          ['Weekly'     , 'Total', 'Approved', 'Rejected'],
+          ['Monday'     , <?= $monday_total_count;?>    , <?= $monday_active_count;?>       , <?= $monday_deactive_count;?>],
+          ['Tuesday'    , <?= $tuesday_total_count;?>   , <?= $tuesday_active_count;?>      , <?= $tuesday_deactive_count;?>],
+          ['Wednesday'  , <?= $wednesday_total_count;?> , <?= $wednesday_active_count;?>    , <?= $wednesday_deactive_count;?>],
+          ['Thrusday'   , <?= $thursday_total_count;?>  , <?= $thursday_active_count;?>     , <?= $thursday_deactive_count;?>],
+          ['Friday'     , <?= $friday_total_count;?>    , <?= $friday_active_count;?>       , <?= $friday_deactive_count;?>],
+          ['Saturday'   , <?= $saturday_total_count;?>  , <?= $saturday_active_count;?>     , <?= $saturday_deactive_count;?>],
+          ['Sunday'     , <?= $sunday_total_count;?>    , <?= $sunday_active_count;?>       , <?= $sunday_deactive_count;?>]
+        ]);
+
+        var options = {
+          title: 'Admissions ( Weekly )',
+          chart: {
+            title: 'Admissions',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+          pointSize: 5,
+          colors: ['blue', 'green', 'red',],
+          lineWidth: 2,
+          series: {
+              0: { lineWidth: 2 },
+              1: { lineWidth: 2 },
+              2: { lineWidth: 2 },
+          },
+          hAxis:{
+            title:'Weekly',
+             titleTextStyle: {color: 'red'},
+            },
+            vAxis:{
+              title:'Admissions Number',
+              titleTextStyle: {color: 'red'},
+          },
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('weekly_line_chart'));
+
+        chart.draw(data, options);
+      }
+      function drawMonthlyLineChart() {
+          
+        // 
+        $january_total_count             =   0;
+                    $january_active_count            =   0;
+                    $january_deactive_count          =   0;
+                
+                    $february_total_count          =   0;
+                    $february_active_count         =   0;
+                    $february_deactive_count       =   0;
+                
+                
+                    $march_total_count        =   0;
+                    $march_active_count       =   0;
+                    $march_deactive_count     =   0;
+                
+                    $april_total_count         =   0;
+                    $april_active_count        =   0;
+                    $april_deactive_count      =   0;
+                
+                    $may_total_count           =   0;
+                    $may_active_count          =   0;
+                    $may_deactive_count        =   0;
+                
+                    $june_total_count         =   0;
+                    $june_active_count        =   0;
+                    $june_deactive_count      =   0;
+                
+                    $july_total_count           =   0;
+                    $july_active_count          =   0;
+                    $july_deactive_count        =   0;
+                
+                    $august_total_count           =   0;
+                    $august_active_count          =   0;
+                    $august_deactive_count        =   0;
+                
+                    $september_total_count           =   0;
+                    $september_active_count          =   0;
+                    $september_deactive_count        =   0;
+                
+                    $october_total_count           =   0;
+                    $october_active_count          =   0;
+                    $october_deactive_count        =   0;
+                
+                    $november_total_count           =   0;
+                    $november_active_count          =   0;
+                    $november_deactive_count        =   0;
+                
+                    $december_total_count           =   0;
+                    $december_active_count          =   0;
+                    $december_deactive_count        =   0;
+        // 
+          
+             var data = google.visualization.arrayToDataTable([
+          ['Weekly'     , 'Total', 'Approved', 'Rejected'],
+          ['Jan'     , <?= $january_total_count;?>    , <?= $january_active_count;?>       , <?= $january_deactive_count;?>],
+          ['Feb'    , <?= $february_total_count;?>   , <?= $february_active_count;?>      , <?= $february_deactive_count;?>],
+          ['Mar'  , <?= $march_total_count;?> , <?= $march_active_count;?>    , <?= $march_deactive_count;?>],
+          ['Apr'   , <?= $april_total_count;?>  , <?= $april_active_count;?>     , <?= $april_deactive_count;?>],
+          ['May'     , <?= $may_total_count;?>    , <?= $may_active_count;?>       , <?= $may_deactive_count;?>],
+          ['Jun'   , <?= $june_total_count;?>  , <?= $june_active_count;?>     , <?= $june_deactive_count;?>],
+          ['Jul'     , <?= $july_total_count;?>    , <?= $july_active_count;?>       , <?= $july_deactive_count;?>],
+          ['Augt'     , <?= $august_total_count;?>    , <?= $august_active_count;?>       , <?= $august_deactive_count;?>],
+          ['Sep'     , <?= $september_total_count;?>    , <?= $september_active_count;?>       , <?= $september_deactive_count;?>],
+          ['Oct'     , <?= $october_total_count;?>    , <?= $october_active_count;?>       , <?= $october_deactive_count;?>],
+          ['Nov'     , <?= $november_total_count;?>    , <?= $november_active_count;?>       , <?= $november_deactive_count;?>],
+          ['Dec'     , <?= $december_total_count;?>    , <?= $december_active_count;?>       , <?= $december_deactive_count;?>]
+        ]);
+
+        var options = {
+          title: 'Admissions ( Yearly )',
+            width:$('#yearly_line_chart').width(),
+            height:$('#yearly_line_chart').height(),
+            responsive: true,
+          pointSize: 5,
+          colors: ['blue', 'green', 'red',],
+          lineWidth: 2,
+          series: {
+              0: { lineWidth: 2 },
+              1: { lineWidth: 2 },
+              2: { lineWidth: 2 },
+          },
+          hAxis:{
+            title:'Yearly',
+             titleTextStyle: {color: 'red'},
+            },
+            vAxis:{
+              title:'Admissions Number',
+              titleTextStyle: {color: 'red'},
+          },
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('yearly_line_chart'));
+
+        chart.draw(data, options);
+      }
+	  
+	  $(window).resize(function(){
+          drawWeeklyLineChart();
+          drawMonthlyLineChart();
+        });
+    </script>

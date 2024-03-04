@@ -1,0 +1,141 @@
+   + => HTML
+ <?php $country = $this->db->get('countries')->result(); ?>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label for="cat_name">Country</label>
+                        <select class="form-control" required="required" onchange="country_get(this.value);"
+                            name="country" id="country">
+                            <option selected="selected" disabled="disabled">--SELECT--</option>
+                            <?php foreach($country as $row){?>
+                            <option value="<?php echo $row->id;?>"
+                                <?php if($id){if($row->id==$packages_data->country_id){echo "selected";}}?>>
+                                <?php echo $row->name;?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>State</label>
+                        <select class="form-control" required id="state" name="state" onchange="city_get(this.value);">
+                            <option selected="selected" disabled="disabled">--SELECT--</option>
+                            <?php if($id){
+                                                $this->db->where('country_id',$packages_data->country_id);
+                                                $state_name = $this->db->get('states')->result();
+                                                foreach($state_name as $row){
+                                            ?>
+                            <option value="<?php echo $row->state_id;?>"
+                                <?php if($row->state_id==$packages_data->state_id){echo "selected";}?>>
+                                <?php echo $row->name;?></option>
+                            <?php }}?>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>City</label>
+                        <select class="form-control" required="required" id="city" name="city">
+                            <option selected="selected" disabled="disabled">--SELECT--</option>
+                            <?php if($id){
+                                                $this->db->where('state_id',$packages_data->state_id);
+                                                $cities_name = $this->db->get('cities')->result();
+                                                 foreach($cities_name as $row){
+                                            ?>
+                            <option value="<?php echo $row->id;?>"
+                                <?php if($row->id==$packages_data->cities_id){echo "selected";}?>>
+                                <?php echo $row->name;?>
+                            </option>
+                            <?php }}?>
+                        </select>
+                    </div>
+   # => END HTML
+
+# AJAX GET STATE
+function country_get(id = '') {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('').'action/get_state'; ?>",
+        data: {
+            id: id
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.status == 'true') {
+                var state_list = data.state_list;
+                var row = "<option value=''>Select State</option>";
+                for (var i = 0; i < state_list.length; i++) {
+                    row += "<option class='text-capitalize' value='" + state_list[i].state_id +
+                        "'>" +
+                        state_list[i].name + "</option>";
+                }
+                $("#state").html(row);
+            } else {
+                $("#state").html("<option value=''>Select State</option>");
+            }
+        },
+        error: function() {
+            alert('Some Error Occured.');
+        }
+
+    });
+}
+# End GET STATE
+				
+# AJAX GET CITY				
+function city_get(id = '') {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('').'action/get_city'; ?>",
+        data: {
+            id: id
+        },
+        dataType: 'json',
+        success: function(data) {
+            if (data.status == 'true') {
+                var city_list = data.city_list;
+                var row = "<option value=''>Select City</option>";
+                for (var i = 0; i < city_list.length; i++) {
+                    row += "<option class='text-capitalize' value='" + city_list[i].id +
+                        "'>" +
+                        city_list[i].name + "</option>";
+                }
+                $("#city").html(row);
+            } else {
+                $("#city").html("<option value=''>Select City</option>");
+            }
+        },
+        error: function() {
+            alert('Some Error Occured.');
+        }
+
+    });
+}
+# End AJAX GET CITY
+			
+# => PHP
+	# Get State Ajax Section
+    public function get_state()
+    {
+        $arr = array();
+        $state_list = $this->db->get_where('states', array("country_id" => $this->input->post('id')))->result();
+        if($state_list):
+            $arr = array('status'=> 'true', 'message' => 'State list fetch sucessfully', 'state_list' => $state_list);
+        else:
+            $arr = array('status'=> 'true', 'message' => 'State list fetch Unsucessfully');
+        endif;
+        echo json_encode($arr);
+    }
+    # End State Ajax Section
+
+    # Get City Ajax Section
+    public function get_city()
+    {
+        $arr = array();
+        $city_list = $this->db->get_where('cities', array("state_id" => $this->input->post('id')))->result();
+        if($city_list):
+            $arr = array('status'=> 'true', 'message' => 'City list fetch sucessfully', 'city_list' => $city_list);
+        else:
+            $arr = array('status'=> 'true', 'message' => 'City list fetch Unsucessfully');
+        endif;
+        echo json_encode($arr);
+    }
+    # End City Ajax Section
+# => END PHP

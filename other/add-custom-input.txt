@@ -1,0 +1,1 @@
+ <input id="birthday" type="date" name="customer[note][Birthday]" />

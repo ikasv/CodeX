@@ -1,0 +1,22 @@
+<?php
+
+//create zip and download
+$zip = new ZipArchive();
+
+$filename = "download.zip";
+
+if ($zip->open($filename, ZIPARCHIVE::CREATE) !== TRUE) {
+    exit("cannot open <$filename>\n");
+}
+
+$zip->addFile(__DIR__ . "/image/1.jpg", "z1.jpg");
+$zip->addFile("2.jpg", "z2.jpg");
+
+$zip->close();
+
+header("Content-type: application/zip");
+header("Content-Disposition: attachment; filename=$filename");
+header("Content-length: " . filesize($filename));
+header("Pragma: no-cache");
+header("Expires: 0");
+readfile($filename);

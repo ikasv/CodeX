@@ -1,0 +1,58 @@
+# Export Product CSV
+    public function export_prodcut_csv($id){
+        $product          =   Product::select('id', 'product_name', 'short_description', 'slug', 'price as sale_price', 'featured_image')->findorFail($id);
+
+        $headers        =   [
+                                'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+                                'Content-type'        => 'text/csv',
+                                'Content-Disposition' => 'attachment; filename='. $product->product_name.'.csv',
+                                'Expires'             => '1',
+                                'Pragma'              => 'public'
+                            ];
+
+        
+        # add    headers for each column in the CSV download    
+        $columns            =   array(
+                                    'Id', 
+                                    'Title', 
+                                    'Description', 
+                                    'Link', 
+                                    'Condition', 
+                                    'Price',
+                                    'Availability',
+                                    'Image link',
+                                    'GTIN',
+                                    'MPN',
+                                    'Brand',
+                                    'Google Product Category'
+                                );
+      
+        $callback           = function () use ($product, $columns)  {
+                                $row        =   array();
+                                $file       =   fopen('php://output', 'w');
+                                fputcsv($file, $columns);
+                            
+                                $row            =   array(
+                                                        'Id'                        => $product->id,
+                                                        'Title'                     => $product->product_name,
+                                                        'Description'               => $product->short_description,
+                                                        'Link'                      => url('').'/'.$product->slug,
+                                                        'Condition'                 => 'New',
+                                                        'Price'                     => $product->sale_price,
+                                                        'Availability'              => '-',
+                                                        'Image link'                => $product->featured_image,
+                                                        'GTIN'                      => '-',
+                                                        'MPN'                       => '-',
+                                                        'Brand'                     => '-',
+                                                        'Google Product Category'   => '-'
+                                                    );
+                                                    
+                                                    fputcsv($file, $row);
+                                                        
+                                fclose($file);
+    
+        };
+                                
+        return response()->stream($callback, 200, $headers);
+    }
+    # End Export Product CSV

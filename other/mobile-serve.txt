@@ -1,0 +1,7 @@
+npm install --global serve
+
+serve -s build
+
+npm run build
+
+npx serve -s build

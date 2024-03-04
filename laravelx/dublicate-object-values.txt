@@ -1,0 +1,13 @@
+$unique_objects = array();
+$airlines_arr   =   array();
+
+foreach ($data as $item) {
+    if (!in_array($item->name, $unique_objects)) {
+        $unique_objects[] = $item->name;
+		
+		 $airlines_arr[]   =   array(
+										'AirlineCode'   => $airline_row[0]->Airline->AirlineCode,
+										'AirlineName'   => $airline_row[0]->Airline->AirlineName
+                                    ) ;
+    }
+}

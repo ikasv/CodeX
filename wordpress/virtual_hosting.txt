@@ -1,0 +1,10 @@
+Virtual Hosting
+ open the the Apache httpd-vhosts.conf file which are located in D:\xampp\apache\conf\extra\httpd-vhosts.conf, Added below lines of code at the end of the file.
+<VirtualHost 127.0.0.2:80>
+   DocumentRoot "D:/xampp/htdocs/ci44/public"
+   ServerName codeigniter4.com
+</VirtualHost>
+Open the hosts file which are located at C:\Windows\System32\drivers\etc\hosts, Added below code into this file at the end.
+127.0.0.2 codeigniter4.com
+restart the xampp server.
+Let’s open the browser and navigate http:// codeigniter4.com

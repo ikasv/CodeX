@@ -1,0 +1,28 @@
+/* Custom Toast */ 
+	.custom-toast { position: fixed; width: 250px; bottom: 10%; right: 0; left: 0; margin: auto; }
+	.custom-toast .toast-card{ padding:10px; background:#fff; box-shadow: 1px 1px 12px 1px #64646485; }
+	.toast-card-success{ border-left: 4px solid green; }
+	.toast-card-danger{ border-left: 4px solid red; }
+/* End Custom Toast */ 
+		
+<!-- Toast -->
+    <div class="custom-toast d-none">
+        <div class="toast-card">
+            <div class="custom-toast-message"></div>
+        </div>
+    </div>
+<!-- End Toast -->
+
+// Show Toast
+function showToast(type = 'success', message = 'Hello'){
+	$('.custom-toast').removeClass('d-none');
+	$('.custom-toast-message').text(message);
+	$('.custom-toast .toast-card').addClass('toast-card-'+ type);
+	
+	setTimeout(function(){
+		$('.custom-toast').addClass('d-none');
+		$('.custom-toast .toast-card').removeClass('toast-card-'+ type);
+	}, 5000);
+}
+
+// End Show Toast

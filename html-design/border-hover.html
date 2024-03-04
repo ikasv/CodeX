@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .single-testimonial {
+            padding: 40px 40px 40px;
+            background-color: #f7f7f7;
+            position: relative;
+            margin: 4px;
+        }
+
+        .single-testimonial::before {
+            content: "";
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 100%;
+            right: 100%;
+            opacity: 0;
+            border-top: 2px solid #25d06f;
+            border-right: 2px solid #25d06f;
+        }
+
+        .single-testimonial:hover::before {
+            opacity: 1;
+            right: 0px;
+            bottom: 0px;
+            -webkit-transition: opacity .001s, right .125s linear .001s, bottom .125s linear .126s;
+            transition: opacity .001s, right .125s linear .001s, bottom .125s linear .126s;
+        }
+
+        .single-testimonial::after {
+            content: "";
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            top: 100%;
+            left: 100%;
+            opacity: 0;
+            border-bottom: 2px solid #25d06f;
+            border-left: 2px solid #25d06f;
+        }
+
+        .single-testimonial:hover::after {
+            -webkit-transition: opacity .001s linear .251s, left .125s linear .252s, top .125s linear .377s;
+            transition: opacity .001s linear .251s, left .125s linear .252s, top .125s linear .377s;
+            opacity: 1;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="single-testimonial" width="200px" height="200px">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ut quasi ipsum facilis odio. Aliquam placeat
+        totam libero odit quod quos nemo voluptas tempora iste fuga nihil, illum, laborum minus.
+    </div>
+</body>
+
+</html>

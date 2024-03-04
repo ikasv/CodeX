@@ -1,0 +1,160 @@
+
+################################### FILE : Blade File - Html & Php ########################################
+                              <div class="col-md-12 py-4">
+
+                                <details open>
+                                    <summary style="background: aliceblue; padding: 10px;">Gallery images </summary>
+
+                                    <!-- Gallery Images -->
+                                    <div class="py-2 gallery-image-container">
+                                        @if(isset($property->gallery_images))
+                                            @foreach($property->gallery_images as $gallery_image)
+                                            <div class="card p-4 clone-template" data-clone-template-id="{{ $loop->iteration }}">
+                                                @if($loop->index != 0)
+                                                <span class="remove-clone-template-row fa fa-trash" onclick="removeCloneTemplateRow(this)"></span>
+                                                @endif
+                                                <div class="row product-gallery_images-row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="image">Image</label>
+                                                            <input type="file" class="form-control image p-1" placeholder="Enter image" name="gallery_images[{{ $loop->iteration }}][image]" id="image">
+                                                            
+                                                            @if($gallery_image->image != '')
+                                                            <img src="{{ asset('public/storage/gallery_images/'.$gallery_image->image) }}" alt="" width="150px" height="150px" class="mt-2">
+                                                            @endif
+                                                            <input type="hidden" class="form-control old_image" placeholder="Enter image" name="gallery_images[{{ $loop->iteration }}][old_image]" id="image" value="{{ $gallery_image->image }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="alt">Alt</label>
+                                                            <input type="text" class="form-control alt" placeholder="Enter alt" name="gallery_images[{{ $loop->iteration }}][alt]" id="alt" required value="{{ $gallery_image->alt }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        @else
+                                        <div class="card p-4 clone-template" data-clone-template-id="1">
+                                            <div class="row product-gallery-image-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="image">Image</label>
+                                                        <input type="file" class="form-control p-1 image" placeholder="Enter image" name="gallery_images[1][image]" id="image" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="alt">Alt</label>
+                                                        <input type="text" class="form-control alt" placeholder="Enter alt" name="gallery_images[1][alt]" id="alt" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn btn-warning text-white" onclick="add_more(this, 'gallery_images' ,'.gallery-image-container')">Add More</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- End Gallery Images -->
+
+                                </details>
+                            </div>
+
+################################### FILE : Blade File - Script  ########################################
+
+<script>
+    // Add More
+
+    function removeCloneTemplateRow(el) {
+        $(el).parents('.clone-template').remove();
+    }
+
+    var remove_combo_btn_html = '';
+    var clone_template_id = 0;
+
+    function add_more(e, type, parent_class) {
+
+        var clone_template                                          =   $(e).parents(parent_class).find('.clone-template');
+        var last_clone_template_id                                  =   clone_template.last().attr('data-clone-template-id');
+        var dublicate_clone_template                                =   clone_template.first().clone();
+
+        next_clone_template_id                                      =     parseInt(last_clone_template_id) + 1;
+        html_remove_current_clone_template_btn                      =   '<span class="remove-clone-template-row fa fa-trash" onclick="removeCloneTemplateRow(this)"></span>';
+
+        modifyCloneTemplate(dublicate_clone_template, next_clone_template_id, type);
+
+        dublicate_clone_template.append(html_remove_current_clone_template_btn);
+        clone_template.last().after(dublicate_clone_template);
+    }
+
+    function modifyCloneTemplate(dublicate_clone_template, clone_template_id, type) {
+
+        dublicate_clone_template.attr('data-clone-template-id', clone_template_id);
+        dublicate_clone_template.find('input[name="product_id"]').remove();
+
+        switch (type) {
+            case 'gallery_images':
+                dublicate_clone_template.find('.image').attr('name', "gallery_images[" + clone_template_id + "][image]").val('');
+                dublicate_clone_template.find('.alt').attr('name', "gallery_images[" + clone_template_id + "][alt]").val('');
+                dublicate_clone_template.find('img').remove();
+                dublicate_clone_template.find('.old_image').remove();
+                break;
+        }
+
+    }
+
+    // End Add More
+</script>
+
+################################### FILE : Controller  ########################################
+
+# Upload File
+        
+            ## Featured Image
+                $featured_image                         =   uploadFile($request, 'featured_image', 'featured_image');
+            ## Featured Image
+
+            ## Gallery Images
+                $gallery_images                         =   array();
+                $gallery_image_count                                  =   1;
+                
+                foreach($request->gallery_images as $gallery_image):
+                    
+                    $single_image                       =   uploadFile($request, "gallery_images.$gallery_image_count.image", 'gallery_images');
+                    
+                    $gallery_images[]                   =   array(
+                                                                    'id'            =>  $gallery_image_count,
+                                                                    'image'         =>  $single_image,
+                                                                    'alt'           =>  $gallery_image['alt']
+                                                                );
+                    $gallery_image_count++;
+                endforeach;
+            ## Gallery Images
+        # Upload File
+
+################################### FILE : helpers.php  ########################################
+use Illuminate\Support\Facades\Storage;
+
+# Upload Image
+    if(!function_exists('uploadFile')) {
+      function uploadFile($request, $file, $path = ''){
+        $file_name              =   "";
+        if($request->hasFile($file)):
+            $img                            =   $request->file($file);
+            $file_name                      =   uniqid().'.'.$img->extension();
+            $path                           .=  '/';
+            
+            Storage::disk('public')->put($path.$file_name, file_get_contents($request->{$file}));
+        else:
+          $file_name        = $request->{'old_'.$file};
+
+          if($path == 'gallery_images'):
+            $file_name        = $request->{str_replace('.image', '.old_image', $file)};
+          endif;
+        endif;
+        return $file_name;
+    }
+    }
+  # End Upload Image

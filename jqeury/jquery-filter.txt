@@ -1,0 +1,62 @@
+// Return Filter
+    function returnFlightFilter(){
+        // Round Trip Flight Filter
+            var filterAirlineCode   = '';
+            var filterClasses        = '';
+        
+        if($(".PreferredAirlines").is(':checked')){
+            var filterAirlineCode = $(".PreferredAirlines:checked").map( function() {
+                return '.flight-item.'+this.value;
+            }).get().join(",");
+            
+            $('.flight-item').removeClass('AirlineFilterActivated');
+            $(filterAirlineCode).addClass('AirlineFilterActivated');
+            filterClasses += '.AirlineFilterActivated';
+        }else{
+            $('.flight-item').removeClass('AirlineFilterActivated');
+        }
+            
+        // End Round Trip Flight Filter 
+            
+        // Round Flight Stop Filter
+            var filterStop =    '';
+        if($(".StopsFilter").is(':checked')){
+            var filterStop = $(".StopsFilter:checked").map( function() {
+                return '.flight-item .'+this.value;
+            }).get().join(",");
+            
+            $('.flight-item').removeClass('StopFilterActivated');
+            $(filterStop).parents('.flight-item').addClass('StopFilterActivated')
+            filterClasses += '.StopFilterActivated';
+        }else{
+            $('.flight-item').removeClass('StopFilterActivated');
+        }
+        // End Round Flight Stop Filter
+         
+        // rNR = Refunded or Non Refunded 
+            var refundedFilter = '';
+        if($(".fair-policy-radio").is(':checked')){
+            var refundedFilter = $(".fair-policy-radio:checked").map( function() {
+                return '.flight-item .isRefunded_'+this.value;
+            }).get().join(",");
+            
+            $('.flight-item').removeClass('RefundFilterActivated');
+            $(refundedFilter).parents('.flight-item').addClass('RefundFilterActivated')
+            filterClasses += '.RefundFilterActivated';
+        }else{
+            $('.flight-item').removeClass('RefundFilterActivated');
+        }
+        // End rNR = Refunded or Non Refunded Filter
+        
+        
+         if($(".flight-item").is('.AirlineFilterActivated, .StopFilterActivated, .RefundFilterActivated')){
+            $('.flight-item').addClass('d-none');
+            $('.flight-item').filter(filterClasses).removeClass('d-none');
+         }
+        
+            // if(filterStop != '') $(filterStop).parents('.flight-item').show();
+            // if(refundedFilter != '') $(refundedFilter).parents('.flight-item').show();
+  
+    }
+
+// End Filter

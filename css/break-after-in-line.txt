@@ -1,0 +1,9 @@
+<h2>
+    <span class="primary">Tip, tricks, best practices</span>
+    <span>of front-end development</span>
+</h2>
+
+.primary::after {
+    content: '\A';
+    white-space: pre;
+}

@@ -1,0 +1,19 @@
+        # Neet Admit Card File
+        $neet_admit_card                = mysqli_real_escape_string($mysql, isset($_POST['neet-admit-card']) ? $_POST['neet-admit-card'] : '');
+        
+        if(isset($_FILES['neet-admit-card']['name']) && !empty($_FILES['neet-admit-card']['name'])){
+            $info                   = pathinfo($_FILES['neet-admit-card']['name']);
+            $ext                    = $info['extension']; // get the extension of the file
+            $newname                = "aadharfront_no".time().".".$ext; 
+            $temp_name              = $_FILES['neet-admit-card']['tmp_name'];
+            $path                   = __DIR__ ."/images/medical_college_images/neet_admit_card/".$newname;
+            $ext                    = strtolower($ext);
+            # -> 5.1
+                move_uploaded_file($temp_name, $path);
+            # <- 5.1
+            $neet_admit_card        = $newname;
+        }else{
+            $neet_admit_card        = $e_aadhar_card_front;
+        }
+        # End Neet Admit Card File
+        

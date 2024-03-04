@@ -1,0 +1,2 @@
+INSERT INTO SET name = 'John'
+UPDATE `bonafied` SET name="Smith" WHERE id='8'

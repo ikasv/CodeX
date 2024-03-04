@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: #6168ff;
+            position: relative;
+        }
+
+        .title:before {
+            position: absolute;
+            content: "";
+            background-color: #fca22a;
+            width: 80px;
+            height: 8px;
+            z-index: 999;
+            bottom: 0;
+        }
+
+        h1.title {
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">Taxi Packages</h1>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+# 1
+        if(isset($_FILES['profile_name']['name']) && !empty($_FILES['profile_name']['name'])){
+            $info                       = pathinfo($_FILES['profile_name']['name']);
+            $ext                        = $info['extension']; 
+            $newname                    = "profile".time().".".$ext; 
+            $temp_name                  = $_FILES['profile_name']['tmp_name'];
+            $path                       = "app/admin/images/logo/".$newname;
+            $ext                        = strtolower($ext);
+            # -> 1.1
+                move_uploaded_file($temp_name, $path);
+            # <- 1.1
+            $image                 = $newname;
+        }else{
+        
+            $db_image_sql               = "select stu.image from stulogin as stu where email = '$email'";
+            $db_image_result            = mysqli_query($mysql, $db_image_sql);
+            $db_image_row               = (object) mysqli_fetch_assoc($db_image_result);
+            $image                      = $db_image_row->image;
+        }
+        # <-1

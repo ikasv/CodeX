@@ -1,0 +1,8 @@
+static function boot(){
+		parent::boot();
+
+		# withoutGlobalScope('active') 
+		static::addGlobalScope('active', function($query){
+			$query->where('status', 1);
+		});
+	}

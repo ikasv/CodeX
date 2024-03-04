@@ -1,0 +1,2 @@
+ini_set('memory_limit', '2000M');
+set_time_limit(9000);

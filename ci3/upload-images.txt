@@ -1,0 +1,59 @@
+	$category       =   $this->input->post('category');
+	$group_alt      =   $this->input->post('group_alt');
+	$group_url      =   $this->input->post('group_url');
+	$items          =   array();
+	$count          =   count($category);
+	
+	$images         =   $this->upload_images('./uploads/groups/banner/test', 'image');
+	
+	for ($i = 0; $i < $count; $i++) {
+	$items[]            =   array(
+			'category'  => $category[$i],
+			'image'     => $images[$i],
+			'alt'       => $group_alt[$i],
+			'url'       => $group_url[$i]
+		);
+	}
+	
+	 # Upload Images
+    public function upload_images($path, $name){
+            $images                     =   array();
+            $config                     =   array();
+            $config['upload_path']      =   $path;
+            $config['allowed_types']    =   'jpeg|jpg|png';
+            $config['max_size']         =   10*1024;
+            $config['remove_spaces']    =   TRUE;
+            $config['encrypt_name']     =   TRUE;
+            
+            $this->load->library('upload', $config);
+            
+            for ($x = 0; $x < count($_FILES[$name]['name']); $x++) {
+                $_FILES['file']['name']         = $_FILES[$name]['name'][$x];
+                $_FILES['file']['type']         = $_FILES[$name]['type'][$x];
+                $_FILES['file']['tmp_name']     = $_FILES[$name]['tmp_name'][$x];
+                $_FILES['file']['error']        = $_FILES[$name]['error'][$x];
+                $_FILES['file']['size']         = $_FILES[$name]['size'][$x];
+                $config['file_name']            = $_FILES[$name]['name'][$x];
+                
+                $this->upload->initialize($config);
+                             
+                
+                if (!empty($_FILES[$name]['name'][$x])) {
+                    if (!$this->upload->do_upload('file'))
+                    {
+                        $error = array('error' => $this->upload->display_errors());
+                        $array = array('status'=>'false','msg'=> $error['error']);
+                        echo json_encode($array);
+                        exit;
+                    }
+                    else
+                    {
+                        $images[] = $this->upload->data('file_name');
+                    }
+                }
+			        
+            }
+            
+            return $images;
+    }
+    # End Upload Images

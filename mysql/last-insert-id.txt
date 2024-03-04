@@ -1,0 +1,7 @@
+    $query = "INSERT INTO `addmission_lead_test` SET fullname = 'vikas'"; 
+                if(mysqli_query($mysql,$query)):
+                $addmission_last_insert_id = mysqli_insert_id($mysql);
+                echo $query;
+                echo 'insert id => '.$addmission_last_insert_id;die;
+                endif;
+            

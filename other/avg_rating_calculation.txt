@@ -1,0 +1,7 @@
+->withCount([
+                                                'ratings AS avg_rating'     =>  function ($query)
+                                                                                {
+                                                                                    $query->select(DB::raw("SUM(rating)/COUNT(vendor_id) AS avg_rating"));
+                                                                                }
+]);
+            

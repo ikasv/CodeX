@@ -1,0 +1,47 @@
+************************ php
+    # Please Do Not Remove This Code - Security Purpose Function
+    /*
+    *   @param tmp name of file 
+    *   return boolean 
+    */
+    function isMalformedFile($tmp){
+        $contents = htmlspecialchars(file_get_contents($tmp));
+         $pattern = "/<?php|<script>|&lt;script&gt;/im";
+
+            if (preg_match_all($pattern, $contents, $matches)):
+                return true;
+            endif;
+            
+        return false;
+    }
+    # Please Do Not Remove This Code - Security Purpose Function
+************************ php
+
+************************ php	
+   if(isMalformedFile($_FILES['aadhar_card']['tmp_name'])):
+        echo "<script>alert('Malformed File Founded. Please Upload Valid File'); window.location.href='edit_profile.php'</script>";
+    endif;
+************************ php
+
+************************ Html
+	<input type="file" name="image" id="image" class="form-control" accept="image/png, image/jpeg" />
+	<input type="file" id="docpicker" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+	<input type="file" id="soundFile" accept="audio/*" />
+	<input type="file" id="videoFile" accept="video/*" />
+	<input type="file" id="imageFile" accept="image/*" />
+	<input type="file" accept="image/*,.pdf" />
+************************ Html
+
+************************ jQuery
+$('#image').on( 'change', function() {
+	var docfile= $( this ).val();
+	var ext = docfile.split('.').pop();
+	if(ext=="jpg" || ext=="jpeg" || ext=="png"){
+		//alert(ext);
+	} else{
+		$( this ).val("");
+		alert("Please select valid file.");
+	}
+});
+************************ jQuery
+

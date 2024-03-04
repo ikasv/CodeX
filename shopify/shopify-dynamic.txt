@@ -1,0 +1,109 @@
+<!--- Coded by HuynhMaiAnhKiet.Com - HuraTips.Com --->
+<section data-section-id="{{ section.id }}" data-section-type="testimonials">
+  <h2>{{ section.settings.title }}</h2>
+  {%- if section.blocks.size > 0 -%}
+  {%- for block in section.blocks -%}
+  <div class="huratips-testimonial-container">
+    <img src="{%- if block.settings.avatar == blank -%}//cdn.shopify.com/s/files/1/0382/4185/files/male.png?v=1613363122{%-else-%}{{ block.settings.avatar | img_url: '512x512' }}{%-endif-%}" alt="Avatar" style="width:90px">
+    {%- if block.settings.author != blank -%}<p><span>{{ block.settings.author }}</span> {{ block.settings.position }}</p>{%- endif -%}
+    {%- if block.settings.quote != blank -%}<p>{{ block.settings.quote }}</p>{%- endif -%}
+  </div>    
+  {%- endfor -%}
+  {%- endif -%}
+</section>
+<style>
+  .huratips-testimonial-container {
+    border: 2px solid #ccc;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  .huratips-testimonial-container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .huratips-testimonial-container img {
+    float: left;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+  .huratips-testimonial-container span {
+    font-size: 20px;
+    margin-right: 15px;
+  }
+ 
+  @media (max-width: 500px) {
+    .huratips-testimonial-container {
+      text-align: center;
+    }
+    .huratips-testimonial-container img {
+      margin: auto;
+      float: none;
+      display: block;
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "Testimonials",
+  "class": "index-section",
+  "max_blocks": 25,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Testimonials"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Text",
+          "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Author’s name"
+        },
+        {
+          "type": "text",
+          "id": "position",
+          "label": "Position"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

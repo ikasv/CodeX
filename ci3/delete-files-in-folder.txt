@@ -1,0 +1,49 @@
+   ######### 1. Visa Doc List Delete #######
+    public function delete_visa_upload_document($id)
+    {
+        $table          = 'tbl_doc_visa';
+        $directory      = 'public/images/user_docs/visa';
+        $this->get_data_and_delete_files($id, $table, $directory);
+       
+        $where            = "form_id='".$id."'";
+        $this->Action_model->delete_query($where,'tbl_doc_visa');
+
+        $this->session->set_userdata('error_msg','<div class="alert alert-success">Documents deleted successfully.</div>');
+        redirect('viadmin/sitedata/visa_list');     
+    
+    }
+    ######### End Visa Doc List Delete #######
+	
+	#********** Delete Files From Folder *********************#
+
+    public function get_data_and_delete_files($id, $table, $directory)
+    {
+        $where              = "form_id='".$id."'";
+        $this->db->where($where);
+        $data['docs']       = $this->db->get($table)->row();
+        
+        $str                =  $data['docs']->doc_file;
+        $files_name_arr     = explode(',',$str);
+        $image_doc          = array(
+            $data['docs']->image1,$data['docs']->image2
+        );
+        
+        $final_zip_docs     = array_merge($image_doc, $files_name_arr);
+        $this->delete_all_documents_in_directory($directory, $final_zip_docs);
+    }
+
+    public function delete_all_documents_in_directory($directory, $final_zip_docs)
+    {
+        foreach($final_zip_docs as $files)
+        {
+            $image_file_path    =   FCPATH.''.$directory.'/'.$files;
+            if(is_file($image_file_path))
+            {
+                if (file_exists($image_file_path)) 
+                {
+                    unlink($image_file_path);
+                }
+            }
+        }
+    }
+    #********** End Delete Files From Folder *********************#

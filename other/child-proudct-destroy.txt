@@ -1,0 +1,25 @@
+$product = Product::findOrFail($id);
+
+            
+            # Check Child Products
+                if($product->product_type == 2 && $product->parent_id == 0):
+                    
+                    $total_child_prodcuts           =   Product::where('parent_id', $product->id)->count();
+                    
+                    if($total_child_prodcuts > 0):
+                        return "Unable to delete product because child products not deleted yet";
+                    endif;
+                
+                endif;
+                
+                if($product->product_type == 3 && $product->parent_id == 0):
+                    $group_child_products               =   Product::select('id', 'product_name', 'sku')->where('parent_id', $product->id)->get()
+                                                            ->makeHidden(['product_type_label', 'featured_image_full_url', 'featured_video_full_url']);
+                    
+                    $group_child_product_ids            =   data_get($group_child_products, '*.id');
+                    
+                    Product::destroy($group_child_product_ids);
+                endif;
+            # End Check Child Products
+            
+            $product->delete();

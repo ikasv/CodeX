@@ -1,0 +1,45 @@
+ 	<input type="checkbox" id="category-{{ $loop->iteration }}" class="category-filters" onchange="filter()" value="{{ str_replace('&', '&amp;', $category->name) }}">
+								
+ <div class="category">{{ $property->category->name }}</div>
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+    var options = {
+        valueNames: [ 'name', 'category' ]
+    };
+    
+    var properties = new List('properties-container', options);
+    
+    $('.sorting-select').on('change', function(){
+        var value = this.value;
+            if(value == 'a_to_z'){
+                properties.sort('name', { order:"asc" });
+            }
+            
+            if(value == 'z_to_a'){
+                properties.sort('name', { order:"desc" });
+            }
+    });
+    
+    // #### Filter
+    function filter(){
+        var categories      =   $('.category-filters:checked').map(function(){
+            return this.value;
+        }).get().join(',');
+        
+        var categoriesArray = categories.split(',');
+        
+        properties.filter(function(item){
+        
+            if(categories != ''){
+                if(categoriesArray.includes(item.values().category) == false){
+                    return false;
+                }
+            }
+            
+            return true;
+            
+        });
+    }
+    // #### End Filter
+</script>

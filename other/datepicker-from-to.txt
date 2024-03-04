@@ -1,0 +1,21 @@
+     $('#datefrom').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd-mm-yyyy',
+            minDate: new Date(),
+            showOn: 'button',
+            onSelect: function (selected) {
+            }
+        }).on("change", function() {
+
+            $("#dateto").datepicker("destroy");  
+            var d = $('#datefrom').val();
+            var parts =d.split('-');
+            var md = new Date(parts[2], parts[1] - 1, ++parts[0]);
+            console.log("dateto:"+md);
+            $('#dateto').datepicker({
+                uiLibrary: 'bootstrap4',
+                format: 'dd-mm-yyyy',
+                minDate: md
+            });
+
+        });

@@ -1,0 +1,52 @@
+
+
+################################### FILE : Controller  ########################################
+
+# Upload File
+        
+            ## Featured Image
+                $featured_image                         =   uploadFile($request, 'featured_image', 'featured_image');
+            ## Featured Image
+
+            ## Gallery Images
+                $gallery_images                         =   array();
+                $gallery_image_count                                  =   1;
+                
+                foreach($request->gallery_images as $gallery_image):
+                    
+                    $single_image                       =   uploadFile($request, "gallery_images.$gallery_image_count.image", 'gallery_images');
+                    
+                    $gallery_images[]                   =   array(
+                                                                    'id'            =>  $gallery_image_count,
+                                                                    'image'         =>  $single_image,
+                                                                    'alt'           =>  $gallery_image['alt']
+                                                                );
+                    $gallery_image_count++;
+                endforeach;
+            ## Gallery Images
+        # Upload File
+
+################################### FILE : helpers.php  ########################################
+use Illuminate\Support\Facades\Storage;
+
+# Upload Image
+    if(!function_exists('uploadFile')) {
+      function uploadFile($request, $file, $path = ''){
+        $file_name              =   "";
+        if($request->hasFile($file)):
+            $img                            =   $request->file($file);
+            $file_name                      =   uniqid().'.'.$img->extension();
+            $path                           .=  '/';
+            
+            Storage::disk('public')->put($path.$file_name, file_get_contents($request->{$file}));
+        else:
+          $file_name        = $request->{'old_'.$file};
+
+          if($path == 'gallery_images'):
+            $file_name        = $request->{str_replace('.image', '.old_image', $file)};
+          endif;
+        endif;
+        return $file_name;
+    }
+    }
+  # End Upload Image

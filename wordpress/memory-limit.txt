@@ -1,0 +1,6 @@
+
+# Show errors in wordpress
+define( 'WP_DEBUG', true );
+
+# Memory Limit ( Critical issue as shown in wordpress)
+ini_set('memory_limit', '1024M');

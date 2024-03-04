@@ -1,0 +1,18 @@
+=> Auth\LoginController.php
+
+
+    protected function authenticated()
+    {
+        $user = auth()->user();
+        $user->is_login = 1;
+        $user->save();
+    }
+
+    protected function logout()
+    {
+        $user = auth()->user();
+        $user->is_login = 0;
+        $user->save();
+        Auth::logout();
+        return redirect()->to('/');
+    }

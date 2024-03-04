@@ -1,0 +1,47 @@
+app\View\Components\BaggageAndFareRulesInfoModal.php
+
+#->
+<?php
+
+namespace App\View\Components;
+
+use Illuminate\View\Component;
+
+class BaggageAndFareRulesInfoModal extends Component
+{
+    public $baggageId;
+    public $fareRuleId;
+    public $fareRuleInfo;
+    public $baggageInfo;
+    
+    public function __construct($baggageId, $fareRuleId, $fareRuleInfo, $baggageInfo)
+    {
+        $this->baggageId        =   $baggageId;
+        $this->fareRuleId       =   $fareRuleId;
+        $this->fareRuleInfo       =   $fareRuleInfo;
+        $this->baggageInfo       =   $baggageInfo;
+    }
+    
+    public function baggageDetails(){
+        return $this->baggageInfo->Response->Results->Segments[0];
+    }
+    
+    public function fareRuleDetails(){
+        return $this->fareRuleInfo->Response->FareRules;
+    }
+    
+    public function render()
+    {
+        return view('components.baggage_and_fare_rules_info_modal');
+    }
+}
+?>
+#<-
+
+resources\view\components\baggage_and_fare_rules_info_modal.blade.php
+
+#-> HTML ( Same syntax use for variable and function )
+	{{ $baggageId }}
+#<-
+
+<x-baggage-and-fare-rules-info-modal baggageId="baggageInfoModal" fareRuleId="fareRulesInfoModal" :baggageInfo="$fareQuoteResponseJson" :fareRuleInfo="$fareRuleResponseJson"/>

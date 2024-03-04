@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        background-color: #000;
+    }
+    .sun-icon {
+        width: 500px;
+    }
+
+    .rotating {
+        -webkit-animation: rotating 10s linear infinite;
+        animation: rotating 10s linear infinite;
+    }
+
+    /*! CSS Used keyframes */
+    @-webkit-keyframes rotating {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+
+    @keyframes rotating {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(1turn);
+        }
+    }
+
+    @-webkit-keyframes marquee-data-v-7e5b6e18 {
+        to {
+            transform: translateX(100%);
+        }
+    }
+
+    @keyframes marquee-data-v-7e5b6e18 {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(100%);
+        }
+    }
+
+    @-webkit-keyframes marquee2-data-v-7e5b6e18 {
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes marquee2-data-v-7e5b6e18 {
+        0% {
+            transform: translateX(-200%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+</style>
+
+<body>
+    <img src="https://synchronized.studio/sun.svg" alt="Synchronized Star" class="sun-icon rotating" data-v-c2a89286=""
+        data-v-3bf69df4="">
+</body>
+
+</html>

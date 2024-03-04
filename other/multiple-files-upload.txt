@@ -1,0 +1,38 @@
+
+	const [test_image, setTestImage] = useState([]);
+  
+	useEffect(() => {
+		console.log("File has been set.");
+		console.log(test_image);
+	},[test_image]);
+  
+    const formData = new FormData();
+	formData.append("name", 'test name');
+	
+	Array.from(test_image).forEach(image => {
+		formData.append(`test_image[]`, image);
+	})
+
+	<input
+        onChange={onImageChange}
+        // onChange={(e) => setTestImage(e.target.files[0])}
+        // onChange={ (e) => console.log(JSON.stringify(e.target.files)) }
+        type="file"
+        className="form-control"
+        value ={""}
+        multiple
+    />
+	
+	         if ( ( isset( $request->test_image ) ) && ( $request->test_image != NULL ) ) {
+            
+            foreach ($request->test_image as $image) {
+                // $image          =   $request->test_image;
+                $extention      =   $image->getClientOriginalExtension();
+                $filename       =   getRandomFileName( $extention );
+                $relativePath   =   'vendor/' .$filename;
+                Storage::disk( getFileDisk() )->put( $relativePath, file_get_contents( $image ), 'public' );
+            }    
+                // return $filename;
+            }
+            
+        return 'uploaded successfully';

@@ -1,0 +1,6 @@
+	public function scopeWhereLike($query, $column, $value){
+		return $query->where($column, 'like', "%$value%");
+	}
+	
+	# Use
+	$properties->whereLike('name', $request->search);

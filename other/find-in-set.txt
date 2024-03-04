@@ -1,0 +1,1 @@
+$products->whereRaw('FIND_IN_SET('.(int)$category->id.', products.category_ids)');

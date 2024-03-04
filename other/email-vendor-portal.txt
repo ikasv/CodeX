@@ -1,0 +1,36 @@
+# Send Mail - Vk
+if (!function_exists('sendMail')) {
+    function sendMail_old($mailto = 'sudhir@honeycombindia.net', $mailsubject = 'Mail Subject', $mailhtml = '<p>html body</p>', $mailfrom = '' ){
+        
+        if($mailfrom == ''):
+            env('MAIL_FROM_ADDRESS');
+        endif;
+        
+        $mail           =   Mail::send(array(), array(), function ($message) use ($mailto ,$mailfrom ,$mailsubject ,$mailhtml ) {
+                                $message->to($mailto)
+                                // $message->to(['sudhir@honeycombindia.net', 'johnsmith2k22s@gmail.com'])
+                                ->subject($mailsubject)
+                                ->html($mailhtml);
+                            });
+
+        return true;
+    }
+}
+# End Send Mail - Vk
+
+# Send Mail - D
+if (!function_exists('sendMail')) {
+    function sendMail($to = 'sudhir@honeycombindia.net', $mailsubject = 'Mail Subject', $content = '<p>html body</p>', $mailfrom = '' ){
+            
+            Mail::send([],[], function ($mail) use ($mailsubject, $content, $to)
+            {
+                $mail->to($to)
+                    ->subject($mailsubject)
+                    ->setBody($content, 'text/html');
+                    $mail->from('no-reply@honeycombindia.net', 'Your little list');
+            });
+            
+            return true;
+    }
+}
+# End Send Mail - D

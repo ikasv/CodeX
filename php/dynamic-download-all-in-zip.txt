@@ -1,0 +1,74 @@
+<?php
+    include 'app/connect.php';
+    
+    $arr                    = array();
+ 
+    #create zip and download
+    $zip                    = new ZipArchive();
+    $time                   = time();
+    $filename               = "all_documents_$time.zip";
+    
+    if ($zip->open($filename, ZIPARCHIVE::CREATE) !== TRUE) {
+        exit("cannot open <$filename>\n");
+    }
+    
+    if(isset($_POST['twelfth_marksheet_zip'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/twelfth_marksheet/".$_POST['twelfth_marksheet_file'], "12th-marksheet-".$_POST['twelfth_marksheet_file']);
+    endif;
+    
+    if(isset($_POST['aadhar_card_of_student_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/aadhar_card_of_student/".$_POST['aadhar_card_of_student_file'], "student-aadhar-card-".$_POST['aadhar_card_of_student_file']);
+    endif;
+    
+    if(isset($_POST['aadhar_card_of_parent_guardian_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/aadhar_card_of_parent_guardian/".$_POST['aadhar_card_of_parent_guardian_file'], "parent-guardian-aadhar-card-".$_POST['aadhar_card_of_parent_guardian_file']);
+    endif;
+    
+    if(isset($_POST['address_proof_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/address_proof/".$_POST['address_proof_file'], "address-proof-".$_POST['address_proof_file']);
+    endif;
+    
+    if(isset($_POST['pan_card_of_parents_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/pan_card_of_parents/".$_POST['pan_card_of_parents_file'], "parent-pan-card-".$_POST['pan_card_of_parents_file']);
+    endif;
+    
+    if(isset($_POST['bank_passbook_of_student_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/bank_passbook_of_student/".$_POST['bank_passbook_of_student_file'], "student-bank-passbook-".$_POST['bank_passbook_of_student_file']);
+    endif;
+    
+    if(isset($_POST['bank_passbook_of_parent_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/bank_passbook_of_parent/".$_POST['bank_passbook_of_parent_file'], "parent-bank-passbook-".$_POST['bank_passbook_of_parent_file']);
+    endif;
+    
+    if(isset($_POST['income_certificate_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/income_certificate/".$_POST['income_certificate_file'], "income-certificate-".$_POST['income_certificate_file']);
+    endif;
+    
+    if(isset($_POST['form_sixteenth_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/form_sixteenth/".$_POST['form_sixteenth_file'], "form-16-".$_POST['form_sixteenth_file']);
+    endif;
+    
+    if(isset($_POST['tc_zip'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/tc/".$_POST['tc_file'], "tc-".$_POST['tc_file']);
+    endif;
+    
+    if(isset($_POST['migration_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/migration/".$_POST['migration_file'], "migration".$_POST['migration_file']);
+    endif;
+    
+    if(isset($_POST['caste_certification_file'])):
+        $zip->addFile(__DIR__ . "/images/dother_doc/caste_certification/".$_POST['caste_certification_file'], "caste-certificate-".$_POST['caste_certification_file']);
+    endif;
+    
+    $zip->close();
+    
+    header("Content-type: application/zip");
+    header("Content-Disposition: attachment; filename=$filename");
+    header("Content-length: " . filesize($filename));
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    readfile($filename);
+    
+    // echo json_encode($arr);
+    
+?>

@@ -1,0 +1,225 @@
+<?php 
+    include "app/admin/header.php";
+?>        
+
+<!-- CSS -->
+<style>
+    input.error { border: 1px solid red !important; }
+    label.error {color: red !important; font-size: 15px !important; font-weight: 500 !important; }
+    .fa { cursor: pointer; }
+</style>
+<!-- End CSS -->
+
+<!-- Tags List -->
+<section class="content-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-4 table-responsive">
+                    <div class="card-header bg-primary d-flex">
+                        <div class="col">
+                            <h2>Tags</h2>
+                        </div>
+                    
+                        <div class="col col text-right align-self-center">
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#tagModal" data-backdrop="static" data-keyboard="false">Add</button>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <table id="tags-table" class="table table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th width="10%">#</th>
+                                    <th>Tag</th>
+                                    <th width="10%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    # Fetch Data
+                                        $sql        =   "select id,name from tags order by id desc";
+                                        $result     =   mysqli_query($mysql, $sql);
+                                        $i          =   1;
+                                        foreach($result as $row):
+                                    # End Fetch Data
+                                ?>
+                                <tr>
+                                    <th><?= $i; ?></th>
+                                    <th class="text-left"><?= $row['name']; ?></th>
+                                    <th>
+                                        <i class="fa fa-edit text-info px-2" onclick="editTag(<?= $row['id']; ?>)"></i>
+                                        <i class="fa fa-trash text-danger px-2" onclick="deleteTag(<?= $row['id']; ?>)"></i>
+                                    </th>
+                                </tr>
+                                <?php 
+                                    $i++;
+                                    endforeach;
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Tags List -->
+
+<!-- Modal -->
+<div class="modal fade" id="tagModal" tabindex="-1" aria-labelledby="tagModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tagModalLabel">Tag</h5>
+                <button type="button" class="btn-close bg-transparent border-0" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <span class="ajax-msg"></span>
+                <form action="#" mehtod="post" id="tag-form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" name="id" id="tag-id">
+                            <input type="hidden" name="type" id="type" value="insert">
+                            <input type="text" class="form-control" placeholder="Enter tag name" id="tag-name" name="name">
+                        </div>
+                        <div class="col-md-12 text-center mt-3">
+                            <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<?php 
+    include "app/admin/footer.php";
+?>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+        var table = $('#tags-table').DataTable();
+    $(document).ready(function(){
+        
+        // Close Modal
+        $('.btn-close').click(function(){
+            $('#tag-form')[0].reset();
+            $('#type').val('insert');
+            $('#tag-id').val('');   
+            $('.ajax-msg').html('');
+        });
+        // End Close Modal
+        
+        $("#tag-form").validate({
+        rules: {
+            name: {
+                required: true,
+            },
+        },
+        messages: {
+            name: {
+              required: "Please enter a tag name",
+        }
+    },
+    submitHandler: function(form) {
+        var expform     =   document.getElementById('tag-form');
+        var fd          =   new FormData(expform);
+        $.ajax({
+            type: "POST",
+            url: "<?= home_asset(); ?>/ajax/tag.php",
+            data: fd,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $('.submit-btn').prop('disabled', true);
+            },
+            success: function(data) {
+                $('#tag-form')[0].reset();
+                $('.submit-btn').prop('disabled', false);
+                
+                if(data.status == true){
+                    $('.ajax-msg').html('<div class="alert alert-success">'+data.message+'<div>');
+                }
+                
+                if(data.status == false){
+                    $('.ajax-msg').html('<div class="alert alert-danger">'+data.message+'<div>');
+                }
+                
+              reload_page();
+                
+            },
+            error: function() {
+                alert('Some Error Occured.');
+            }
+        });
+    }
+});
+        
+        
+    });
+    
+    // Edit Tag
+         function editTag(id){
+             
+                $('#type').val('update');
+             
+                $.ajax({
+                    type: "POST",
+                    url: "<?= home_asset(); ?>/ajax/tag.php",
+                    data: {type:'single', id:id},
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status == true){
+                            $('#tag-id').val(id);   
+                            $('#tag-name').val(data.data.name); 
+                            $('#tagModal').modal('show');
+                        }
+                        
+                        if(data.status == false){
+                            alert("some error occured");
+                        }
+                    },
+                    error: function() {
+                        alert('Some Error Occured.');
+                    }
+            });   
+        }
+        // End Edit Tag
+        
+        // Delete Tag
+        function deleteTag(id){
+            
+            if(confirm("Are you sure!")){
+                
+                $.ajax({
+                    type: "POST",
+                    url: "<?= home_asset(); ?>/ajax/tag.php",
+                    data: {type:'delete', id:id},
+                    dataType: 'json',
+                    success: function(data) {
+                        if(data.status == true){
+                            alert(data.message);
+                           reload_page();
+                        }
+                        
+                        if(data.status == false){
+                            alert("some error occured");
+                        }
+                    },
+                    error: function() {
+                        alert('Some Error Occured.');
+                    }
+                });  
+            
+            }
+        }
+        // End Delete Tag
+        
+        function reload_page(){
+                            setTimeout(function(){
+                      location.reload();
+                },500);
+        }
+</script>

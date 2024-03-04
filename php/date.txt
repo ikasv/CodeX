@@ -1,0 +1,5 @@
+date_default_timezone_set("Asia/Kolkata");
+
+date('d-M-Y',strtotime($created_at))
+
+<?= date('d M, Y h:i a', strtotime($result['created_at'])); ?>

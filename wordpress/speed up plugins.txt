@@ -1,0 +1,3 @@
+WP Fastest Cache
+Smush – Lazy Load Images, Optimize & Compress Images
+a3 Lazy Load

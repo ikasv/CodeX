@@ -1,0 +1,14 @@
+https://larainfo.com/blogs/how-to-generate-dummy-fake-data-using-factory-in-laravel-9    
+https://github.com/fzaninotto/Faker
+	
+	public function definition()
+    {
+        return [
+            'product_id'    => Product::all()->random()->id,
+            'category_id'   => Category::all()->random()->id,
+            'user_id'       => User::all()->random()->id,
+        ];
+    }
+	
+	'name'          => $this->faker->name(),
+	'email'          => $this->faker->safeEmail(),

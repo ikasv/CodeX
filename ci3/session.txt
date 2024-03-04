@@ -1,0 +1,9 @@
+<!-- SESSION -->
+                                        <?php 
+                                            $session_msg = $this->session->userdata('session_msg');
+                                            if(isset($session_msg)):
+                                                echo $session_msg;
+                                                $this->session->unset_userdata('session_msg');
+                                            endif;
+                                        ?>
+                                        <!-- END SESSION -->

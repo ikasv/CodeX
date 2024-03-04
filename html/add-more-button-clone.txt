@@ -1,0 +1,277 @@
+json_encode($request->combo_product)
+$product->combo_details     =  json_decode($product->combo_details);
+{{-- Create View --}}
+************************ html *************** 
+						<div class="form-group combo-product-container d-none">
+							<div class="combo-product-wrapper">
+								<div class="row combo-product-row mt-2">
+									<div class="col">
+										<label>Month <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter total month" class="form-control combo_product_month" name="combo_product[0][month]" required>
+									</div>
+									<div class="col">
+										<label>Unit <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter Unit" class="form-control combo_product_unit" name="combo_product[0][unit]" required>
+									</div>
+
+									<div class="col">
+										<label>Discount <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter discount" class="form-control combo_product_discount" name="combo_product[0][discount]" required>
+									</div>
+
+									<div class="col">
+										<label>Price <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter price" class="form-control combo_product_price" name="combo_product[0][price]" readonly>
+									</div>
+									
+									<div class="col extra-col">
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-md-3 mt-3 p-0">
+								<button type="button" class="btn btn-primary" onclick="add_more()">Add More</button>
+							</div>
+				    	</div>
+						
+************************ end html ***************					
+
+************************ Jquery ***************
+
+// Combo
+
+function removeComboRow(el){
+	$(el).parents('.combo-product-row').remove();
+}
+
+checkIsCombo();
+
+function isCombo(){ checkIsCombo(); }
+
+function checkIsCombo(){
+	if($('.combo-checkbox').is(":checked")){
+		$('.combo-product-container').removeClass('d-none');
+	}else{
+		$('.combo-product-container').addClass('d-none');
+	}
+} 
+
+
+var count = 1;
+var remove_combo_btn_html = '';
+function add_more(){
+
+	remove_combo_btn_html	= 	'<div class="col text-center align-self-end">'+
+									'<button type="button" class="btn btn-danger remove-combo-btn w-100" onclick="removeComboRow(this)">Remove</button>'+
+								'</div>';
+
+	var combo_html = $('.combo-product-row').first().clone();
+	combo_html.find('.extra-col').remove();
+	combo_html.find('.combo_product_month').attr('name', "combo_product["+count+"][month]").val('');
+	combo_html.find('.combo_product_unit').attr('name', "combo_product["+count+"][unit]").val('');
+	combo_html.find('.combo_product_discount').attr('name', "combo_product["+count+"][discount]").val('');
+	combo_html.find('.combo_product_price').attr('name', "combo_product["+count+"][price]").val('');
+	combo_html.append(remove_combo_btn_html);
+	$(".combo-product-row").last().after(combo_html);
+	   count++; 
+}
+
+var original_combo_price, combo_product_unit, combo_product_discount = 0;
+
+$('#mrp_price, #price').on('keyup', function() {
+	if($('.combo-checkbox').is(":checked")){
+		$('.combo-product-row').each(function(){
+			var mrp_price				=	parseInt($('#mrp_price').val());
+			var sale_price 				= 	parseInt($('#price').val());
+		if(mrp_price != '' || sale_price != ''){
+			original_combo_price		=	( sale_price == '' ) ? mrp_price : sale_price ;
+			combo_product_unit			= 	parseInt($(this).find('.combo_product_unit').val());
+			combo_product_discount		= 	parseInt($(this).find('.combo_product_discount').val());
+			
+			original_combo_price		= 	original_combo_price * combo_product_unit;
+		
+			combo_price					= 	original_combo_price * ( combo_product_discount/100 );
+
+			$(this).find('.combo_product_price').val(original_combo_price - combo_price);
+		}
+		})
+	}
+});
+
+$('.combo-product-wrapper').on('keyup', '.combo-product-row .combo_product_unit, .combo-product-row .combo_product_discount', function() {
+	var mrp_price						= 	parseInt($('#mrp_price').val());
+	var sale_price 						= 	parseInt($('#price').val());
+		if(mrp_price != '' || sale_price != ''){
+			original_combo_price		=	( sale_price == '' ) ? mrp_price : sale_price ;
+			combo_product_unit			= 	parseInt($(this).parents('.combo-product-row').find('.combo_product_unit').val());
+			combo_product_discount		= 	parseInt($(this).parents('.combo-product-row').find('.combo_product_discount').val());
+			
+			original_combo_price		= 	original_combo_price * combo_product_unit;
+		
+			combo_price					= 	original_combo_price * ( combo_product_discount/100 );
+
+			$(this).parents('.combo-product-row').find('.combo_product_price').val(original_combo_price - combo_price);
+		}
+	});
+// ! Combo 
+
+************************ End Jquery ***************
+
+************************ Php ***************
+	$inputs['is_combo']             =   ($request->is_combo)? 1:0;
+    $inputs['combo_details']        =   ($request->combo_product)?json_encode($request->combo_product) : '';
+      
+************************ End php ***************
+
+{{-- End Create View --}}
+
+{{-- Edit View --}}
+				<div class="form-group combo-product-container d-none">
+							<div class="combo-product-wrapper">
+								@if($product->combo_details)
+									@foreach($product->combo_details as $row)
+										<div class="row combo-product-row mt-2">
+											<div class="col">
+												<label>Month <span class="text-danger">*</span></label>
+												<input type="number" placeholder="Enter total month" class="form-control combo_product_month" name="combo_product[{{ $loop->index }}][month]" value="{{ $row->month??'' }}" required>
+											</div>
+											<div class="col">
+												<label>Unit <span class="text-danger">*</span></label>
+												<input type="number" placeholder="Enter Unit" class="form-control combo_product_unit" name="combo_product[{{ $loop->index }}][unit]" value="{{ $row->unit??'' }}" required>
+											</div>
+
+											<div class="col">
+												<label>Discount <span class="text-danger">*</span></label>
+												<input type="number" placeholder="Enter discount" class="form-control combo_product_discount" name="combo_product[{{ $loop->index }}][discount]" value="{{ $row->discount??'' }}" required>
+											</div>
+
+											<div class="col">
+												<label>Price <span class="text-danger">*</span></label>
+												<input type="number" placeholder="Enter price" class="form-control combo_product_price" name="combo_product[{{ $loop->index }}][price]" value="{{ $row->price??'' }}" readonly>
+											</div>
+
+											@if($loop->index == 0)
+											<div class="col extra-col">
+											</div>
+											@endif
+
+											<div class="col text-center align-self-end {{ $loop->index == 0 ? 'd-none' : '' }}">
+												<button type="button" class="btn btn-danger remove-combo-btn w-100" onclick="removeComboRow(this)">Remove</button>	
+											</div>
+										</div>
+									@endforeach
+								@else
+								<div class="row combo-product-row mt-2">
+									<div class="col">
+										<label>Month <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter total month" class="form-control combo_product_month" name="combo_product[0][month]" required>
+									</div>
+									<div class="col">
+										<label>Unit <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter Unit" class="form-control combo_product_unit" name="combo_product[0][unit]" required>
+									</div>
+
+									<div class="col">
+										<label>Discount <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter discount" class="form-control combo_product_discount" name="combo_product[0][discount]" required>
+									</div>
+
+									<div class="col">
+										<label>Price <span class="text-danger">*</span></label>
+										<input type="number" placeholder="Enter price" class="form-control combo_product_price" name="combo_product[0][price]" readonly>
+									</div>
+									<div class="col extra-col">
+									</div>
+								</div>
+								@endif
+							</div>
+
+							<div class="col-md-3 mt-3 p-0">
+								<button type="button" class="btn btn-primary" onclick="add_more()">Add More</button>
+							</div>
+				    	</div>
+************************ Jquery ***************
+// Combo 
+
+checkIsCombo();
+
+function isCombo(){ checkIsCombo(); }
+
+function checkIsCombo(){
+	if($('.combo-checkbox').is(":checked")){
+		$('.combo-product-container').removeClass('d-none');
+	}else{
+		$('.combo-product-container').addClass('d-none');
+	}
+}
+
+var count = 1;
+
+function add_more(){
+	remove_combo_btn_html	= 	'<div class="col text-center align-self-end">'+
+									'<button type="button" class="btn btn-danger remove-combo-btn w-100" onclick="removeComboRow(this)">Remove</button>'+
+								'</div>';
+
+	var combo_html = $('.combo-product-row').first().clone();
+	combo_html.find('.extra-col').remove();
+	combo_html.find('.remove-combo-btn').parent().removeClass('d-none');
+	combo_html.find('.combo_product_month').attr('name', "combo_product["+count+"][month]").val('');
+	combo_html.find('.combo_product_unit').attr('name', "combo_product["+count+"][unit]").val('');
+	combo_html.find('.combo_product_discount').attr('name', "combo_product["+count+"][discount]").val('');
+	combo_html.append(remove_combo_btn_html);
+	$(".combo-product-row").last().after(combo_html);
+	   count++; 
+}
+
+function removeComboRow(el){
+	$(el).parents('.combo-product-row').remove();
+}
+
+
+var original_combo_price, combo_product_unit, combo_product_discount = 0;
+
+$('#mrp_price, #price').on('keyup', function() {
+	if($('.combo-checkbox').is(":checked")){
+		$('.combo-product-row').each(function(){
+			var mrp_price	= $('#mrp_price').val();
+	var sale_price = $('#price').val();
+		if(mrp_price != '' || sale_price != ''){
+			original_combo_price		=	( sale_price == '' ) ? mrp_price : sale_price ;
+			combo_product_unit			= 	$(this).find('.combo_product_unit').val();
+			combo_product_discount		= 	$(this).find('.combo_product_discount').val();
+			
+			original_combo_price		= 	original_combo_price * combo_product_unit;
+		
+			combo_price					= 	original_combo_price * ( combo_product_discount/100 );
+
+			$(this).find('.combo_product_price').val(original_combo_price - combo_price);
+		}
+		})
+	}
+});
+
+$('.combo-product-wrapper').on('keyup', '.combo-product-row .combo_product_unit, .combo-product-row .combo_product_discount', function() {
+	var mrp_price	= $('#mrp_price').val();
+	var sale_price = $('#price').val();
+		if(mrp_price != '' || sale_price != ''){
+			original_combo_price		=	( sale_price == '' ) ? mrp_price : sale_price ;
+			combo_product_unit			= 	$(this).parents('.combo-product-row').find('.combo_product_unit').val();
+			combo_product_discount		= 	$(this).parents('.combo-product-row').find('.combo_product_discount').val();
+			
+			original_combo_price		= 	original_combo_price * combo_product_unit;
+		
+			combo_price					= 	original_combo_price * ( combo_product_discount/100 );
+
+			$(this).parents('.combo-product-row').find('.combo_product_price').val(original_combo_price - combo_price);
+		}
+	});
+// ! Combo
+************************ End Jquery ***************
+
+************************ Php ***************
+    $update_array['is_combo']             =   ($request->is_combo)? 1:0;
+    $update_array['combo_details']        =   ($request->combo_product)?json_encode($request->combo_product) : '';      
+************************ End php ***************
+
+{{-- End View --}}

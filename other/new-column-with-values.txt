@@ -1,0 +1,2 @@
+ALTER TABLE long_holiday ADD (duplicate_date DATE);
+UPDATE long_holiday SET duplicate_date = STR_TO_DATE(start_date , '%d-%m-%Y');

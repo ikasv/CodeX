@@ -1,0 +1,38 @@
+################ Javascript
+function onInput() {
+    var val = document.getElementById("input").value;
+    var opts = document.getElementById('dlist').childNodes;
+    for (var i = 0; i < opts.length; i++) {
+      if (opts[i].value === val) {
+        // An item was selected from the list!
+        // yourCallbackHere()
+        alert(opts[i].value);
+        break;
+      }
+    }
+  }
+  
+############## Jquery
+    function onInput() {
+                             
+                    var val = document.querySelector(".search-input").value;
+                    var redirect_to             =   '';
+                    if($('#search option').length){
+                        $('#search option').map(function(){
+                            if (this.value === val) {
+                              redirect_to = $(this).data('slug');
+                                setTimeout(function(){document.location.href = redirect_to },500);
+                            }
+                        });
+                        
+                    }
+                  }
+                  
+  
+  ############# Html
+  <input type='text' oninput='onInput()' id='input' list='dlist' />
+
+<datalist id='dlist'>
+  <option value='Value1' data-slug="slug1">Text1</option>
+  <option value='Value2' data-slug="slug2">Text2</option>
+</datalist>

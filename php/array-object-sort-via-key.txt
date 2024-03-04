@@ -1,0 +1,2 @@
+$category = array_column($json_data->items, 'category');
+                array_multisort($category, SORT_DESC, $json_data->items);

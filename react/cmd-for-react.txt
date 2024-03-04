@@ -1,0 +1,9 @@
+npx create-react-app demo
+cd demo
+npm start
+
+npm install react-scripts
+
+npm install react-router-dom
+
+npm install react-contentful

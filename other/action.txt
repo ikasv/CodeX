@@ -1,0 +1,9 @@
+<td class="d-flex">
+                                            <a href="{{ route('couriers.edit', $courier->id) }}"><i class="fa fa-edit text-success px-2"></i></a>
+                                            
+                                            <form method="post" action="{{ route('couriers.destroy', $courier->id) }}" onsubmit="return confirm('Are you sure')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="fa fa-trash text-danger px-2 bg-transparent border-0"></button>
+                                            </form>
+                                        </td>

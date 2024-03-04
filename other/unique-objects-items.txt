@@ -1,0 +1,54 @@
+# Offer Products
+    public function offer_products(){
+        $arr                                =   array();
+        $offer_category_id                  =   $this->input->post('offer_categroy_id');
+        
+        $offer_products                     =   $this->Action_model->select_single('tbl_offer_group_product', array('offer_id' => $offer_category_id), array('json_data'));
+        
+        $items                              =   json_decode($offer_products->json_data);
+        
+        $unique_objects                     =   array();
+        $categories                     =   array();
+        $category                           =   array_column($items->items, 'category');
+        array_multisort($category, SORT_DESC, $items->items);
+
+        foreach($items->items as $item):
+                $item->image                =   base_url('uploads/groups/offer/banner/').$item->image;
+                
+                if (!in_array( $item->category, $unique_objects)) {
+                    $unique_objects[]               =   $item->category;
+                }
+        endforeach;
+
+        #
+        
+        $final_data         =   array();
+        
+        for($i=0;$i<count($unique_objects);$i++)
+        {
+            foreach($items->items as $item):
+                if($item->category==$unique_objects[$i])
+                {
+                    
+                   $products[]  =   array(
+                       'alt'                        =>  $item->alt,
+                       'url'                        =>  $item->url,
+                       'image'                        =>  base_url('uploads/groups/offer/banner/').$item->image,
+                                        'category'   => $item->category 
+                                            );
+                }
+        	endforeach;
+            $final_data[]   =   array("category"=>$unique_objects[$i],"items"=> $products);
+                        $products = array();
+          }
+        #
+        
+        if($offer_products):
+            $arr                            =   array('status'  => true, 'msg' => 'successfully fetched data', 'data' => $final_data);
+        else:
+            $arr                            =   array('status'  => false, 'msg' => 'Failed to fetched data');
+        endif;
+        
+         echo json_encode($arr);
+    }
+    # End Offer Products

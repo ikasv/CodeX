@@ -1,0 +1,182 @@
+vikas.softechure@gmail.com
+Vikas2k21
+
+Store Name : aaplidukan
+https://aaplidukan.myshopify.com/
+
+
+
+  <!-- CSS ================================================== -->
+  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'style.css' | asset_url | stylesheet_tag }}
+
+
+  <!-- End CSS ================================================== -->
+ {{ 'jquery-2.2.3.min.js' | asset_url | script_tag }}
+  <script src="{{ 'lazysizes.min.js' | asset_url }}" async="async"></script>
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  {{ 'modernizr.min.js' | asset_url | script_tag }}
+
+
+ {% include 'ajax-cart-template' %}
+
+{% section 'ajax-cart-template' %}
+
+######## Image Path #################
+{{ 'pattern-curve.svg' | asset_url }}
+####### End Image Path ##############
+
+######## Testimonial ################
+
+{% style %}
+img.testimonial__quotation-marks {
+    mix-blend-mode: soft-light;
+}
+
+section.section-testimonials{
+background-image:url({{ 'pattern-curve.svg' | asset_url }})
+}
+
+.slider{
+background-image:url({{ 'pattern-bg.svg' | asset_url }})
+}
+
+@media only screen and (max-width: 41em)
+.testimonial__quotation-marks {
+    width: 6rem;
+    height: 5rem;
+    top: -2.5rem;
+}
+{% endstyle %}
+
+<section class="section-testimonials" data-section-id="{{ section.id }}" data-section-type="testimonials">
+<h2>{{ section.settings.title }}</h2>
+    <div class="slider">
+      <div class="slider__slides">
+        
+  {%- if section.blocks.size > 0 -%}
+  {%- for block in section.blocks -%}
+        <div class="slider__slide slider__slide--1">
+          <figure class="testimonial slider__slide-content">
+            <blockquote class="testimonial__text">
+              <img class="testimonial__quotation-marks" src="{{ 'pattern-quotes.svg' | asset_url }} alt="Avatar">
+              {%- if block.settings.quote != blank -%}
+              <p class="testimonial__quote">
+                {{ block.settings.quote }}
+              </p>
+              {%- endif -%}
+              <cite class="testimonial__cite">
+                <span class="testimonial__cite--name">
+                  {%- if block.settings.author != blank -%}
+                  {{ block.settings.author }} </span>
+                <span class="testimonial__cite--role">{{ block.settings.position }}</span>
+                {%- endif -%}
+              </cite>
+            </blockquote>
+            <div class="testimonial__img">
+              <img class="testimonial__photo" src="{%- if block.settings.avatar == blank -%}//cdn.shopify.com/s/files/1/0382/4185/files/male.png?v=1613363122{%-else-%}{{ block.settings.avatar | img_url: '512x512' }}{%-endif-%}" alt="Avatar">
+            </div>
+          </figure>
+        </div>
+        
+  {%- endfor -%}
+  {%- endif -%}
+      </div>
+      
+
+      <div class="slider__buttons">
+        <div class="slider__button slider__button--prev">
+          <svg class="slider__button-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="18">
+            <path fill="none" stroke-width="3" d="M11 1L3 9l8 8" /></svg>
+        </div>
+        <div class="slider__button slider__button--next">
+          <svg class="slider__button-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="18">
+            <path fill="none" stroke-width="3" d="M2 1l8 8-8 8" /></svg>
+        </div>
+      </div>
+    </div>
+   
+  </section>
+
+{% schema %}
+{
+  "name": "Awesome Testimonials",
+  "class": "index-section",
+  "max_blocks": 25,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Testimonials"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Awesome Testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Text",
+          "default": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Author’s name"
+        },
+        {
+          "type": "text",
+          "id": "position",
+          "label": "Position"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        },
+        {
+          "type": "quote"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+
+{% javascript %}
+{% endjavascript %}
+######### End Testimonial###############
+ 
+ {% schema %}
+{
+"name": "Section name",
+"settings": [],
+"presets": [
+{
+"name": "Welcome Test 1",
+"category": "ADVANCED LAYOUT"
+}
+]
+}
+{% endschema %}

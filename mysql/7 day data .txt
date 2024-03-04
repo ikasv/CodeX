@@ -1,0 +1,4 @@
+$date = "Mar 03, 2011";
+$date = strtotime($date);
+$date = strtotime("+7 day", $date);
+echo date('M d, Y', $date);

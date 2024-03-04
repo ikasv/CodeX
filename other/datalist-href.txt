@@ -1,0 +1,21 @@
+        <input class="form-control bg-light border search-input" type="text" oninput='onInput()'
+                                        name="search" list="search" placeholder="Search for Medicines"
+                                        aria-label="Search" value="{{ request()->search }}" autocomplete="off">
+                                    <datalist id="search">
+
+                                    </datalist>
+		
+		function onInput() {
+                             
+                    var val = document.querySelector(".search-input").value;
+                    var redirect_to             =   '';
+                    if($('#search option').length){
+                        $('#search option').map(function(){
+                            if (this.value === val) {
+                              redirect_to = $(this).data('slug');
+                                setTimeout(function(){document.location.href = redirect_to },500);
+                            }
+                        });
+                        
+                    }
+                  }

@@ -1,0 +1,9 @@
+.tile--custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+  background-color: #eff1f5;
+}
+
+.tile--custom-scrollbar::-webkit-scrollbar-track{
+  border-radius: 3px;
+  background-color: transparent;
+}

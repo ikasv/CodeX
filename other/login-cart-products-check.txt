@@ -1,0 +1,19 @@
+# Session Cart Items
+                    $session_cart_itmes         =     getCartItems();
+                    $session_cart_items_arr     =   array();
+                    foreach($session_cart_itmes->cart_items as $session_cart_item):
+                        $session_cart_items_arr[]     =   $session_cart_item->id;
+                    endforeach;
+                # End Session Cart Items
+                
+                
+                Auth::guard('customer')->login($user);
+                
+                # Update Cart
+                $user_cart_itmes   =     getCartItems();
+                
+                foreach($user_cart_itmes->cart_items as $user_cart_itme):
+                    if(in_array($user_cart_itme->id, $session_cart_items_arr)):
+                        remove_cart_item($user_cart_itme->id, false);
+                    endif;
+                endforeach;

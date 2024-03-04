@@ -1,0 +1,40 @@
+  <script>
+
+        // window.addEventListener('load', ()=>{
+        //     Livewire.emit('refreshComponent');
+        // })
+        
+      
+        window.addEventListener('show_toast', data=>{
+             showToast(data.detail.message, data.detail.toast_color);
+                if("{{ app('request')->segment(1) }}" == 'products'){
+                    setTimeout(function(){
+                        location.reload();
+                    },500);
+                }
+        });
+
+    
+        //  Show Toast
+        function showToast(message, color){
+                $('.toast').toast('show');
+                $('.toast-body').html(message);    
+                $('.toast-body').addClass('bg-'+color); 
+        } 
+        //  End Show Toast
+
+    </script> 
+	
+	# Script
+		protected $listeners            =   ['refreshComponent' => '$refresh'];
+		public   $arr                   =   array();
+	
+		$this->arr                      =   array(
+                                                    'status'        =>  true,
+                                                    'message'       => 'Cart item removed successfully',
+                                                    'toast_color'   => 'success',
+                                                );
+		$this->dispatchBrowserEvent('show_toast', $this->arr);
+        $this->emit('refreshComponent');
+		
+	# End Script

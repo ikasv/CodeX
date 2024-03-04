@@ -1,0 +1,30 @@
+    $this->dispatchBrowserEvent('prescriptionContentChanged');
+		
+	window.addEventListener('prescriptionContentChanged', event => {
+
+      var owl = $(".recent-prescription-row .owl-carousel");
+      $(owl).trigger('destroy.owl.carousel'); // Destroy carousel instance
+      $(owl).html($(owl).find('.owl-stage-outer').html()).removeClass('owl-loaded'); // Destroy carousel instance part 2
+      $(owl).owlCarousel($(owl).data());
+      owl.owlCarousel({
+        margin: 15,
+        loop: false,
+        nav: true,
+        dots: false,
+
+        autoplay: false,
+        responsive: {
+          // breakpoint from 0 up
+          0: {
+            items: 2
+          },
+          // breakpoint from 768 up
+          576: {
+            items: 4
+          },
+          767: {
+            items: 4
+          },
+        }
+      });
+    });

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dark Mode</title>
+ <link rel="stylesheet" href="a.css" id="theme">
+
+
+</head>
+<body>
+	<button id="btn1">Page with Tag Color</button>
+	<!-- <button id="btn2">Page With White Content</button> -->
+	<span id="msg"></span>
+	<h1>Heading 1</h1>
+	<h2>Heading 2</h2>
+	<h3>Heading 3</h3>
+	<h4>Heading 4</h4>
+	<h5>Heading 5</h5>
+	<h6>Heading 6</h6>
+
+	<a href="#">www.google.com</a>
+	<p style="color:red">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
+</p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+  jQuery.fn.clickToggle = function(a, b) {
+    return this.on("click", function(ev) { [b, a][this.$_io ^= 1].call(this, ev) })
+  };
+
+  $('#btn1').clickToggle(function() {
+     $("#theme").attr('href','');
+     $("#theme").attr('href','dark.css');
+  },function(){
+     $("#theme").attr('href','');
+  });
+
+
+
+
+   // $('#btn2').clickToggle(function() {
+   // 	$("body").css({"background-color": "#333", "color": "#fff"});
+   //  },function(){
+   //  $("body").css({"background-color": "", "color": ""});	
+   //  });
+
+
+ 	 //    var color = {
+   // 	    				a   :"green",
+   // 	    				p   :"#fff",
+   // 	    				h1  :"#EA9F00" ,	
+   // 	    				h2  :"#0F0071" ,
+   // 	    				h3  :"#711B00" ,
+   // 	    				h4  :"#E3EE0F" ,
+   // 	    				h5  :"#BDC5FF" ,
+   // 	    				h6  :"#FFBDD1" ,
+   // 	                };
+     
+   // $('#btn1').clickToggle(function() {
+   //      /**********   Text Color Of Tags***********/
+   //  	$("body").css({"background-color": "#333", "color": "#fff"});
+   //  	$("a").css({"color"  : color['a']});
+   //  	$("p").css({"color"  : color['p']});
+   //  	$("h1").css({"color" : color['h1']});
+   //  	$("h2").css({"color" : color['h2']});
+   //  	$("h3").css({"color" : color['h3']});
+   //  	$("h4").css({"color" : color['h4']});
+   //  	$("h5").css({"color" : color['h5']});
+   //  	$("h6").css({"color" : color['h6']});
+   //      /**********  End Text Color Of Tags***********/
+   //  	},function(){
+   //  	/**********  Remove Text Color Of Tags ***********/
+   // 	    $("body").css({"background-color": "", "color": ""});
+   //  	$("a").css({"color": ""});
+   //  	$("p").css({"color": ""});
+	  // 	$("h1").css({"color": ""});
+   //  	$("h2").css({"color": ""});
+   //  	$("h3").css({"color": ""});
+   //  	$("h4").css({"color": ""});
+   //  	$("h5").css({"color": ""});
+   //  	$("h6").css({"color": ""});
+   //  	/********** End Remove Text Color Of Tags ***********/  
+   //  });
+
+
+
+    </script>
+</body>
+</html>

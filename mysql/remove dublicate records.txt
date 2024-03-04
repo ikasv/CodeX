@@ -1,0 +1,1 @@
+ALTER IGNORE TABLE airports ADD UNIQUE INDEX idx_name (code,name,cityCode)

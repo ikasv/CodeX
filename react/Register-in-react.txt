@@ -1,0 +1,169 @@
+# Form in react with validation
+
+Step 1 : 
+        a. npm i formik
+        b. npm i yup
+
+Step 2 :
+        a. import { Formik, Field, Form, ErrorMessage } from "formik";
+        b. import * as Yup from "yup";
+
+Step 3 :
+          <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ resetForm }) => (
+                  <Form>
+                    <div className="form-group">
+                      <label>Full Name</label>
+                      <Field name="name" type="text" className="form-control" />
+                      <ErrorMessage
+                        name="name"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+
+                    <div className="form-group mt-3">
+                      <label htmlFor="mobile"> Mobile </label>
+                      <Field
+                        name="mobile"
+                        type="text"
+                        className="form-control"
+                      />
+                      <ErrorMessage
+                        name="mobile"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+
+                    <div className="form-group  mt-3">
+                      <label htmlFor="email"> Email </label>
+                      <Field
+                        name="email"
+                        type="email"
+                        className="form-control"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group  mt-3">
+                      <label htmlFor="password"> Password </label>
+                      <Field
+                        name="password"
+                        type="password"
+                        className="form-control"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group  mt-3">
+                      <label htmlFor="confirmPassword">
+                        {" "}
+                        Confirm Password{" "}
+                      </label>
+                      <Field
+                        name="confirmPassword"
+                        type="password"
+                        className="form-control"
+                      />
+                      <ErrorMessage
+                        name="confirmPassword"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group form-check  mt-3">
+                      <Field
+                        name="acceptTerms"
+                        type="checkbox"
+                        className="form-check-input"
+                      />
+                      <label htmlFor="acceptTerms" className="form-check-label">
+                        I have read and agree to the Terms
+                      </label>
+                      <ErrorMessage
+                        name="acceptTerms"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="form-group my-4 text-center">
+                      <button type="submit" className="btn btn-primary">
+                        Register
+                      </button>
+                      &nbsp;
+                      <button
+                        type="button"
+                        onClick={resetForm}
+                        className="btn btn-warning float-right"
+                      >
+                        Reset
+                      </button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+
+Step 4 :  
+        const initialValues = {
+            name: "",
+            mobile: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            acceptTerms: false,
+        };
+
+Step 5 :
+        function validationSchema() {
+            return Yup.object().shape({
+                name: Yup.string().required("name is required"),
+                mobile: Yup.string()
+                    .required("Mobile Number is required")
+                    .min(10, "Mobile Number must be at least 10 characters")
+                    .max(10, "Mobile Number must not exceed 10 characters"),
+                email: Yup.string()
+                    .required("Email is required")
+                    .email("Email is invalid"),
+                password: Yup.string()
+                    .required("Password is required")
+                    .min(6, "Password must be at least 6 characters")
+                    .max(40, "Password must not exceed 40 characters"),
+                confirmPassword: Yup.string()
+                    .required("Confirm Password is required")
+                    .oneOf([Yup.ref("password"), null], "Confirm Password does not match"),
+                acceptTerms: Yup.bool().oneOf([true], "Accept Terms is required"),
+            });
+        }
+
+Step 6 :
+        function handleSubmit(data) {
+            console.log(JSON.stringify(data, null, 2));
+
+            var bodyFormData = new FormData();
+            bodyFormData.append("name", data.name);
+            bodyFormData.append("mobile", data.mobile);
+            bodyFormData.append("email", data.email);
+            bodyFormData.append("password", data.password);
+
+            axios({
+                    method: "post",
+                    url: "http://localhost/herbal/index.php",
+                    data: bodyFormData,
+                    headers: { "Content-Type": "multipart/form-data" },
+                }).then((res) => {
+                    console.log(res.data);
+            });
+        }
+
+           

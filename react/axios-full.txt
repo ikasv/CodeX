@@ -1,0 +1,28 @@
+ axios({
+      method: "post",
+      url: authOtp
+        ? "http://localhost/herbal/login.php"
+        : "http://localhost/herbal/index.php",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((res) => {
+      if (res.data.type == "otp-sent") {
+        if (res.data.status == "true") {
+          notifySuccess("Otp sent");
+          document.querySelector("#mobile").disabled = "disabled";
+        } else {
+          notifyDanger("Otp not sent ");
+        }
+
+        setauthOtp(res.data.otp);
+      }
+
+      if (res.data.type == "otp-verify") {
+        if (res.data.status == "true") {
+          notifySuccess("Otp verified");
+        } else {
+          notifyDanger("Otp incorrect");
+        }
+      }
+    });
+  }

@@ -1,0 +1,42 @@
+# Export Excel
+        if($orders){
+    		require_once(APPPATH.'third_party/PHPExcel/Classes/PHPExcel.php');
+    		require_once(APPPATH.'third_party/PHPExcel/Classes/PHPExcel/IOFactory.php');
+    		
+    		$objPHPExcel                    =   new PHPExcel();
+    		$writer                         =   PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+
+			ob_end_clean();
+			
+    		$objPHPExcel->setActiveSheetIndex(0);
+    		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+    		$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+    		$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+		
+    		$objPHPExcel->getActiveSheet()->setCellValue('A1', 'ID');
+    		$objPHPExcel->getActiveSheet()->setCellValue('B1', 'Email');
+    		$objPHPExcel->getActiveSheet()->setCellValue('C1', 'Created');
+
+		    $q                              =   2;
+            
+            foreach ($orders as $row):  
+                $objPHPExcel->getActiveSheet()->setCellValue('A'.$q, $row->id);
+                $objPHPExcel->getActiveSheet()->setCellValue('B'.$q, $row->email);
+                $objPHPExcel->getActiveSheet()->setCellValue('C'.$q, $row->created);
+                $q++;   
+            endforeach;
+		
+		    $objPHPExcel->getActiveSheet()->setTitle('Orders Analyse');
+
+    		// Save the spreadsheet
+    		//$writer->save('category.xlsx');
+	
+
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="subscribers-'.date("d-m-Y").'.xlsx"');
+			header('Cache-Control: max-age=0');
+			$writer->save('php://output');
+        }else {
+                    echo "No Records";
+                }
+        # End Export Excel

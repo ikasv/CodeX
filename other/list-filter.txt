@@ -1,0 +1,33 @@
+// #### Filter
+    function filter() {
+        var brands = $('.brand-filters:checked').map(function() {
+            return this.value;
+        }).get().join(',');
+
+        var categories = $('.category-filters:checked').map(function() {
+            return this.value;
+        }).get().join(',');
+
+        var brandsArray = brands.split(',');
+        var categoriesArray = categories.split(',');
+        
+        products.filter(function(item) {
+
+            if (brands != '') {
+                if (brandsArray.includes(item.values().brand) != false) {
+                    return true;
+                }
+            }
+
+            if (categories != '') {
+                var catValues  =   item.values().category;
+                if(categoriesArray.some(data => catValues.includes(data)) != false){
+                    return true;
+                }
+            }
+
+            return false;
+
+        });
+    }
+    // #### End Filter

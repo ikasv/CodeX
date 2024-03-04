@@ -1,0 +1,220 @@
+<style>
+    .clone-template{ background: aliceblue; position:relative;}
+    .remove-clone-template-row { position: absolute; top: 12px; right: 10px; background: red; color: #fff; padding: 8px; border-radius: 50%; font-size: 12px; cursor:pointer; }
+</style>
+
+<html>
+       <!-- Faq -->
+	   <div class="card">
+		<div class="card-header" id="headingThree">
+		  <h2 class="mb-0">
+			<button class="d-flex align-items-center justify-content-between btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+			  Frequently Asked Question
+			  <span class="fa-stack fa-2x">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+			  </span>
+			</button>
+		  </h2>
+		</div>
+		<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+		  <div class="card-body">
+				 <form  method="post" action="{{ route('product_faq_store') }}" id="how_faq" class="faq-form">
+					  @csrf
+						@if($faq_data)
+							@foreach($faq_data->items as $faq)
+								<div class="card p-4 clone-template" data-clone-template-id="{{ $loop->iteration }}">
+									@if($loop->index != 0)
+										<span class="remove-clone-template-row fa fa-trash" onclick="removeCloneTemplateRow(this)"></span>
+									@endif
+									<div class="row product-faq-row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="question">Question</label>
+												 <input type="hidden" name="product_id" value="{{ $product->id }}" required>
+												<input type="text" class="form-control question" placeholder="Enter question" name="faq[{{ $loop->iteration }}][question]" id="question" value="{{ $faq->question }}" required>
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="answer">Answer</label>
+											   <textarea class="form-control answer" placeholder="Enter answer" name="faq[{{ $loop->iteration }}][answer]" id="answer" required>{{ $faq->answer }}</textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							@endforeach
+						@else
+							<div class="card p-4 clone-template" data-clone-template-id="1">
+								<div class="row product-faq-row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="question">Question</label>
+									 <input type="hidden" name="product_id" value="{{ $product->id }}" required>
+									<input type="text" class="form-control question" placeholder="Enter question" name="faq[1][question]" id="question" required>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="answer">Answer</label>
+								   <textarea class="form-control answer" placeholder="Enter answer" name="faq[1][answer]" id="answer" required></textarea>
+								</div>
+							</div>
+						</div>
+							</div>
+						@endif
+						<div class="col-md-12 text-right">
+							<button type="button" class="btn btn-warning text-white" onclick="add_more(this, 'faq' ,'.faq-form')">Add More</button>
+						</div>
+							<div class="col-md-12">
+								<div class="form-group text-center">
+									<input type="submit" value="Submit" class="btn btn-primary">                                                
+								</div>
+							</div>
+					</form>
+		  </div>
+		</div>
+	</div>
+	<!-- End Faq -->
+	
+	<!-- Key Ingredients -->
+	<div class="card">
+		<div class="card-header" id="headingThree">
+		  <h2 class="mb-0">
+			<button class="d-flex align-items-center justify-content-between btn btn-link collapsed" data-toggle="collapse" data-target="#key_ingredients" aria-expanded="false" aria-controls="collapseThree">
+			  Key Ingredients
+			  <span class="fa-stack fa-2x">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+			  </span>
+			</button>
+		  </h2>
+		</div>
+		<div id="key_ingredients" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+		  <div class="card-body">
+				 <form  method="post" action="{{ route('product_key_ingredients') }}" id="key-ingredients-form" class="key-ingredients-form" enctype="multipart/form-data">
+						@csrf
+						<input type="hidden" name="product_id" value="{{ $product->id }}" required>
+						
+						@if($key_ingredients_data)
+							@foreach($key_ingredients_data->items as $key_ingredient)
+								<div class="card p-4 clone-template" data-clone-template-id="{{ $loop->iteration }}">
+									@if($loop->index > 0)
+										<span class="remove-clone-template-row fa fa-trash" onclick="removeCloneTemplateRow(this)"></span>
+									@endif
+									<div class="row product-faq-row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="images">Image</label>
+												<input type="hidden" name="product_id" value="{{ $product->id }}" required>
+												<input type="file" class="form-control images p-1" placeholder="Enter image" name="key_ingredients[{{ $loop->iteration }}][images]" id="images">
+												
+												<img src="{{ url('uploads/product/additional_info/key_ingredients').'/'.$key_ingredient->image }}" width="150px" height="150px" class="mt-2">
+											</div>
+										</div>
+									
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="heading">Heading</label>
+												<input type="text" class="form-control heading" placeholder="Enter heading" name="key_ingredients[{{ $loop->iteration }}][heading]" id="heading" value="{{ $key_ingredient->heading }}">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="form-group">
+												<label for="description">Description</label>
+											   <textarea class="form-control description" placeholder="Enter description" name="key_ingredients[{{ $loop->iteration }}][description]" id="description" required>{{ $key_ingredient->description }}</textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+							@endforeach
+						@else
+							<div class="card p-4 clone-template" data-clone-template-id="1">
+								<div class="row product-key_ingredients-row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="images">Image</label>
+											 <input type="hidden" name="product_id" value="{{ $product->id }}" required>
+											<input type="file" class="form-control images p-1" placeholder="Enter image" name="key_ingredients[1][images]" id="images" required>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="heading">Heading</label>
+											<input type="text" class="form-control heading" placeholder="Enter heading" name="key_ingredients[1][heading]" id="heading" required>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label for="description">Description</label>
+										   <textarea class="form-control description" placeholder="Enter description" name="key_ingredients[1][description]" id="description" required></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						@endif
+						<div class="col-md-12 text-right">
+							<button type="button" class="btn btn-warning text-white" onclick="add_more(this, 'key_ingredients' ,'.key-ingredients-form')">Add More</button>
+						</div>
+							<div class="col-md-12">
+								<div class="form-group text-center">
+									<input type="submit" value="Submit" class="btn btn-primary">                                                
+								</div>
+							</div>
+					</form>
+		  </div>
+		</div>
+	</div>
+	<!-- End Key Ingredients -->
+</html>
+
+<script>
+// Add More
+
+    function removeCloneTemplateRow(el){
+        $(el).parents('.clone-template').remove();
+    }
+
+    var remove_combo_btn_html                                                   =   ''; 
+    var clone_template_id                                                       =   0;
+
+    function add_more(e, type, parent_class){
+        
+        var clone_template                                                      =   $(e).parents(parent_class).find('.clone-template');
+        var last_clone_template_id                                              =   clone_template.last().attr('data-clone-template-id');
+    	var dublicate_clone_template                                            =   clone_template.first().clone();
+    	
+        next_clone_template_id                                                  =   parseInt(last_clone_template_id) + 1;
+                                        
+    	html_remove_current_clone_template_btn	                                = 	'<span class="remove-clone-template-row fa fa-trash" onclick="removeCloneTemplateRow(this)"></span>';
+    
+        modifyCloneTemplate(dublicate_clone_template, next_clone_template_id, type);
+    	
+    	dublicate_clone_template.append(html_remove_current_clone_template_btn);
+    	clone_template.last().after(dublicate_clone_template);
+    }
+    
+    function modifyCloneTemplate(dublicate_clone_template, clone_template_id, type){
+    	
+    	dublicate_clone_template.attr('data-clone-template-id', clone_template_id);
+        dublicate_clone_template.find('input[name="product_id"]').remove();
+    	
+    	switch(type){
+    	    case 'faq':
+                	dublicate_clone_template.find('.question').attr('name', "faq["+clone_template_id+"][question]").val('');
+                	dublicate_clone_template.find('.answer').attr('name', "faq["+clone_template_id+"][answer]").val('');
+    	        break;
+    	        
+    	    case 'key_ingredients':
+                	dublicate_clone_template.find('img').remove();
+                	dublicate_clone_template.find('.images').attr('name', "key_ingredients["+clone_template_id+"][images]").val('');
+                	dublicate_clone_template.find('.heading').attr('name', "key_ingredients["+clone_template_id+"][heading]").val('');
+                	dublicate_clone_template.find('.description').attr('name', "key_ingredients["+clone_template_id+"][description]").val('');
+    	        break;
+    	}
+     
+    }
+        
+    // End Add More
+
+</script>

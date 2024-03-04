@@ -1,0 +1,36 @@
+	# 1. Email will Send To Client
+	$message        = "<h2> We received your enquiry our concerned person get in touch with you.</h2>";
+	$from           = "vikas.softechure@gmail.com";
+	$to             = $this->input->post('email');
+	$subject        = "Your enquiry succefully submitted";
+	$site_name      = "GetMeds";
+	$this->sendEmail($message, $from, $to, $subject, $site_name);
+	# End Email will Send To Client
+
+	# 2. Email will Send To bd@getmeds.ph 
+	$message        =   "<h2>New Enquiry</h2>";
+	$message        .=  "<p>Name                : ".$this->input->post('name')."</p>";
+	$message        .=  "<p>Mobile              : ".$this->input->post('mobile')."</p>";
+	$message        .=  "<p>Email               : ".$this->input->post('email')."</p>";
+	$message        .=  "<p>Comapny Name        : ".$this->input->post('company_name')."</p>";
+	$message        .=  "<p>Details             : ".$this->input->post('details')."</p>";
+	$message        .=  "<p>Created at          : ".date('Y-m-d h:i:s')."</p>";
+	$from           = "vikas.softechure@gmail.com";
+	$to             = "bd@getmeds.ph";
+	$subject        = "Your enquiry succefully submitted";
+	$site_name      = "GetMeds";
+	$this->sendEmail($message, $from, $to, $subject, $site_name);
+	# End Email will Send To Client
+
+    # Email Functionality
+    private function sendEmail($message, $from, $to, $subject, $siteName = "")
+    {
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        $this->email->from($from ,$siteName);
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        $this->email->send();
+    }
+    # End Email Functionality

@@ -1,0 +1,15 @@
+ <!-- Student Profile Updated Or Not -->
+     <?php 
+        $isProfileUpdated   =   false;
+        $profile_sql        =   "SELECT s.name, s.mobile, s.email, s.gender, s.state, s.city, s.category, s.religion, s.eligibility_id, s.perchantage_cgpa, s.interested_in_course FROM stulogin as s WHERE `id` = $user_id";
+        $profile_result     =   mysqli_query($mysql, $profile_sql);
+        $profile_row        =   mysqli_fetch_assoc($profile_result);
+        
+        foreach($profile_row as $row){ if(empty($row)) $isProfileUpdated = true; }
+        if($isProfileUpdated): ?>       
+            <div class="alert alert-warning mx-4 f-18" role="alert">
+                <span>Update your profile.</span>
+                <a href="edit_profile.php" style="color: #b87a04;"><span class="alert-icon"><i class="fas fa-solid fa-arrow-right"></i></span></a>
+            </div> 
+        <?php endif; ?>
+    <!-- End Student Profile Updated Or Not -->

@@ -1,0 +1,1 @@
+.course-btn[aria-expanded=true] ~ .course-btn[aria-expanded=false] { display: none !important; }  

@@ -1,0 +1,1 @@
+onerror="this.onerror=null; this.src=`{{ asset('assets/images/gallery/2.jpg') }}`"

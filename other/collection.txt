@@ -1,0 +1,82 @@
+{
+  "wrapper": "div.collection-wrapper.wrapper",
+  "sections": {
+    "ebc74f3c-816a-443b-9745-5c500600677f": {
+      "type": "text--rich-text",
+      "settings": {
+        "colors": "white",
+        "title": "Welcome to our store",
+        "text": "<p>Use this text block to show store announcements, advertise products and collections, or simply welcome visitors to your store.<\/p>",
+        "text-align": "text-start",
+        "button_label": "",
+        "button_link": "",
+        "theme-padding": true,
+        "custom-class": ""
+      }
+    },
+    "collection-header": {
+      "type": "template--collection--header",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "disabled": true,
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title"
+      ],
+      "settings": {
+      }
+    },
+    "product-grid": {
+      "type": "template--collection",
+      "blocks": {
+        "product_card_image": {
+          "type": "product_card_image",
+          "settings": {
+            "enable_badges": true
+          }
+        },
+        "product_card_title": {
+          "type": "product_card_title",
+          "settings": {
+          }
+        },
+        "product_card_price": {
+          "type": "product_card_price",
+          "settings": {
+          }
+        },
+        "product_card_button": {
+          "type": "product_card_button",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "product_card_image",
+        "product_card_title",
+        "product_card_price",
+        "product_card_button"
+      ],
+      "settings": {
+        "products-per-page": 4,
+        "desktop-products-per-row": 3,
+        "mobile-products-per-row": "2",
+        "pagination_options": "pagination_default",
+        "desktop_position": "sidebar",
+        "enable_collection_title": true,
+        "enable_collection_description": true,
+        "enable_filtering": true,
+        "enable_sorting": true
+      }
+    }
+  },
+  "order": [
+    "ebc74f3c-816a-443b-9745-5c500600677f",
+    "collection-header",
+    "product-grid"
+  ]
+}

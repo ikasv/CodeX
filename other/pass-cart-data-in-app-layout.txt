@@ -1,0 +1,79 @@
+app\Providers\ContentServiceProvider.php
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Cart;
+use Auth;
+use Session;
+use Str;
+
+class ContentServiceProvider extends ServiceProvider
+{
+
+    public $nav_categories;
+    public $cart_items;
+    public $total;
+    
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot(Request $request)
+    {
+        $this->nav_categories     =    Category::where('show_menu', 1)->get();
+        
+       
+
+        view()->composer('layouts.app', function($view) {
+            
+             $this->cart_items          =   Product::select("products.id","products.product_name","products.price as sale_price","products.featured_image","carts.qty")
+                                            ->join('carts', 'carts.product_id', '=', 'products.id')
+                                            ->where('products.status',1);
+        
+            if(Auth::guard('customer')->check()){
+                 $this->cart_items->where('user_id', Auth::guard('customer')->user()->id);
+            }
+            else {
+               $this->cart_items->where('session_id', $this->getTempUser());
+            }
+        
+            $this->cart_items = $this->cart_items->get();
+            
+            $this->total          =   0;
+            foreach($this->cart_items as $cart_item):
+                $this->total      +=   $cart_item->sale_price * $cart_item->qty;
+            endforeach;
+            
+            $view->with(['nav_categories' => $this->nav_categories, 'cart_items' => $this->cart_items, 'cart_total' => $this->total]);
+        });
+    }
+    
+        public function getTempUser(){
+        $temp_user      =   '';
+        if(Session::has('temp_user')):
+            $temp_user  =  Session::get('temp_user');
+        else:
+            Session::put('temp_user', Str::random(40));
+            $temp_user = Session::get('temp_user');
+        endif;
+        
+        return $temp_user;
+    }
+}

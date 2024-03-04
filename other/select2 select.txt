@@ -1,0 +1,5 @@
+    $('.select2').select2({
+        placeholder: "Choose...",
+    });
+   
+    $('.select2').val(@json($subscription->beneficial_products)).trigger("change");

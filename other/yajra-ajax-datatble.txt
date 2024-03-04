@@ -1,0 +1,43 @@
+composer require yajra/laravel-datatables-oracle:^9.*
+
+<table id="products" class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th style="width: 50px;" class="text-center">#</th>
+			<th>Name</th>
+			<th>Sku</th>
+		</tr>
+	</thead>
+</table>
+
+<script>
+	$(function() {
+		$('#products').DataTable({
+			processing: true,
+        	serverSide: true,
+			ajax: "{{ url('admin/products') }}",
+			columns: [
+				{ data: 'DT_RowIndex', orderable: false, searchable: false },
+				{data: 'name', name: 'name'},
+				{data: 'sku', name: 'sku'},
+			]});
+	});
+</script>
+
+public function index(Request $request)
+    {
+        
+        if($request->ajax()):
+
+            $products   = Product::query();
+        
+            return datatables()
+                    ->eloquent($products)
+                    ->addIndexColumn()
+                    ->only(['id','name', 'sku'])
+                    ->setTotalRecords(Product::count())
+                    ->make();   
+            endif;
+        
+        return view('admin.products.index');
+    }

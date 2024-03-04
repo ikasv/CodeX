@@ -1,0 +1,22 @@
+
+
+<button id="capture">Download Pdf</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rasterizehtml/1.3.0/rasterizeHTML.min.js"
+    integrity="sha512-pPnrlhT4dr7X5NOJK5+FrLl4gaqyD+NO9irrfftdvN0QoKJ4nvBh8bcyWqoAbaG1PjsEJ1B6Z+RktPnUyxMngQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"
+    integrity="sha512-OqcrADJLG261FZjar4Z6c4CfLqd861A3yPNMb+vRQ2JwzFT49WT4lozrh3bcKxHxtDTgNiqgYbEUStzvZQRfgQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$('#capture').click(function() {
+    var options = {
+        'background': '#fff'
+    };
+    var pdf = new jsPDF('p', 'pt', 'a4');
+    pdf.addHTML($("#player-id-card-section"), 10, 10, options, function() {
+        pdf.save('pageContent.pdf');
+    });
+});
+</script>

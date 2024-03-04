@@ -1,0 +1,15 @@
+    # Money Format
+    if(!function_exists('money')):
+        function money($amount){
+            return number_format($amount, 2);
+        }
+    endif;
+    # End Money Format
+    
+    # Price with Tax
+    if(!function_exists('price_with_tax')):
+        function price_with_tax($amount){
+            return number_format($amount + ( $amount * TAX_AMOUNT ), 2);
+        }
+    endif;
+    # End Price with Tax

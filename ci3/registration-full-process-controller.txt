@@ -1,0 +1,107 @@
+# NGO Section
+        # => View
+        public function ngo_registration()
+        {
+            $this->load->view('admin/form/ngo-registration-form');
+        }
+
+        public function donor_forget_password()
+        {
+            $this->load->view('admin/form/donor-forgot-password');
+        }
+        
+        public function ngo_forget_password()
+        {
+            $this->load->view('admin/form/ngo-forgot-password');
+        }
+        # => End View
+     
+        # => Registration Process
+        public function ngo_registration_process($id = "")
+        {
+            $data = array(
+                'ngo_name'                      => $this->input->post('ngo_name'),
+                'authorized_person_name'        => $this->input->post('authorized_person_name'),
+                'ngo_site'                      => $this->input->post('ngo_site'),
+                'email'                         => $this->input->post('email'),
+                'mobile'                        => $this->input->post('mobile'),
+                'address'                       => $this->input->post('address'),
+                'password'                      => md5($this->input->post('password')),
+                'ip'                            => $this->input->ip_address()
+            );
+
+            if($this->input->post('password') != $this->input->post('confirmPassword'))
+            {
+                $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert">Password mismatch</div>');
+                redirect('admin/donor-registration');
+            }
+ 
+
+            if ($id !='') 
+            {
+                $st="month_id='".$id."'";
+                $this->Action_model->update_query($data, 'months', $st);
+                redirect('mtadmin/sitedata/month_single/'.$id);
+            }
+            else
+            {
+                $this->db->where('mobile',$data['mobile']);
+                $this->db->or_where('email',$data['email']);
+                $row = $this->db->get('tbl_ngo');
+                if($row->num_rows() > 0)
+                {
+                    $row_data = $row->row();
+                    $mobile   = $row_data->mobile;
+                    $email    = $row_data->email;
+                    if(empty($mobile) || $mobile == $data['mobile']) 
+                    { 
+                        $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert">Mobile already registered.</div>');
+                        redirect('admin/ngo-registration');
+                    }                
+                    else if(empty($email) || $email == $data['email']) 
+                    { 
+                        $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert">Email already registered.</div>');
+                        redirect('admin/ngo-registration');
+                    }
+                    else
+                    {
+                        $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert"><small>Alreday created account with given email and mobile.</small></div>');
+                        redirect('admin/ngo-registration');
+                    }
+                }
+                else
+                {
+                    $data['modify_at']  = date('Y-m-d h:i:s');
+                    $data['created_at'] = date('Y-m-d h:i:s');
+                    $this->Action_model->insert_data($data, 'tbl_ngo');
+                    $this->session->set_flashdata('error_msg', '<div class="alert alert-success">Resgistration Succesfully</div>');
+                    redirect('admin/login-ngo');
+                }
+            }
+        }
+        # => End Registration Process
+    
+        # => Login Process
+        public function ngo_process()
+        {
+            $username = $this->input->post('username');
+            $password = md5($this->input->post('password'));
+
+            $conditions =  "(email = '$username' OR mobile = '$username') AND password = '$password'";
+           
+            $this->db->where($conditions);
+            $query = $this->db->get('tbl_ngo');
+            if($query->num_rows() > 0)
+            {
+                $result = $query->row();
+                $this->session->set_userdata('login_id', $result->id);
+                redirect('admin');
+            }
+            else
+            {
+                $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert">Username 0r Password Incorrect. Please try again.</div>');
+                redirect('admin/login-ngo');
+            }
+        }
+        # => End Login Process
+    # End NGO Section

@@ -1,0 +1,3 @@
+   $date   =   Carbon::createFromFormat('Y-m-d H:i:s', '2023-04-05 06:18:51')->format('d-m-y');
+        $today  =   Carbon::createFromFormat('Y-m-d H:i:s', Carbon::today())->format('d-m-y');
+        return Carbon::parse($date)->eq($today);

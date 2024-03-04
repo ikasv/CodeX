@@ -1,0 +1,8 @@
+public function home(){
+        $response               =   Http::withHeaders([
+                                                        'Api-Key' => 'cefb8f2a-6e6d-4f5f-936e-a2accc5bb8df'
+                                                        ])
+                                    ->get('https://discountmedica.com/api/v1/home')->object();
+
+        return $response;
+    }

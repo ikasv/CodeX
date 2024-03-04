@@ -1,0 +1,6 @@
+var copyText = $('#referral_code').text();
+          navigator.share({
+              text: "Referral Code: "+copyText,
+              url: 'login-signup',
+              files: []
+            })

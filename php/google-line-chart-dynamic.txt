@@ -1,0 +1,173 @@
+<div class="col-md-12">
+            <?php
+                # Weekly
+                    $weekly_records                 =    "select * from mbbs_scholars WHERE clg_id = $user_id and created_at > DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+                    $result                         =   mysqli_query($mysql, $weekly_records);   
+                
+                    $monday_total_count             =   0;
+                    $monday_active_count            =   0;
+                    $monday_deactive_count          =   0;
+                
+                    $tuesday_total_count          =   0;
+                    $tuesday_active_count         =   0;
+                    $tuesday_deactive_count       =   0;
+                
+                
+                    $wednesday_total_count        =   0;
+                    $wednesday_active_count       =   0;
+                    $wednesday_deactive_count     =   0;
+                
+                    $thursday_total_count         =   0;
+                    $thursday_active_count        =   0;
+                    $thursday_deactive_count      =   0;
+                
+                    $friday_total_count           =   0;
+                    $friday_active_count          =   0;
+                    $friday_deactive_count        =   0;
+                
+                    $saturday_total_count         =   0;
+                    $saturday_active_count        =   0;
+                    $saturday_deactive_count      =   0;
+                
+                    $sunday_total_count           =   0;
+                    $sunday_active_count          =   0;
+                    $sunday_deactive_count        =   0;
+    
+    while($row             =   mysqli_fetch_assoc($result)){
+        
+        switch(strtolower(getWeekday($row['created_at']))):
+            case 'monday':
+                    $monday_total_count         += 1;
+                    $row['status']   ==  1 ? $monday_active_count  += 1 : $monday_active_count;
+                    $row['status']   ==  0 ? $monday_deactive_count  += 1 : $monday_deactive_count;
+                break;
+                    
+            case 'tuesday':
+                    $tuesday_total_count += 1;
+                    $row['status']   ==  1 ? $tuesday_active_count  += 1 : $tuesday_active_count;
+                    $row['status']   ==  0 ? $tuesday_deactive_count  += 1 : $tuesday_deactive_count;
+                break;
+
+            case 'wednesday':
+                    $wednesday_total_count += 1;
+                    $row['status']   ==  1 ? $wednesday_active_count  += 1 : $wednesday_active_count;
+                    $row['status']   ==  0 ? $wednesday_deactive_count  += 1 : $wednesday_deactive_count;
+                break;
+
+            case 'thursday':
+                    $thursday_total_count += 1;
+                    $row['status']   ==  1 ? $thursday_active_count  += 1 : $thursday_active_count;
+                    $row['status']   ==  0 ? $thursday_deactive_count  += 1 : $thursday_deactive_count;
+                break;
+
+            case 'friday':
+                    $friday_total_count += 1;
+                    $row['status']   ==  1 ? $friday_active_count  += 1 : $friday_active_count;
+                    $row['status']   ==  0 ? $friday_deactive_count  += 1 : $friday_deactive_count;
+                break;
+
+            case 'saturday':
+                    $saturday_total_count += 1;
+                    $row['status']   ==  1 ? $saturday_active_count  += 1 : $saturday_active_count;
+                    $row['status']   ==  0 ? $saturday_deactive_count  += 1 : $saturday_deactive_count;
+                break;
+
+            case 'sunday':
+                    $sunday_total_count += 1;
+                    $row['status']   ==  1 ? $sunday_active_count  += 1 : $sunday_active_count;
+                    $row['status']   ==  0 ? $sunday_deactive_count  += 1 : $sunday_deactive_count;
+                break;
+        endswitch;
+
+    }  
+
+    function getWeekday($date) {
+        return date('l', strtotime($date));
+    }
+                # !Weekly
+            ?>
+            <div id="curve_chart" style="width: 100%; height: 400px"></div>
+        </div>
+    </div>
+	
+	
+	******************************
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+        // 
+        $monday_total_count             =   0;
+                    $monday_active_count            =   0;
+                    $monday_deactive_count          =   0;
+                
+                    $tuesday_total_count          =   0;
+                    $tuesday_active_count         =   0;
+                    $tuesday_deactive_count       =   0;
+                
+                
+                    $wednesday_total_count        =   0;
+                    $wednesday_active_count       =   0;
+                    $wednesday_deactive_count     =   0;
+                
+                    $thursday_total_count         =   0;
+                    $thursday_active_count        =   0;
+                    $thursday_deactive_count      =   0;
+                
+                    $friday_total_count           =   0;
+                    $friday_active_count          =   0;
+                    $friday_deactive_count        =   0;
+                
+                    $saturday_total_count         =   0;
+                    $saturday_active_count        =   0;
+                    $saturday_deactive_count      =   0;
+                
+                    $sunday_total_count           =   0;
+                    $sunday_active_count          =   0;
+                    $sunday_deactive_count        =   0;
+        // 
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Weekly'     , 'Total', 'Approved', 'Rejected'],
+          ['Monday'     , <?= $monday_total_count;?>    , <?= $monday_active_count;?>       , <?= $monday_deactive_count;?>],
+          ['Tuesday'    , <?= $tuesday_total_count;?>   , <?= $tuesday_active_count;?>      , <?= $tuesday_deactive_count;?>],
+          ['Wednesday'  , <?= $wednesday_total_count;?> , <?= $wednesday_active_count;?>    , <?= $wednesday_deactive_count;?>],
+          ['Thrusday'   , <?= $thursday_total_count;?>  , <?= $thursday_active_count;?>     , <?= $thursday_deactive_count;?>],
+          ['Friday'     , <?= $friday_total_count;?>    , <?= $friday_active_count;?>       , <?= $friday_deactive_count;?>],
+          ['Saturday'   , <?= $saturday_total_count;?>  , <?= $saturday_active_count;?>     , <?= $saturday_deactive_count;?>],
+          ['Sunday'     , <?= $sunday_total_count;?>    , <?= $sunday_active_count;?>       , <?= $sunday_deactive_count;?>]
+        ]);
+
+        var options = {
+          title: 'Admissions',
+          chart: {
+            title: 'Admissions',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+          pointSize: 5,
+          colors: ['blue', 'green', 'red',],
+          lineWidth: 2,
+          series: {
+              0: { lineWidth: 2 },
+              1: { lineWidth: 2 },
+              2: { lineWidth: 2 },
+          },
+          hAxis:{
+            title:'Weekly',
+             titleTextStyle: {color: 'red'},
+            },
+            vAxis:{
+              title:'Admissions Number',
+              titleTextStyle: {color: 'red'},
+          },
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>

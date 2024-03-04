@@ -1,0 +1,7 @@
+ Product::select('*')
+                                                            ->where('status', '1')
+                                                            ->where('category_ids', 'like', '%' . $shop_by_cat->id . '%')
+                                                            ->orWhere('category_ids', 'like', '%' . $shop_by_cat->id )
+                                                            ->orWhere('category_ids', 'like', '' . $shop_by_cat->id . '%')
+                                                            ->orWhere('category_ids', 'like', '' . $shop_by_cat->id . '')
+                                                            ->count();

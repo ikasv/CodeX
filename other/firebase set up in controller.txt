@@ -1,0 +1,37 @@
+# Get Order Data From Firebase
+    public function getFirebaseOrder(&$reference, $table = null){
+        
+        if($table):
+            $factory                =   (new Factory)
+                                            ->withServiceAccount(public_path('/admin-assets/farm-bandi-firebase-adminsdk-5ytkm-9dda42588f.json'))
+                                            ->withDatabaseUri('https://farm-bandi-default-rtdb.firebaseio.com/');
+                                
+            $firebase               =   $factory->createDatabase();
+            $reference              =   $firebase->getReference($table);
+            
+            $firebase_order         =   $reference->getSnapshot()->getValue();;
+            
+            return $firebase_order;
+        endif;
+        
+        return false;
+    }
+    # End Get Order Data From Firebase
+	
+	
+	# Update Order Data in Firebase 
+		$reference                              =   null;
+		$data                                   =   $this->getFirebaseOrder($reference, 'order');
+		
+			$driver_orders                      =   getDriverOrdersH($driver_id);
+			
+			
+			$data['loc_provider_' . $driver_id]['upcoming_orders'] = $driver_orders->upcoming_orders;
+			$data['loc_provider_' . $driver_id]['ongoing_orders'] = $driver_orders->ongoing_orders;
+			$data['loc_provider_' . $driver_id]['pickup_orders'] = $driver_orders->pickup_orders;
+			$data['loc_provider_' . $driver_id]['completed_orders'] = $driver_orders->completed_orders;
+	
+	
+	
+		$reference->set($data);
+	# End Update Order Data in Firebase

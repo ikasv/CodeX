@@ -1,0 +1,32 @@
+Name:
+testing my web
+
+Personal Access Token:
+CFPAT-2VhE3AW1PvHpx3gBZOZtkFxVolPU3-PcrXocRlqN2NQ
+
+
+
+name :
+testing
+
+Description :
+testing my web
+
+Space ID:
+kwouoam0q949
+
+Content Delivery API - access token
+DjaR74zVVvnGlGOeiNh5po-1u0JxzAOmHJkN1LOTCMI
+
+Content Preview API - access token
+6pnVoNpmxHgHHy_ymgPvWqZKKMIofCk-XeF6obxPWj0
+
+Environments:
+master
+
+
+Name :
+preview
+
+Description :
+Preview Description

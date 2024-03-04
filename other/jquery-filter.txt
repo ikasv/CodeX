@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row pt-5">
+            <div id="products-list">
+                <input type="checkbox" class="sort-data" value="Ambla" id="ambla" onchange="filterData(this.value)">
+                <label for="ambla">Ambla</label><br>
+        
+                <input type="checkbox" class="sort-data" value="Aloevera" id="aloevera" onchange="filterData(this.value)">
+                <label for="aloevera">Aloevera</label><br>
+              
+                <ul class="list pt-3">
+                 <li>
+                   <p class="Product">Ambla</p>
+                 </li>
+                 <li>
+                   <p class="Product">Ambla</p>
+                 </li>
+                 <li>
+                   <p class="Product">Aloevera</p>
+                 </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script>
+
+var ProductsListNew = new List('products-list', {
+                      valueNames: ['Product'],
+                    });   
+
+    function filterData(e){
+        var productsList = $(".sort-data:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var productsListArray = productsList.split(',');
+         
+        ProductsListNew.filter(function(item) {
+        result = true;
+            if (productsList != "") {
+                /*if(productsListArray.includes(item.values().Product)==false){
+                    result = false;
+                }*/
+		 
+		if(productsListArray.some(data=> item.values().Product.includes(data))==false){
+                    result = false;
+                }
+        }
+        return result;
+        
+        });
+    }
+</script>
+</html>

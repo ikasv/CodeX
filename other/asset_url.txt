@@ -1,0 +1,1 @@
+ASSET_URL=${APP_URL}/public

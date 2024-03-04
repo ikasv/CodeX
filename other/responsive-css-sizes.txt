@@ -1,0 +1,24 @@
+ /* For Small Devices */
+    @media( max-width:480px){
+        .text.package-list p { font-size: 10px !important; }
+    }
+
+   /* For Tablets or iPad */
+    @media(min-width:480px) and ( max-width:768px){
+        .text.package-list p { font-size: 14px !important; }
+    }
+   
+    /* For Laptop or small-size screen */
+    @media(min-width:768px) and ( max-width:1024px){
+        .text.package-list p { font-size: 10px !important; }
+    }
+   
+    /* For Desktop or large-size screen */
+    @media(min-width:1024px) and ( max-width:1200px){
+        .text.package-list p { font-size: 10px !important; }
+    }
+   
+    /* For Extra-large size device */
+    @media(min-width:1200px){
+        .text.package-list p { font-size: 14px !important; }
+    }

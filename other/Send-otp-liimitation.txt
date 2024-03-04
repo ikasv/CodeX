@@ -1,0 +1,67 @@
+ # Send otp Limitations
+        public function isMobilAbleForRequestOtp($mobile){
+        
+            # Todays Request 
+                                                    $this->db->where('mobile', $mobile);
+                                                    $this->db->where ("DATE(`created_at`) = CURDATE()");
+                                                    $this->db->from('sent_sms');
+                                                    $this->db->order_by('id', 'desc');
+            $today_request_query                =   $this->db->get();
+            
+            $today_request_result               =   $today_request_query->result();
+            $today_request_count                =   $today_request_query->num_rows();
+            # Todays Request 
+            
+            # Hours Request 
+                                                    $this->db->select('id, created_at, CURRENT_TIMESTAMP() as `current_time`, HOUR(created_at) as `created_hour`, HOUR(CURRENT_TIMESTAMP()) as `current_hour`');
+                                                    $this->db->where('mobile', $mobile);
+                                                    $this->db->where ("DATE(`created_at`) = CURDATE()");
+                                                    $this->db->where ("HOUR(created_at) = HOUR(CURRENT_TIMESTAMP())");
+                                                    $this->db->from('sent_sms');
+                                                    $this->db->order_by('id', 'desc');
+            $hourly_request_query                =   $this->db->get();
+            
+            $hourly_request_result               =   $hourly_request_query->result();
+            $hourly_request_count                =   $hourly_request_query->num_rows();
+            
+            # Hours Request 
+            
+            # Seconds Request 
+                                                    $this->db->select('id, 
+                                                                        created_at, 
+                                                                        CURRENT_TIMESTAMP() as `current_time`, 
+                                                                        TIMESTAMPDIFF(SECOND, `created_at`, CURRENT_TIMESTAMP()) as `diff_seconds`'
+                                                                        );
+                                                    $this->db->where('mobile', $mobile);
+                                                    $this->db->where ("DATE(`created_at`) = CURDATE()");
+                                                    $this->db->where ("HOUR(created_at) = HOUR(CURRENT_TIMESTAMP())");
+                                                    $this->db->where ("TIMESTAMPDIFF(SECOND, `created_at`, CURRENT_TIMESTAMP()) <= 30");
+                                                    $this->db->from('sent_sms');
+                                                    $this->db->order_by('id', 'desc');
+            $seconds_request_query                =   $this->db->get();
+            
+            $seconds_request_result               =   $seconds_request_query->result();
+            $seconds_request_count                =   $seconds_request_query->num_rows();
+            
+            # Seconds Request 
+            
+            if($today_request_result && $today_request_count > 0):
+                if($today_request_count >= 10):
+                    // echo "Today's limit of 10 request used";
+                    return false;
+                endif;
+                    
+                if($hourly_request_count >= 3):
+                    // echo "Limit of 3 request in hour used";
+                    return false;
+                endif;
+              
+                if($seconds_request_count >= 1):
+                    // echo "Limit of 1 request in seconds used";
+                    return false;
+                endif;
+                    
+                    return true;
+             endif;
+        }
+        # End Send otp Limitations

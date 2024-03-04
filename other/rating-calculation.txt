@@ -1,0 +1,56 @@
+ # Rating
+    function getRating($reviews){
+
+        $rating         =   array();
+        $one_star         =   array();
+        $two_star         =   array();
+        $three_star         =   array();
+        $four_star         =   array();
+        $five_star         =   array();
+
+        foreach($reviews as $review):
+            
+            switch($review->rating):
+                case '1':
+                        $one_star[]         =   $review;
+                    break;
+                    
+                case '2':
+                        $two_star[]         =   $review;
+                    break;
+                    
+                case '3':
+                        $three_star[]       =   $review;
+                    break;
+                    
+                case '4':
+                        $four_star[]        =   $review;
+                    break;
+                    
+                case '5':
+                        $five_star[]        =   $review;
+                    break;
+            endswitch;
+            
+        endforeach;
+            
+        $score_total        =   ( count($one_star) * 1 ) + ( count($two_star) * 2 ) + ( count($three_star) * 3 ) + ( count($four_star) * 4 ) + ( count($five_star ) * 5 );    
+        $response_total     =   count($one_star) + count($two_star) + count($three_star) + count($four_star) + count($five_star);    
+        
+        if(count($reviews) > 0):
+            $average            =    number_format(( $score_total / $response_total ), 1). ' stars';
+        else:
+            $average            =    "No reviews" ;
+        endif;
+                    
+        $rating     = (object) array(
+                        'one'       => $one_star,
+                        'two'       => $two_star,
+                        'three'     => $three_star,
+                        'four'      => $four_star,
+                        'five'      => $five_star,
+                        'average'   => $average
+                        );  
+    return $rating;  
+    }
+    # End Rating

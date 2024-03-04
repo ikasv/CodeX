@@ -1,0 +1,12 @@
+    // Slug
+    
+    $('#slug').on('keyup', function(){
+        const SlugText          =   this.value;
+        const slug              =   SlugText.toLowerCase()
+                                         .replace(/ /g, '-')
+                                         .replace(/[^\w-]+/g, '');
+        
+        $('#slug').val(slug);
+    });
+    
+    // !Slug

@@ -1,0 +1,3 @@
+wget -qO- https://website4test.com/adriagate/hotel/store/update-today-hotels>/dev/null
+
+https://www.itsolutionstuff.com/post/laravel-8-cron-job-task-scheduling-tutorialexample.html

@@ -1,0 +1,209 @@
+## View
+       <?php 
+                                                if($id): 
+                                                    foreach($json_data->items as $i => $row):
+                                            ?>
+                                                <!-- Template -->
+                                                <div class="row mt-2 item" data-count="<?= $i; ?>">
+                                                    <div class="col-md-3">
+                                                        <label>Category</label>
+                                                        <select class="form-control category" name="items[<?= $i; ?>][category]" required>
+                                                            <option value="" disabled >Choose..</option>
+                                                            <?php foreach($offer_categories as $category_row): ?>
+                                                                <option value="<?= $category_row['name']; ?>" <?=  $category_row['name'] == $row->category ? 'selected' : '' ; ?>><?= $category_row['name']; ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-3">
+                                                        <label>Image <span class="img_size"></span></label>
+                                                        <input type="file" class="form-control p-1 file" name="items_<?= $i; ?>_image" id="image1" accept="image/*"  />
+                                                        <a href="<?= base_url('/uploads/groups/offer/banner/').$row->image; ?>" target="_blank" class="view_img">View</a>
+                                                    </div>
+                                                
+                                                    <div class="col-md-3">
+                                                        <label>Image Alt</label>
+                                                        <input type="text" class="form-control img_alt" name="items[<?= $i; ?>][alt]" id="alt1" value="<?= $row->alt; ?>"  required />
+                                                    </div>
+                                                
+                                                    <div class="col-md-3">
+                                                        <label>Url</label>
+                                                        <input type="text" class="form-control url_input" name="items[<?= $i; ?>][url]" id="url1" value="<?= $row->url; ?>"  placeholder="url" required>
+                                                        <div class="pull-right">
+                                                             <button class="remove-btn <?= $i == 0 ? 'd-none': '';?>" type="button" onclick="remove_item(this)"><i class="fa fa-trash"></i></button>&nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- End Template -->
+                                            <?php endforeach; else: ?>
+                                            <!-- Template -->
+                                                <div class="row mt-2 item" data-count="0">
+                                                    <div class="col-md-3">
+                                                        <label>Category</label>
+                                                        <select class="form-control category" name="items[0][category]" required>
+                                                            <option value="" disabled selected>Choose..</option>
+                                                            <?php foreach($offer_categories as $category_row): ?>
+                                                                <option value="<?= $category_row['name']; ?>"><?= $category_row['name']; ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-3">
+                                                        <label>Image <span class="img_size"></span></label>
+                                                        <input type="file" class="form-control p-1 file" name="items_0_image" id="image1" accept="image/*" required />
+                                                        
+                                                    </div>
+                                                
+                                                    <div class="col-md-3">
+                                                        <label>Image Alt</label>
+                                                        <input type="text" class="form-control img_alt" name="items[0][alt]" id="alt1" required />
+                                                    </div>
+                                                
+                                                    <div class="col-md-3">
+                                                        <label>Url</label>
+                                                        <input type="text" class="form-control url_input" name="items[0][url]" id="url1" placeholder="url" required>
+                                                        <div class="pull-right">
+                                                             <button class="remove-btn d-none" type="button" onclick="remove_item(this)"><i class="fa fa-trash"></i></button>&nbsp;
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- End Template -->
+                                            <?php endif; ?>
+## View
+
+## Script
+<script>
+    $('.add-more-btn').click(function(){
+       var clone    =   $('#product_boxs .item').last().clone(); 
+       $('#product_boxs').append(clone);
+       
+       var clone    =   $('#product_boxs .item').last().find('.remove-btn').removeClass('d-none'); 
+       var count     =    $('#product_boxs .item').last().attr('data-count');
+        count = parseInt(count) + 1;
+       $('#product_boxs .item').last().attr('data-count', count);
+       $('#product_boxs .item').last().find('.category').attr('name', 'items['+count+'][category]').val('');
+       $('#product_boxs .item').last().find('.file').attr('name', 'items_'+count+'_image').val('');
+       $('#product_boxs .item').last().find('.img_alt').attr('name', 'items['+count+'][alt]').val('');
+       $('#product_boxs .item').last().find('.url_input').attr('name', 'items['+count+'][url]').val('');
+       $('#product_boxs .item').last().find('.view_img').remove();
+       
+    });
+    
+   function remove_item(e){
+      $(e).parents('.item').remove(); 
+    };
+    
+</script>
+## Script
+
+## php
+  public function add_offergroup_product(){
+        $arr                =   array();
+        if($this->input->post()){
+            
+            $offer          =   $this->input->post('offer');
+            $layout         =   $this->input->post('layout');
+            $status         =   $this->input->post('status');
+            $items          =   $this->input->post('items');
+            $id             =   $this->input->post('update_id');
+            $db_items       =   array();
+            
+            if(!$id){
+                $check_offer = $this->Action_model->select_single('tbl_offer_group_product',array('offer_id' => $offer));
+            
+                if($check_offer){
+                        $arr['data'] = array('status'=>'false','message'=> 'Offer Product already exists');
+                        echo json_encode($arr);
+                        exit;                
+            } } 
+            
+            foreach($items as $key => $item_rows):
+                $image                      =   $this->upload_images('./uploads/groups/offer/banner/', 'items_'.$key.'_image', 'tbl_offer_group_product', $id, $key);
+                $item_rows['image']         =   $image;
+                $db_items[]                 =  (object) $item_rows;
+            endforeach;
+      
+            $data        = array(
+                                    'offer_id'      =>  $offer,
+                                    'layout'        =>  $layout,
+                                    'status'        =>  $status,
+                                    'json_data'     =>  json_encode(array('offer_id' => $offer, 'layout' => $layout, 'status' => $status, 'items' => $db_items)),
+                                );
+
+            
+            if($id){
+                $update_offer_product = $this->Action_model->update_data($data,'tbl_offer_group_product',array('id' => $id));
+                    if($update_offer_product){
+                        $arr['data'] = array('status' => 'success', 'message' => 'Offer Product update successfully!','update_id' => $id);
+                    }else{
+                        $arr['data'] = array('status' => 'error', 'message' => 'Offer Product could not be update!');
+                    }
+            }
+            else{
+                $add_offer_product = $this->Action_model->insert_data($data,'tbl_offer_group_product');
+                    if($add_offer_product){
+                        $arr['data'] = array('status' => 'success', 'message' => 'Offer Product added successfully!');
+                    }else{
+                        $arr['data'] = array('status' => 'error', 'message' => 'Offer Product could not be added!');
+                    }
+            } 
+        }else{
+             $arr['data'] = array('status' => 'error', 'message' => 'Some error occurred!');
+        }
+        
+    	$response = json_encode($arr);
+    	echo $response;	
+    }
+    
+    # Upload Images
+    public function upload_images($path, $name, $table, $id = '', $index_update = ''){
+            $image                      =   '';
+            $config                     =   array();
+            $config['upload_path']      =   $path;
+            $config['allowed_types']    =   'jpeg|jpg|png|webp';
+            $config['max_size']         =   10*1024;
+            $config['remove_spaces']    =   TRUE;
+            $config['encrypt_name']     =   TRUE;
+            
+            $this->load->library('upload', $config);
+            
+                $_FILES['file']['name']         = $_FILES[$name]['name'];
+                $_FILES['file']['type']         = $_FILES[$name]['type'];
+                $_FILES['file']['tmp_name']     = $_FILES[$name]['tmp_name'];
+                $_FILES['file']['error']        = $_FILES[$name]['error'];
+                $_FILES['file']['size']         = $_FILES[$name]['size'];
+                $config['file_name']            = $_FILES[$name]['name'];
+                
+                $this->upload->initialize($config);
+                             
+                
+                if (!empty($_FILES[$name]['name'])) {
+                    if (!$this->upload->do_upload('file'))
+                    {
+                        $error = array('error' => $this->upload->display_errors());
+                        $array = array('status'=>'false','msg'=> $error['error']);
+                        echo json_encode($array);
+                        exit;
+                    }
+                    else
+                    {
+                        $image       =   $this->upload->data('file_name');
+                    }
+                }else{
+                    $prev_data        =   $this->Action_model->select_single('tbl_offer_group_product',array('id' => $id));  
+                    $prev_items       =   json_decode($prev_data->json_data);
+                    
+                    foreach($prev_items->items as $key => $row):
+                        if($index_update == $key):
+                            return $image      =   $row->image;
+                        endif;
+                    endforeach;
+                }
+			       
+            
+            return $image;
+    }
+    # End Upload Images
+## php
+
+

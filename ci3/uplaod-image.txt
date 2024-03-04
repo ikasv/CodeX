@@ -1,0 +1,27 @@
+# Image Upload
+    $config['upload_path']      = './uploads/employment_seeker/photos';
+    $config['allowed_types']    = 'jpeg|jpg|png';
+    $config['encrypt_name']     = true;
+
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+    if (!empty($_FILES['photo']['name'])) 
+    {
+        if ( ! $this->upload->do_upload('photo'))
+        { 
+            $error = array('error' => $this->upload->display_errors());
+            $arr = array("error_msg" => $error['error']);
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+            $file_name = $this->upload->data('file_name'); 
+            $arr = array("upload_msg" => "Image Uploaded Successfully."); 
+        }
+    }
+    else
+    {
+        $file_name =  $this->input->post('photo');
+        $arr = array("post_image_msg" => "Post Image Uploaded Successfully.");
+    }
+    # Image Upload

@@ -1,0 +1,1 @@
+return back()->withErrors(["faq.$key.answer" => "Please enter answer"])->withInput();

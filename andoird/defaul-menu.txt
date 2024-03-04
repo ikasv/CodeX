@@ -1,0 +1,49 @@
+ #menu folder -> menu.xml
+ <?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search_btn"
+        android:icon="@drawable/search"
+        app:showAsAction="ifRoom"
+        android:title="Add">
+    </item>
+    <item
+        android:id="@+id/cart_btn"
+        android:icon="@drawable/cart"
+        app:showAsAction="ifRoom"
+        android:title="Add">
+    </item>
+    <item
+        android:id="@+id/action_settings"
+        app:showAsAction="never"
+        android:title="Settings">
+    </item>
+</menu>
+
+ // Java
+ 
+ @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.search_btn:
+                Toast.makeText(getApplicationContext(), "Search", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.cart_btn:
+                Toast.makeText(getApplicationContext(), "Cart", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_settings:
+                Toast.makeText(getApplicationContext(), "Setting", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }

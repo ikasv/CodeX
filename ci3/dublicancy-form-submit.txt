@@ -1,0 +1,30 @@
+       <!--Form Test-->
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Test Form</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                            <input type="text" value="<?= $form_token;?>" name="form_token">
+                            <button type="submit" name="test">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                 <!--End Form Test-->
+
+
+if(isset($_REQUEST['test'])):
+    $post_form_token            = $_REQUEST['form_token'];
+    $form_token_sql        = "select form_token from addmission_lead_test where form_token='{$post_form_token}'" ;
+    $form_token_result     =  mysqli_query($mysql, $form_token_sql);
+    $form_token_row_count  = mysqli_num_rows($form_token_result);
+    if($form_token_row_count == 0):
+        $f_addmission_lead_sql = "insert into addmission_lead_test set form_token='{$post_form_token}'" ;
+        echo $f_addmission_lead_sql;
+    else:
+        echo 'form double clicked<br>';
+    endif;
+     $addmission_lead_result     =  mysqli_query($mysql, $f_addmission_lead_sql);
+endif;

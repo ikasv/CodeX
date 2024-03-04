@@ -1,0 +1,1 @@
+$display_id                     =   strtoupper(substr(md5(rand(99999,999999)).md5(time()), 0,10));

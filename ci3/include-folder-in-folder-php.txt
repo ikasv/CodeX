@@ -1,0 +1,5 @@
+sdfsdff
+<?php 
+$project = explode('/', $_SERVER['REQUEST_URI'])[1];
+?>
+<?php  $path = $_SERVER['DOCUMENT_ROOT'].'/'.$project.'/application/views/viadmin/include/footer.php';include($path);?>

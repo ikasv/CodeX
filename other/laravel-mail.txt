@@ -1,0 +1,47 @@
+<?php
+  
+namespace App\Mail;
+  
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+use App\Models\PrescriptionLead;
+use Storage;
+
+class PrescriptionLeadMail extends Mailable
+{
+    use Queueable, SerializesModels;
+  
+    public $data;
+  
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($id)
+    {
+      	$this->data =   PrescriptionLead::with('user', 'shipping_address')->find($id);
+     }
+  
+      public function build()
+    {
+        $email = $this->subject('New Prescription Lead')
+                    ->view('emails.prescription_lead');
+        	
+        	if(is_iterable($this->data->prescriptions)):
+         	 	foreach($this->data->prescriptions as $prescription):
+                  if(file_exists(public_path("storage/prescription/$prescription->user_id/$prescription->prescription"))):
+                          $email->attach($prescription->prescription_file_url, [
+                              'as' => "$prescription->prescription", 
+                              'mime' => 'jpeg,jpg,png,pdf'
+                          ]);
+                  endif;
+	          endforeach;
+        endif;
+        
+        return $email;
+              
+    } 
+}

@@ -1,0 +1,9 @@
+SET GLOBAL innodb_strict_mode = 0;
+
+post_max_size = 750M
+
+upload_max_filesize = 750M
+
+max_execution_time = 200 to max_execution_time = 5000
+
+$cfg['ExecTimeLimit'] = 900;

@@ -1,0 +1,10 @@
+  function changeImage(e) {
+    setPreImg(e.target.src);
+
+    var elems = document.querySelectorAll(".owl-item img");
+
+    [].forEach.call(elems, function (el) {
+      el.classList.remove("activeq");
+    });
+    e.target.className = "activeq";
+  }

@@ -1,0 +1,45 @@
+//	Right B
+style="height: 20vw;"
+
+// Background
+@media screen and (min-width: 768px)
+#menu-item-14 .sub-menu {
+    top: 111px;
+    width: 100%;
+    left: 0;
+    padding: 29px 0px;
+    height: 35vw;
+}
+
+//Font
+.primary-navigation .menu-primary > li a {
+    font-size: 1vw;
+
+/**************************************************************/
+
+Title                 : Explore Rajasthan Tours
+
+Header                : Travel-&-Tourism-HTML-Website-Template-Free-Download/
+					  index.html#
+
+Slider                :
+
+About Section         :
+
+Package Reference     : https://www.uniqueindiatours.com/golden-triangle-tours
+
+Categories 			  :
+
+Why Choose Us Section :  
+
+Car Rental  Section   :
+
+Footer                :   
+
+Reference Sites       : 1.https://www.maharajatrails.com
+						2.http://jaipurprivatecab.com
+						3.https://www.goldenindiatravels.com/golden-triangle-tour-packages
+						4.https://www.goldenindiatravels.com/(Categories)
+						5.https://www.uniqueindiatours.com/(Package)
+
+/**************************************************************/

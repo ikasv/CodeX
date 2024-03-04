@@ -1,0 +1,10 @@
+$categories                 =   Category::select('id', 'name', 'amount',  'slug', 'image')
+                                                    ->with('properties:id,category_id,name,slug,featured_image,city_id,locality_id,details', 'properties.state', 'properties.city', 'properties.locality')
+                                                    ->get()
+                                                    ->map(function($category){
+                                                        $category->setRelation('properties', $category->properties->take(8));
+                                                        return $category;
+                                                    });
+        
+        
+ return $categories;

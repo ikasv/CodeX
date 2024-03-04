@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Weekly', 'Total', 'Approved', 'Rejected'],
+          ['Monday', 10, 5 , 2],
+          ['Tuesday', 20, 2 , 28],
+          ['Wednesday', '', '' , ''],
+          ['Thrusday', '', '' , ''],
+          ['Friday', '', '' , ''],
+          ['Saturday', '', '' , ''],
+          ['Sunday', '', '' , '']
+        ]);
+
+        var options = {
+          title: 'Applications',
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+          pointSize: 5,
+          colors: ['blue', 'red', 'green',],
+          lineWidth: 2,
+          hAxis:{
+            title:'Weekly',
+             titleTextStyle: {color: 'red'},
+            },
+            vAxis:{
+              title:'Applications',
+              titleTextStyle: {color: 'red'},
+          },
+
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="curve_chart" style="width: 100%; height: 400px"></div>
+  </body>
+</html>

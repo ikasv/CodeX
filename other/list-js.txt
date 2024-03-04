@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List</title>
+</head>
+<body>
+    <div id="asdf">
+
+        <div id="hacker-list">
+            <ul id="list">
+          <li>
+             <h3 class="name">Jonny</h3>
+             <p class="city">Stockholm</p>
+            </li>
+            <li>
+                <h3 class="name">Jonas</h3>
+                <p class="city">Berlin</p>
+            </li>
+        </ul>
+      </div>
+        </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+    <script>
+        var options = {
+    valueNames: [ 'name', 'city' ]
+};
+
+var hackerList = new List('list', options);
+    </script>
+</body>
+</html>
+****************************
+
+// *********************** Return Flight Filter ********************
+    // $(".return_filters .PreferredAirlines").on('change', function(event) {
+    //     returnFlightFilterData();
+    // });
+
+    $(".ReturnRefundable").change(function(event) {
+        $('.fair-policy-filter-title').removeClass('show');
+        returnFlightFilterData();
+    });
+
+    $(".ReturnPreferredDepartureTime").change(function(event) {
+        returnFlightFilterData();
+    });
+
+    $(".ReturnPreferredArrivalTime").change(function(event) {
+        returnFlightFilterData();
+    });
+    
+    function returnFlightFilterData() {
+
+        var preferredAirlines = $(".return_filters .PreferredAirlines:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var preferredAirlinesArray = preferredAirlines.split(',');
+
+        var preferredStops = $(".ReturnStopsFilter:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var preferredStopsArray = preferredStops.split(',');
+    
+        var refundable = $(".ReturnRefundable:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var refundableArray = refundable.split(',');
+    
+        var preferredDepartureTime = $(".ReturnPreferredDepartureTime:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var preferredDepartureTimeArray = preferredDepartureTime.split(',');
+    
+        var preferredArrivalTime = $(".ReturnPreferredArrivalTime:checked").map( function() {
+            return this.value;
+        }).get().join(",");
+        var preferredArrivalTimeArray = preferredArrivalTime.split(',');
+
+    returnFilightListNew.filter(function(item) {
+        var result = true;
+
+        if (preferredAirlines!="") {
+            if(preferredAirlinesArray.includes(item.values().ReturnAirlineCode)==false){
+                result = false;
+            }
+        }
+     
+        if (preferredStops != "") {
+            if(preferredStopsArray.includes(item.values().ReturnStops)==false){
+                result = false;
+            }
+        }
+
+        if (refundable!="") {
+            if(refundableArray.includes(item.values().ReturnIsRefundable)==false){
+                result = false;
+            }
+        }
+
+        if (preferredDepartureTime!="") {
+
+            var DepTime = parseInt(item.values().ReturnDepTime);
+            var DepTimeString = "";
+
+            if (DepTime>=0 && DepTime<6) {
+                DepTimeString = "0-6";
+            }
+            else if (DepTime>=6 && DepTime<12) {
+                DepTimeString = "6-12";
+            }
+            else if (DepTime>=12 && DepTime<18) {
+                DepTimeString = "12-18";
+            }
+            else if (DepTime>=18 && DepTime<24) {
+                DepTimeString = "18-24";
+            }
+
+            if(preferredDepartureTimeArray.includes(DepTimeString)==false){
+                result = false;
+            }
+
+        }
+
+        if (preferredArrivalTime!="") {
+
+            var ArrTime = parseInt(item.values().ReturnArrTime);
+            var ArrTimeString = "";
+
+            if (ArrTime>0 && ArrTime<6) {
+                ArrTimeString = "0-6";
+            }
+            else if (ArrTime>6 && ArrTime<12) {
+                ArrTimeString = "6-12";
+            }
+            else if (ArrTime>12 && ArrTime<18) {
+                ArrTimeString = "12-18";
+            }
+            else if (ArrTime>18 && ArrTime<24) {
+                ArrTimeString = "18-24";
+            }
+
+            if(preferredArrivalTimeArray.includes(ArrTimeString)==false){
+
+                console.log("preferredArrivalTime:"+preferredArrivalTime);
+                console.log("ArrTimeString:"+ArrTimeString);
+                console.log("ArrTime:"+ArrTime);
+                result = false;
+            }
+
+        }
+
+        return result;
+           
+  });
+
+}
+
+// *********************** End Return Flight Filter ********************

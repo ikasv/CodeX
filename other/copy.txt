@@ -1,0 +1,9 @@
+navigator.clipboard.writeText(copyText);
+
+
+<button class="btn btn-sm float-end p-0 border-0 f-13 f-semibold copy-btn" data-copy_id="tag_id">Copy Code</button>
+
+$('.copy-btn').on('click', function(){
+	copy_text		=	$("#"+$(this).data('copy_id')).text();
+	navigator.clipboard.writeText(copy_text);
+});

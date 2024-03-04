@@ -1,0 +1,29 @@
+
+// Css
+header-effect {
+    animation:slide-down 0.7s;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    background:#fff;
+}        
+
+@keyframes slide-down {
+    0% {
+        transform: translateY(-100%);
+    } 
+    100% {
+        transform: translateY(0);
+    } 
+}
+
+// Jquery
+jQuery(window).scroll(function() {   
+		var height = jQuery(window).scrollTop();  
+		if(height  > 100) {
+			jQuery(".header").addClass('header-effect');
+		} else{
+			jQuery(".header").removeClass('header-effect');
+		}
+	});

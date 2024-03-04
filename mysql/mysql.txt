@@ -1,0 +1,1 @@
+SET GLOBAL innodb_strict_mode = 0;

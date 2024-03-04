@@ -1,0 +1,31 @@
+function submitForm() {
+    var form              =   document.getElementById('contactForm');
+    var isValid           =   form.checkValidity();
+
+    if (isValid) {
+      //  Submit Form Via Api
+      fetch(`${ config.base_url }/contact`, {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+                "company_name"    : form.company_name.value,
+                "name"            : form.name.value,
+                "email"           : form.email.value,
+                "mobile"          : form.mobile.value,
+                "location"        : form.location.value,
+                "enquiry"         : form.enquiry.value,
+              })
+          }).then((res) => res.json() ).then((data) => {
+            if(data.status){
+                alert(data.message);
+            }else{
+                alert(data.message);
+            }
+          });
+      //  End Submit Form Via Api
+    }else{
+      alert( "Please fill in all required fields and provide a valid phone number.");
+    }
+
+    return isValid;
+  }

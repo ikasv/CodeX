@@ -1,0 +1,12 @@
+<!-- ################# Whatsapp ################# -->
+    <style>
+        .float-whatsapp{ position:fixed; width:60px; height:60px; bottom:40px; right:40px; background-color:#25d366; color:#FFF; border-radius:50px; text-align:center; font-size:30px; box-shadow: 2px 2px 3px #999; z-index:100; }
+        .float-whatsapp:focus, .float-whatsapp:hover{ color:#fff; }
+        .my-float{ margin-top:16px; }
+    </style>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    <?php $refer_code_url = "Click here to use code : https://scholarshiploan.com/registration?use_refer_code={$result['referral_code']}"; ?>
+    <a href="https://api.whatsapp.com/send?text=<?= $refer_code_url; ?>" class="float-whatsapp" target="_blank"> <i class="fa fa-whatsapp my-float"></i></a>
+    <!-- ################# End Whatsapp ################# -->

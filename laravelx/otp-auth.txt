@@ -1,0 +1,162 @@
+ public function send_otp_via_sms(Request $request){
+        $mobile                     =   $request->mobile;
+        $is_mobile_exits            =   User::where('mobile',  $mobile)->first();
+        
+        if($is_mobile_exits):
+            $otp =   rand(1000, 9999);
+            $data      = array(
+                            'otp' => $otp
+                            );
+            
+            $result     =   User::where('mobile',  $mobile)->update($data);
+            
+            if($result):
+                 
+                $curl = curl_init();
+        
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://www.fast2sms.com/dev/bulkV2?authorization=bEaMOCtYy2q1XvcWgPHNFIpK4iZxQs63dJnzeUT7BuAmrfS8jDsy0DFd6gjzPXHvk8bKcxNhAR3mr1QY&variables_values=$otp&route=otp&numbers=".urlencode($mobile),
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                    CURLOPT_HTTPHEADER => array(
+                    "cache-control: no-cache"
+                    ),
+                ));
+                
+                $response       = curl_exec($curl);
+                $err            = curl_error($curl);
+                
+                curl_close($curl);
+                
+                if($err):
+                    return "cURL Error #:" . $err;
+                else:
+                    $res    =  json_decode($response);
+                    if($res->return):
+                        return response()->json([
+                                        'status'    => true, 
+                                        'message'   => 'Otp send successfully',
+                                        'data'      => $res
+                                    ]); 
+                    else:
+                            return response()->json([
+                                        'status'    => false, 
+                                        'message'   => 'Some error occured',
+                                        'data'      => $res
+                                    ]); 
+                    endif;
+                    ;
+                endif;
+            else:
+                return response()->json([
+                                        'status'    => false, 
+                                        'message'   => 'Some error occured'
+                                    ]); 
+            endif;
+        else:
+                return response()->json([
+                                    'status'    => false, 
+                                    'message'   => 'Mobile number not found'
+                                ]); 
+            
+        endif;
+    }    
+    
+    public function verify_otp(Request $request){
+        $verify_type            =   $request->verify_type;
+        
+        $user                 =   User::select('*')->where('mobile',  $request->mobile)->first();
+        
+        if($user):
+            if($user->otp == $request->otp):
+                #
+                    if($verify_type == 'login'):
+                    
+                         $validator      =   Validator::make($request->all(), [
+                                            'mobile' => 'required',
+                                            'otp'    => 'required'
+                    ]);
+        
+                        if($validator->fails()){
+                            return response()->json([
+                                        'status'    => false,
+                                        'message'   => 'validation errors',
+                                        'errors'    => $validator->errors()
+                                ], 401);
+                        }
+                       
+                        Auth::login($user);
+                        
+                        // if (!auth()->attempt(['mobile' => $request->mobile, 'otp' => $request->otp])) {
+                        //     return response(['status'=>false, 'message' => 'Invalid Credentials']);
+                        // }
+                        
+                      $accessToken = $user->createToken('authToken')->accessToken;
+    
+                        return response()->json([
+                            'status'        =>  true,
+                            'message'       =>  'Login Successfully.',
+                            'data'          =>  $user,
+                            "accessToken"   =>  $accessToken
+                        ]);
+
+                elseif($verify_type == 'change_forget_password'):
+                    
+                    return response()->json([
+                                            'status'    => true, 
+                                            'message'   => 'Otp matched'
+                                        ]);                    
+        
+                endif;
+                #
+            else:
+                return response()->json([
+                                        'status'    => false, 
+                                        'message'   => 'Incorrect otp'
+                                    ]);                    
+            endif;
+        else:
+                return response()->json([
+                                        'status'    => false, 
+                                        'message'   => 'Mobile number not found'
+                                    ]);                    
+        endif;
+    }
+    
+    public function forget_password_change(Request $request){
+        $mobile                     =   $request->mobile;
+        $new_password               =   $request->new_password;
+        $data                       =   array(
+                                            'password'  => Hash::make($new_password)
+                                        );
+        
+        $is_mobile_exits            =   User::where('mobile',  $request->mobile)->first();
+        
+        if($is_mobile_exits):
+            $result                     =   User::where('mobile',  $request->mobile)->update($data);
+            
+            if($result):
+                 return response()->json([
+                                        'status'    => true, 
+                                        'message'   => 'Successfully password changed'
+                                    ]); 
+            else:
+                return response()->json([
+                                    'status'    => false, 
+                                    'message'   => 'Some error occured'
+                                ]); 
+            endif;
+        else:
+                return response()->json([
+                                    'status'    => false, 
+                                    'message'   => 'Mobile number not found'
+                                ]); 
+            
+        endif;
+    }

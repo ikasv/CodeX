@@ -1,0 +1,33 @@
+if(isset($request->cf_post_type['file'])){
+            $file_names         = $request->cf_post_type['file'];
+            $file_name          = $this->uploadimage($request, 'post_type_pages', $file_names, $data->custom_field_media ?? '');
+        }else{
+            if(isset($request->id)){
+                $file_name          =   json_decode($data->custom_field_media); 
+             }
+         }
+
+
+
+private function uploadimage($request, $folder, $files, $db_data = ''){
+        // return $files;
+        $destinationPath = 'uploads/'.$folder;
+        $imgName    = array();
+  
+
+        foreach($files as $key => $file){
+            $files               =   $request->file($file);
+            $extension          =   $file->getClientOriginalExtension();
+            $filename           =   time().rand(10,100).'.'.$extension;
+            $file->move($destinationPath, $filename);
+            if($db_data !== ''){
+                $db_files = json_decode($db_data);
+                $db_files->{$key}           =    $filename;
+            }else{
+                $imgName[$key]            =  $filename;
+            }
+        }
+        
+
+        return count($imgName) == 0 ? $db_files : $imgName;
+    }

@@ -1,0 +1,9 @@
+# Bootstrap 
+
+# -> npm install --save bootstrap
+# -> npm install --save bootstrap@latest
+
+# In Index File
+
+# -> import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+# -> import 'bootstrap/dist/css/bootstrap.min.css';

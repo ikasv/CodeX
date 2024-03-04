@@ -1,0 +1,45 @@
+###### app/config/mail.php ( mailers smtp )
+			
+			'auth_mode' => null,
+            'verify_peer'       => false,
+			
+			'mailers' => [
+         'smtp' => [
+             'transport' => 'smtp',
+             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+             'port' => env('MAIL_PORT', 587),
+             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+             'username' => env('MAIL_USERNAME'),
+             'password' => env('MAIL_PASSWORD'),
+             'timeout' => null,
+
+
+             'auth_mode'  => null,
+             'verify_peer'       => false,
+         ],
+
+########### -> helper.php
+
+
+use Illuminate\Support\Facades\Mail;
+
+# Send Mail - Vk
+if (!function_exists('sendMail')) {
+    function sendMail($mailto = 'sudhir@honeycombindia.net', $mailsubject = 'Mail Subject', $mailhtml = '<p>html body</p>', $mailfrom = '' ){
+        
+        if($mailfrom == ''):
+            env('MAIL_FROM_ADDRESS');
+        endif;
+        
+        $mail           =   Mail::send(array(), array(), function ($message) use ($mailto ,$mailfrom ,$mailsubject ,$mailhtml ) {
+                                $message->to($mailto)
+                                ->subject($mailsubject)
+                                //   ->from($mailfrom)
+                                ->html('<h1>HTML</h1>')
+                                ->text('Plain Text');
+                                // ->setBody($mailhtml, 'text/html');
+        });
+    }
+}
+# End Send Mail - Vk
+

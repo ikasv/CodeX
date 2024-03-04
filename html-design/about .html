@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*! CSS Used from: https://website101305.nicepage.io/nicepage.css?version=106eb87a-5b5f-455a-84a7-064aeb5dc8f1 ; media=screen */
+        @media screen {
+
+            section>* {
+                position: relative;
+            }
+
+            .colx-clearfix:after,
+            .colx-clearfix:before {
+                content: '';
+                display: table;
+            }
+
+            .colx-clearfix:after {
+                clear: both;
+            }
+
+            .colx-image {
+                object-fit: cover;
+                display: block;
+                vertical-align: middle;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
+
+            .colx-layout-cell.colx-image {
+                overflow: visible;
+            }
+
+            .colx-container-layout {
+                position: relative;
+                flex: 1;
+                max-width: 100%;
+            }
+
+            .colx-container-layout>* {
+                position: relative;
+            }
+
+            .colx-valign-middle {
+                display: flex;
+                flex-direction: column;
+            }
+
+            @media (min-width: 1200px) {
+                .colx-valign-top-xl {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                .colx-valign-bottom-md {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @media (min-width: 576px) and (max-width: 767px) {
+                .colx-valign-top-sm {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @media (max-width: 575px) {
+                .colx-valign-top-xs {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            .colx-valign-middle>* {
+                flex-shrink: 0;
+            }
+
+            .colx-valign-middle {
+                justify-content: center;
+            }
+
+            @media (min-width: 1200px) {
+                .colx-valign-top-xl {
+                    justify-content: flex-start;
+                }
+            }
+
+            @media (min-width: 576px) and (max-width: 767px) {
+                .colx-valign-top-sm {
+                    justify-content: flex-start;
+                }
+            }
+
+            @media (max-width: 575px) {
+                .colx-valign-top-xs {
+                    justify-content: flex-start;
+                }
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                .colx-valign-bottom-md {
+                    justify-content: flex-end;
+                }
+            }
+
+            .colx-layout-row>.colx-size-30 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+
+            .colx-layout-row {
+                display: flex;
+            }
+
+            .colx-layout-row {
+                flex: 1 1 100%;
+            }
+
+            .colx-layout-row>* {
+                max-height: 100%;
+                min-height: -webkit-fit-content;
+                min-height: fit-content;
+            }
+
+            @media (max-width: 767px) {
+                .colx-layout-row>* {
+                    min-width: 100%;
+                }
+            }
+
+            .colx-layout-row {
+                flex-direction: row;
+                flex-wrap: wrap;
+                min-height: 100%;
+                max-width: 100%;
+            }
+
+            .colx-layout-cell {
+                position: relative;
+                display: flex;
+                background-clip: padding-box;
+                background-origin: padding-box;
+            }
+
+            @media (max-width: 767px) {
+                .colx-layout-wrap .colx-layout {
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                }
+
+                .colx-layout-wrap .colx-layout .colx-layout-cell {
+                    border-left: 0 !important;
+                    border-right: 0 !important;
+                }
+            }
+
+            .colx-group {
+                display: flex;
+            }
+
+            .colx-body h2 {
+                padding: 0;
+            }
+
+            h2 {
+                margin-top: 0;
+                margin-bottom: 0.5rem;
+                line-height: 1.2;
+                font-weight: 500;
+                color: inherit;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                margin-top: 0;
+                padding: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .colx-align-center {
+                text-align: center;
+            }
+
+            .colx-container-style:not([class*="u-align-"]) {
+                text-align: left;
+            }
+
+            .colx-text {
+                word-wrap: break-word;
+                position: relative;
+            }
+
+            .colx-layout-cell {
+                background-color: transparent !important;
+                opacity: 1;
+            }
+
+            .colx-layout-cell:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+            h2 {
+                font-family: Roboto, sans-serif;
+            }
+
+            .colx-image {
+                color: #111111;
+            }
+
+            .colx-palette-2-base,
+            .colx-container-style.colx-palette-2-base:before {
+                color: #ffffff;
+                background-color: #c84501;
+            }
+
+            h2:not(.colx-subtitle) {
+                font-weight: 400;
+                font-size: 2.25rem;
+                line-height: 1.1;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            p:not(.colx-text-variant) {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            @media (max-width: 575px) {
+                h2:not(.colx-subtitle) {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        /*! CSS Used from: Embedded */
+        .colx-section-2 {
+            min-height: 683px;
+        }
+
+        .colx-section-2 .colx-group-1 {
+            min-height: 372px;
+            height: auto;
+            width: calc(((100% - 1140px) / 2) + 80px);
+            margin: 0 0 0 auto;
+        }
+
+        .colx-section-2 .colx-container-layout-1 {
+            padding: 30px;
+        }
+
+        .colx-section-2 .colx-layout-wrap-1 {
+            width: 980px;
+            margin: -328px auto 44px calc(((100% - 1140px) / 2));
+        }
+
+        .colx-section-2 .colx-image-1 {
+            min-height: 596px;
+            background-image: url(https://images02.nicepage.com/a1389d7bc73adea1e1c1fb7e/5690bd88fb575eafb098ac71/pexels-photo-4333527.jpeg);
+            background-position: 50% 50%;
+        }
+
+        .colx-section-2 .colx-container-layout-2 {
+            padding: 30px 0 0 30px;
+        }
+
+        .colx-section-2 .colx-layout-cell-2 {
+            min-height: 596px;
+        }
+
+        .colx-section-2 .colx-container-layout-3 {
+            padding: 30px;
+        }
+
+        .colx-section-2 .colx-text-1 {
+            line-height: 1.4;
+            font-size: 3rem;
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .colx-section-2 .colx-text-2 {
+            font-size: 1rem;
+            line-height: 2;
+            margin: 20px 0 0;
+        }
+
+        @media (max-width: 1199px) {
+            .colx-section-2 {
+                min-height: 637px;
+            }
+
+            .colx-section-2 .colx-group-1 {
+                width: calc(((100% - 940px) / 2) + 80px);
+            }
+
+            .colx-section-2 .colx-layout-wrap-1 {
+                width: 860px;
+                margin-top: -320px;
+                margin-bottom: 52px;
+                margin-left: calc(((100% - 940px) / 2));
+            }
+
+            .colx-section-2 .colx-image-1 {
+                min-height: 533px;
+            }
+
+            .colx-section-2 .colx-layout-cell-2 {
+                min-height: 533px;
+            }
+
+            .colx-section-2 .colx-text-1 {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .colx-section-2 {
+                min-height: 568px;
+            }
+
+            .colx-section-2 .colx-group-1 {
+                width: calc(((100% - 720px) / 2) + 80px);
+            }
+
+            .colx-section-2 .colx-layout-wrap-1 {
+                width: 640px;
+                margin-left: calc(((100% - 720px) / 2));
+            }
+
+            .colx-section-2 .colx-image-1 {
+                min-height: 480px;
+            }
+
+            .colx-section-2 .colx-container-layout-2 {
+                padding-bottom: 0;
+                padding-right: 0;
+            }
+
+            .colx-section-2 .colx-layout-cell-2 {
+                min-height: 480px;
+            }
+
+            .colx-section-2 .colx-text-1 {
+                font-size: 1.875rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .colx-section-2 .colx-group-1 {
+                width: calc(((100% - 540px) / 2) + 80px);
+            }
+
+            .colx-section-2 .colx-container-layout-1 {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .colx-section-2 .colx-layout-wrap-1 {
+                width: 423px;
+                margin-left: calc(((100% - 540px) / 2));
+            }
+
+            .colx-section-2 .colx-image-1 {
+                min-height: 477px;
+            }
+
+            .colx-section-2 .colx-container-layout-2 {
+                padding-left: 10px;
+            }
+
+            .colx-section-2 .colx-layout-cell-2 {
+                min-height: 409px;
+            }
+
+            .colx-section-2 .colx-container-layout-3 {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .colx-section-2 .colx-text-1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .colx-section-2 {
+                min-height: 229px;
+            }
+
+            .colx-section-2 .colx-group-1 {
+                width: calc(((100% - 340px) / 2) + 29px);
+            }
+
+            .colx-section-2 .colx-layout-wrap-1 {
+                width: 291px;
+                margin-left: calc(((100% - 340px) / 2));
+            }
+
+            .colx-section-2 .colx-image-1 {
+                min-height: 360px;
+            }
+
+            .colx-section-2 .colx-layout-cell-2 {
+                min-height: 430px;
+            }
+
+            .colx-section-2 .colx-text-1 {
+                font-size: 1.875rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="colx-align-center colx-clearfix colx-valign-top-xl colx-section-2" id="carousel_9bfd">
+        <div class="colx-container-style colx-group colx-palette-2-base colx-group-1">
+            <div class="colx-container-layout colx-container-layout-1"></div>
+        </div>
+        <div class="colx-clearfix colx-layout-wrap colx-layout-wrap-1">
+            <div class="colx-layout">
+                <div class="colx-layout-row">
+                    <div
+                        class="colx-container-style colx-image colx-layout-cell colx-left-cell colx-size-30 colx-image-1">
+                        <div
+                            class="colx-container-layout colx-valign-bottom-md colx-valign-top-sm colx-valign-top-xs colx-container-layout-2">
+                        </div>
+                    </div>
+                    <div
+                        class="colx-align-center colx-container-style colx-layout-cell colx-right-cell colx-size-30 colx-layout-cell-2">
+                        <div class="colx-container-layout colx-valign-middle colx-container-layout-3">
+                            <h2 class="colx-text colx-text-1"><b>About</b> harness multimedia based collaboration
+                            </h2>
+                            <p class="colx-text colx-text-2">Quickly incentivize impactful action items before tactical
+                                collaboration and idea-sharing. Monotonically engage market-driven intellectual capital
+                                through wireless opportunities. Progressively network performance based
+                                services for functionalized testing procedures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+UPDATE `tbl_users` SET `name` = (case 
+    									when `user_id` = 1 then 'Vk'
+    									when `user_id` = 2 then 'Vikas'
+    							end)
+                            where user_id in (1,2)

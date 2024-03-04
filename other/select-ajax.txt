@@ -1,0 +1,18 @@
+$('.getPosts').select2({
+            search: true,
+            ajax: {
+                url: '{{ url('') }}/api/getPosts',
+                data: function(params) {
+                    return {
+                        q: params.term, 
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: data.items
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 3 
+        });

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky JS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-js/1.3.0/sticky.min.js"
+        integrity="sha512-3z3zGiu0PabNyuTAAfznBJFpOg4owG9oQQasE5BwiiH5BBwrAjbfgIe0RCdtHJ0BQV1YF2Shgokbz2NziLnkuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        .post {
+            border: 1px dashed grey;
+            margin-right: 50px;
+            margin-bottom: 20px;
+        }
+
+        .right-sidebar {
+            height: 500px;
+            overflow-y: scroll;
+        }
+
+        .left-sidebar::-webkit-scrollbar,
+        .right-sidebar::-webkit-scrollbar {
+            width: 0;
+        }
+
+
+        .left-sidebar {
+            height: 800px;
+            overflow-y: scroll;
+        }
+
+        .left-sidebar div {
+            display: none;
+        }
+
+        .sticky {
+            display: block !important;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: yellow;
+            padding: 50px;
+            font-size: 20px;
+            opacity: 1;
+            animation: fade 2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            75% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 left-sidebar">
+                        <!-- <div id='sticky-content' class="sticky"></div> -->
+                        <div id="sticky1" class="sticky-items sticky">
+                            1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id
+                            laborum iure reiciendis iusto aperiam, odio esse voluptate, non
+                            officia cum soluta deleniti quae ipsam fugiat, atque doloribus
+                            ad! Odit mollitia consequatur, unde blanditiis quis eveniet
+                            impedit quod nihil, rem culpa maxime nulla ab, voluptatum
+                            repellendus voluptatibus non odio quidem commodi.
+                        </div>
+                        <div id="sticky2" class="sticky-items">
+                            2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+                            dolores facere dolor voluptates optio ipsa autem quaerat beatae,
+                            deleniti expedita architecto ducimus similique voluptate velit
+                            praesentium. Repellendus aperiam ducimus blanditiis nam quasi
+                            sint impedit, quam accusamus, vero unde atque, necessitatibus
+                            veniam commodi enim quia expedita quaerat et. Voluptates, ut.
+                            Officiis, distinctio. Voluptatem esse magnam dolores omnis
+                            explicabo sunt minus laboriosam neque odio, officia quasi? Esse
+                            nesciunt accusamus nostrum accusantium, vel possimus odio modi
+                            facere ex sequi odit sunt, quos at eum ipsum. Nostrum architecto
+                            cum aliquam, aperiam voluptatibus corporis saepe, modi magnam,
+                            in corrupti recusandae quas alias accusamus delectus dolorum!
+                            Nemo sed exercitationem totam aliquid sunt, pariatur minus
+                            similique quis. Deserunt vel officia quos excepturi animi
+                            cupiditate id inventore laborum delectus dolorum, blanditiis
+                            laboriosam natus iure doloremque pariatur odit rerum nam, culpa,
+                            possimus cum error similique quibusdam earum. Ducimus, provident
+                            maiores. Reiciendis inventore sunt amet! Magni voluptatum eius
+                            deleniti rerum dolorem ea, rem accusamus non eaque eveniet
+                            perferendis, quia fugiat cum et. Odit animi porro, assumenda
+                            perferendis eos beatae? Ab sit facilis doloribus maxime
+                            doloremque soluta laborum porro nisi sunt. Saepe perferendis
+                            accusantium laboriosam ea vitae? Labore nostrum architecto velit
+                            fugit totam odio voluptas, beatae, qui, dolores consectetur
+                            aspernatur sed.
+                        </div>
+                        <div id="sticky3" class="sticky-items">3</div>
+                        <div id="sticky4" class="sticky-items">4</div>
+                    </div>
+                    <div class="col-md-6 right-sidebar">
+                        <div style="height: 200px" class="post" data-sticky_target="sticky1">
+                            One date
+                        </div>
+                        <div style="height: 250px" class="post" data-sticky_target="sticky2">
+                            Another date
+                        </div>
+                        <div style="height: 350px" class="post" data-sticky_target="sticky3">
+                            And another date
+                        </div>
+                        <div style="height: 200px" class="post" data-sticky_target="sticky4">
+                            And one more date
+                        </div>
+                        <div style="height: 800px"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        $(".right-sidebar").on("scroll resize", function () {
+            var pos = $(".sticky").offset();
+            $(".post").each(function () {
+                if (
+                    pos.top >= $(this).offset().top &&
+                    pos.top <= $(this).next().offset().top
+                ) {
+                    $(".sticky").removeClass("sticky");
+                    var getId = $(this).attr("data-sticky_target");
+                    $(".left-sidebar")
+                        .find("#" + getId)
+                        .addClass("sticky");
+                    // $('#sticky-content').html($(this).html()); //or any other way you want to get the date
+                    return; //break the loop
+                }
+            });
+        });
+
+        $(".left-sidebar").on("mousewheel", ".sticky", function (e) {
+            var delta = e.originalEvent.deltaY;
+
+            if (delta > 0) {
+                // going down
+                console.log(delta);
+                if ($(".sticky").next().hasClass("sticky-items")) {
+                    $(".sticky").next().addClass("sticky");
+                    $(this).removeClass("sticky");
+                }
+            } else {
+                if ($(".sticky").prev().hasClass("sticky-items")) {
+                    $(".sticky").prev().addClass("sticky");
+                    $(this).removeClass("sticky");
+                }
+            } // going up
+
+            return false;
+        });
+
+        $(document).ready(function () {
+            $(window).trigger("scroll"); // init the value
+        });
+    </script>
+</body>
+
+</html>

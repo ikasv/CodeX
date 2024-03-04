@@ -1,0 +1,51 @@
+
+$headers  = "From: scholarshiploan";
+// $headers .= "Reply-To:  scholarshiploan \r\n";
+// $headers .= "CC: test@example.com\r\n";
+// $headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+// use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
+
+$format = "<html>
+                        <body>
+                            <div class='card' style='
+                                            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+                                            width: fit-content;
+                                            text-align: center;
+                                            padding: 50px 100px;
+                                            margin: auto;
+                                            '>
+                                <img src='https://scholarshiploan.com/images/logo.png'>
+                                <br><br>
+                                <table>
+                                    <tr>
+                                        <th style='float: left;'>Name</th>
+                                        <td>: John</td>
+                                    </tr>
+                                    <tr>
+                                        <th style='float: left;'>Mobile</th>
+                                        <td>: 1234567890</td>
+                                    </tr>
+                                    <tr>
+                                        <th style='float: left;'>Email</th>
+                                        <td>: test@gmail.com</td>
+                                    </tr>
+                                    <tr>
+                                        <th style='float: left;'>Message</th>
+                                        <td>: test</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </body>
+                    </html>";
+
+// send email
+$ii = mail("vikas.softechure@gmail.com","My subject", $format, $headers);
+
+if($ii):
+    echo "yes";
+    else:
+        echo "no";
+    endif;

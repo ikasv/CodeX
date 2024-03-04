@@ -1,0 +1,26 @@
+    public function send_mail(){
+        # 1. Email will Send To Client
+    	#$message        = "<h2> We received your enquiry our concerned person get in touch with you.</h2>";
+    	$message           = $this->load->view('template/email','',true);
+    	
+    	$from           = "example.softechure@gmail.com";
+    	$to             = 'vikas.softechure@gmail.com';
+    	$subject        = "Your enquiry succefully submitted";
+    	$site_name      = "GetMeds";
+    	$this->sendEmail($message, $from, $to, $subject, $site_name);
+    	# End Email will Send To Client
+    }
+    
+
+    # Email Functionality
+    private function sendEmail($message, $from, $to, $subject, $siteName = "")
+    {
+        $this->email->set_mailtype("html");
+        $this->email->set_newline("\r\n");
+        $this->email->from($from ,$siteName);
+        $this->email->to($to);
+        $this->email->subject($subject);
+        $this->email->message($message);
+        $this->email->send();
+    }
+    # End Email Functionality

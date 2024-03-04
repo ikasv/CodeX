@@ -1,0 +1,3 @@
+var preferredAirlines = $(".return_filters .PreferredAirlines:checked").map( function() {
+            return this.value;
+        }).get().join(",");

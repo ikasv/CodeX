@@ -1,0 +1,29 @@
+# Store Variant Prodcuts 
+    function storeVariantProducts($main_product, $variant_products, $action_type = ''){
+        $batch_data                                                         =   array();
+        
+        foreach($variant_products as $variant_product):
+                  
+            Product::where('parent_id', $main_product->id)->delete();
+            
+            Product::updateOrCreate(
+                [
+                    'variant_id'        =>  $variant_product['id']
+                ],
+                [
+                    'parent_id'             =>   $main_product->id,    
+                    'variant_id'            =>   $variant_product['id'],    
+                    'product_name'          =>   $main_product->product_name,    
+                    'mrp_price'             =>   $main_product->mrp_price,    
+                    'attribute_set_id'      =>   $main_product->attribute_set_id,    
+                    'quantity'              =>   $variant_product['quantity'],    
+                    'price'                 =>   $variant_product['price'],    
+                    'variants'              =>   implode(',', $variant_product['attribute_id']),
+                    'status'                =>   1   
+                ]
+                );
+            
+        endforeach;
+        
+    }
+    # End Store Variant Prodcuts 

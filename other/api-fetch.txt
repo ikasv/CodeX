@@ -1,0 +1,7 @@
+$this->api = new apirequest();
+
+
+$this->response = json_decode($this->api->apirequest(env('api_url')."getinfo/1",'GET'), true);
+
+
+$this->assets['color1']   = $this->response['data']['color1'];

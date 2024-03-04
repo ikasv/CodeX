@@ -1,0 +1,7 @@
+String.prototype.ucwords = function() {
+    return this.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+        return letter.toUpperCase();
+    });
+}
+
+alert("hello, world!".ucwords()); // Displays "Hello, World!"

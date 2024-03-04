@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang = "en">
+   <head>
+      <meta charset = "utf-8">
+      <title>jQuery UI Autocomplete functionality</title>
+      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <!-- Bootsrtap -->
+
+<style>
+.chip {
+  display: inline-block;
+  padding: 0 25px;
+  height: 50px;
+  font-size: 18px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+}
+
+.chip img {
+  float: left;
+  margin: 0 10px 0 -25px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.closebtn {
+  padding-left: 10px;
+  color: #888;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #000;
+}
+</style>  </head>
+   
+   <body>
+      <!-- HTML --> 
+      <div class = "ui-widget">
+         <p>Type "a" or "s"</p>
+         <label for = "automplete-1">Tags: </label>
+         <input id = "automplete-1">
+      </div>
+
+<br><br>
+<div class="main-chip"></div>
+<script>
+   $(function(){
+
+
+      $("input").keyup(function(){
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('action/search_list'); ?>",
+         contentType: false,
+         processData:false,
+         success: function (data) {
+           data = JSON.parse(data);
+         console.log(data);console.log( typeof data);
+         $( "#automplete-1" ).autocomplete({
+               // source: [ "PHAR VIT B COMPLEX  17+3", "MEGAN KISSABLE LIPBALM RASPBERRY PURPLE 1.5G", "Platinum Condom 3pieces", "1 Minute Hair Smoothing Cream Sachet 20g", "1 Minute Solution Acne Care Lotion 10ml", "1 Minute Solution Lifting Eye Gel 10ml", "1 Minute Solution Lightening Gel 10ml" ],
+               // source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ],
+                source: data,
+                select : showResult
+
+         });
+      
+         function showResult(event, ui) {
+        
+            if($('small').text().indexOf(ui.item.value) == -1)
+            {
+               $('.main-chip').append(`<div class="chip"><small>`+ui.item.value+`</small>
+                                          <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                                       </div>`);
+            }
+         }         
+         $('.ui-autocomplete').css('display','block');
+       },
+        error: function () {
+           alert('Some Error Occured.');
+        }
+    });
+             });
+         $('.ui-corner-all').click(function(){
+              alert($('.ui-corner-all').text());
+         });
+});//end functon
+      </script>
+   </body>
+</html>
+
+<!-- Controller -->
+// Search List
+public function search_list(){
+// $arr =  [ "c++", "vikas", "php", "coldfusion", "javascript", "asp", "ruby" ];
+    $arr =   [ "PHAR VIT B COMPLEX  17+3", "MEGAN KISSABLE LIPBALM RASPBERRY PURPLE 1.5G", "Platinum Condom 3pieces", "1 Minute Hair Smoothing Cream Sachet 20g", "1 Minute Solution Acne Care Lotion 10ml", "1 Minute Solution Lifting Eye Gel 10ml", "1 Minute Solution Lightening Gel 10ml" ];
+         
+echo json_encode($arr);
+}
+// End Search List
+<!-- End Controller -->

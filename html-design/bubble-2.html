@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble 2</title>
+    <style>
+        /*! CSS Used from: https://website153877.nicepage.io/nicepage.css?version=822ed32c-386e-4deb-a417-82fb7dd7518e ; media=screen */
+        @media screen {
+            section {
+                display: block;
+            }
+
+            a {
+                background-color: transparent;
+                -webkit-text-decoration-skip: objects;
+            }
+
+            a:active,
+            a:hover {
+                outline-width: 0;
+            }
+
+            h1 {
+                font-size: 2em;
+                margin: 0.67em 0;
+            }
+
+            svg:not(:root) {
+                overflow: hidden;
+            }
+
+            ::-webkit-input-placeholder {
+                color: inherit;
+                opacity: 0.54;
+            }
+
+            .bubbles-btn {
+                display: table;
+                cursor: pointer;
+                color: inherit;
+                font-size: inherit;
+                font-family: inherit;
+                line-height: inherit;
+                letter-spacing: inherit;
+                text-transform: inherit;
+                font-style: inherit;
+                font-weight: inherit;
+                text-decoration: none;
+                border: 0 none transparent;
+                outline-width: 0;
+                background-color: transparent;
+                margin: 0;
+                -webkit-text-decoration-skip: objects;
+                font-style: initial;
+                white-space: nowrap;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                vertical-align: middle;
+                text-align: center;
+                padding: 10px 30px;
+                border-radius: 0;
+                align-self: flex-start;
+            }
+
+            .bubbles-btn:focus,
+            .bubbles-btn:active:focus {
+                outline: thin dotted;
+                outline: 5px auto -webkit-focus-ring-color;
+                outline-offset: -2px;
+            }
+
+            .bubbles-btn:hover,
+            .bubbles-btn:focus {
+                text-decoration: none;
+            }
+
+            .bubbles-btn:active {
+                outline: 0;
+                background-image: none;
+            }
+
+            .bubbles-btn-round {
+                border-radius: 4px;
+            }
+
+            .bubbles-text a {
+                font-size: inherit;
+                font-family: inherit;
+                line-height: inherit;
+                letter-spacing: inherit;
+                text-transform: inherit;
+            }
+
+            a {
+                border-top-width: 0;
+                border-left-width: 0;
+                border-right-width: 0;
+            }
+
+            *,
+            *:before,
+            *:after {
+                box-sizing: border-box;
+            }
+
+            section {
+                position: relative;
+            }
+
+            section>*,
+            .bubbles-sheet>* {
+                position: relative;
+            }
+
+            a {
+                color: #259bca;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: #0676a4;
+            }
+
+            a:focus {
+                outline: thin dotted;
+                outline: 5px auto -webkit-focus-ring-color;
+                outline-offset: -2px;
+            }
+
+            .bubbles-clearfix:after,
+            .bubbles-clearfix:before {
+                content: '';
+                display: table;
+            }
+
+            .bubbles-clearfix:after {
+                clear: both;
+            }
+
+            .bubbles-border-none {
+                border-width: 0 !important;
+            }
+
+            .bubbles-text-default {
+                display: table;
+                align-self: flex-start;
+            }
+
+            .bubbles-text-default:empty {
+                display: block;
+                width: 15px;
+            }
+
+            .bubbles-image {
+                object-fit: cover;
+                display: block;
+                vertical-align: middle;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
+
+            .bubbles-image-circle.bubbles-image {
+                border-radius: 50% !important;
+            }
+
+            .bubbles-sheet {
+                position: relative;
+                width: 1140px;
+                margin: 0 auto;
+            }
+
+            @media (min-width: 1200px) {
+                .bubbles-sheet {
+                    width: 1140px;
+                }
+            }
+
+            @media (min-width: 992px) and (max-width: 1199px) {
+                .bubbles-sheet {
+                    width: 940px;
+                }
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                .bubbles-sheet {
+                    width: 720px;
+                }
+            }
+
+            @media (min-width: 576px) and (max-width: 767px) {
+                .bubbles-sheet {
+                    width: 540px;
+                }
+            }
+
+            @media (max-width: 575px) {
+                .bubbles-sheet {
+                    width: 340px;
+                }
+            }
+
+            @media (min-width: 1200px) {
+                .bubbles-valign-middle-xl {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                .bubbles-valign-middle-md {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @media (min-width: 576px) and (max-width: 767px) {
+                .bubbles-valign-middle-sm {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @media (max-width: 575px) {
+                .bubbles-valign-middle-xs {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            @media (min-width: 1200px) {
+                .bubbles-valign-middle-xl {
+                    justify-content: center;
+                }
+            }
+
+            @media (min-width: 768px) and (max-width: 991px) {
+                .bubbles-valign-middle-md {
+                    justify-content: center;
+                }
+            }
+
+            @media (min-width: 576px) and (max-width: 767px) {
+                .bubbles-valign-middle-sm {
+                    justify-content: center;
+                }
+            }
+
+            @media (max-width: 575px) {
+                .bubbles-valign-middle-xs {
+                    justify-content: center;
+                }
+            }
+
+            .bubbles-sheet:not(.bubbles-image):not(.bubbles-video) {
+                pointer-events: none;
+            }
+
+            .bubbles-sheet:not(.bubbles-image):not(.bubbles-video)>* {
+                pointer-events: auto;
+                pointer-events: initial;
+            }
+
+            .bubbles-shape-svg {
+                border: none !important;
+                color: transparent;
+            }
+
+            .bubbles-shape-svg .bubbles-svg-link {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            [class*="u-border-"]:not(.bubbles-shape-svg) {
+                stroke: none;
+            }
+
+            .bubbles-shape-circle,
+            .bubbles-shape-circle:before {
+                border-radius: 50%;
+            }
+
+            .bubbles-svg-link {
+                width: 100%;
+                height: 100%;
+                fill: currentColor;
+            }
+
+            .bubbles-svg-content {
+                width: 0;
+                height: 0;
+            }
+
+            .bubbles-body h1 {
+                padding: 0;
+            }
+
+            h1 {
+                margin-top: 0;
+                margin-bottom: 0.5rem;
+                line-height: 1.2;
+                font-weight: 500;
+                color: inherit;
+            }
+
+            h1 {
+                font-size: 2.25rem;
+            }
+
+            p {
+                margin-top: 0;
+                padding: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .bubbles-align-center {
+                text-align: center;
+            }
+
+            .bubbles-text {
+                word-wrap: break-word;
+                position: relative;
+            }
+
+            .bubbles-font-pt-sans.bubbles-custom-font {
+                font-family: 'PT Sans', sans-serif !important;
+            }
+
+            .bubbles-button-style[class*="u-palette-"] {
+                border-width: 0;
+            }
+
+            .bubbles-text .bubbles-btn {
+                display: inline-block;
+                margin-top: 0;
+                margin-bottom: 0;
+                vertical-align: baseline;
+                white-space: normal;
+                text-align: inherit;
+            }
+
+            .bubbles-text .bubbles-btn.bubbles-button-link {
+                display: inline;
+            }
+
+            [class*="u-border-"] {
+                border-style: solid;
+            }
+
+            .bubbles-border-1,
+            a.bubbles-button-style.bubbles-border-1 {
+                border-width: 1px;
+            }
+
+            .bubbles-border-20 {
+                border-width: 20px;
+            }
+
+            .bubbles-radius-50,
+            .bubbles-radius-50:before {
+                border-radius: 50px !important;
+            }
+
+            h1 {
+                font-family: Mako;
+            }
+
+            .bubbles-image {
+                color: #111111;
+            }
+
+            .bubbles-none.bubbles-button-style,
+            .bubbles-none.bubbles-button-style:hover,
+            .bubbles-none.bubbles-button-style:focus,
+            .bubbles-none.bubbles-button-style:active {
+                color: inherit !important;
+                background-color: transparent !important;
+            }
+
+            .bubbles-button-style.bubbles-border-none {
+                border-color: transparent !important;
+                border-width: 0;
+            }
+
+            .bubbles-palette-3-base {
+                color: #ffffff;
+                background-color: #fb782b;
+            }
+
+            .bubbles-button-style.bubbles-palette-3-base,
+            .bubbles-button-style.bubbles-palette-3-base[class*="u-border-"] {
+                color: #ffffff !important;
+                background-color: #fb782b !important;
+            }
+
+            .bubbles-button-style.bubbles-palette-3-base:hover,
+            .bubbles-button-style.bubbles-palette-3-base[class*="u-border-"]:hover,
+            .bubbles-button-style.bubbles-palette-3-base:focus,
+            .bubbles-button-style.bubbles-palette-3-base[class*="u-border-"]:focus,
+            .bubbles-button-style.bubbles-button-style.bubbles-palette-3-base:active,
+            .bubbles-button-style.bubbles-button-style.bubbles-palette-3-base[class*="u-border-"]:active {
+                color: #ffffff !important;
+                background-color: #fa660e !important;
+            }
+
+            .bubbles-hover-black:hover,
+            .bubbles-hover-black[class*="u-border-"]:hover,
+            .bubbles-hover-black:focus,
+            .bubbles-hover-black[class*="u-border-"]:focus,
+            a.bubbles-button-style.bubbles-hover-black:hover,
+            a.bubbles-button-style.bubbles-hover-black[class*="u-border-"]:hover,
+            a.bubbles-button-style.bubbles-hover-black:focus,
+            a.bubbles-button-style.bubbles-hover-black[class*="u-border-"]:focus,
+            a.bubbles-button-style.bubbles-button-style.bubbles-active-black:active,
+            a.bubbles-button-style.bubbles-button-style.bubbles-active-black[class*="u-border-"]:active {
+                color: #ffffff !important;
+                background-color: #000000 !important;
+            }
+
+            .bubbles-border-white {
+                border-color: #ffffff;
+                stroke: #ffffff;
+            }
+
+            .bubbles-border-black {
+                border-color: #000000;
+                stroke: #000000;
+            }
+
+            .bubbles-button-style.bubbles-border-black {
+                border-color: #000000 !important;
+                color: #000000 !important;
+                background-color: transparent !important;
+            }
+
+            .bubbles-button-style.bubbles-border-black:hover,
+            .bubbles-button-style.bubbles-border-black:focus {
+                border-color: #000000 !important;
+                color: #000000 !important;
+                background-color: transparent !important;
+            }
+
+            .bubbles-text-palette-4-base {
+                color: #ffb400 !important;
+            }
+
+            .bubbles-text-palette-4-base svg {
+                fill: #ffb400;
+            }
+
+            .bubbles-text-body-color,
+            a.bubbles-button-style.bubbles-text-body-color,
+            a.bubbles-button-style.bubbles-text-body-color[class*="u-border-"] {
+                color: #111111 !important;
+            }
+
+            a.bubbles-button-style.bubbles-text-body-color:hover,
+            a.bubbles-button-style.bubbles-text-body-color[class*="u-border-"]:hover,
+            a.bubbles-button-style.bubbles-text-body-color:focus,
+            a.bubbles-button-style.bubbles-text-body-color[class*="u-border-"]:focus,
+            a.bubbles-button-style.bubbles-button-style.bubbles-text-body-color:active,
+            a.bubbles-button-style.bubbles-button-style.bubbles-text-body-color[class*="u-border-"]:active {
+                color: #0f0f0f !important;
+            }
+
+            h1:not(.bubbles-title) {
+                font-size: 3rem;
+                line-height: 1.1;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                font-weight: 400;
+                list-icon-spacing: 0.3;
+                list-icon-size: 0.8;
+                font-family: Mako;
+            }
+
+            p:not(.bubbles-text-variant) {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .bubbles-btn {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            @media (max-width: 575px) {
+                h1:not(.bubbles-title) {
+                    font-size: 2.25rem;
+                }
+            }
+
+            h1:not(.bubbles-title) {
+                color: #111111;
+            }
+
+            a {
+                color: #1e41b5;
+            }
+
+            a:hover {
+                color: #1b3aa3;
+            }
+
+            .bubbles-btn {
+                background-color: #1e41b5;
+                color: #ffffff;
+            }
+
+            .bubbles-btn:hover {
+                background-color: #1b3aa3;
+                color: #e6e6e6;
+            }
+
+            .bubbles-btn:focus {
+                background-color: #1b3aa3;
+                color: #e6e6e6;
+            }
+
+            .bubbles-btn:active {
+                background-color: #1b3aa3;
+                color: #e6e6e6;
+            }
+        }
+
+        /*! CSS Used from: Embedded */
+        .bubbles-section-2 .bubbles-sheet-1 {
+            min-height: 1363px;
+        }
+
+        .bubbles-section-2 .bubbles-text-1 {
+            font-size: 4.5rem;
+            font-weight: 400;
+            margin: 60px auto 0;
+        }
+
+        .bubbles-section-2 .bubbles-shape-1 {
+            width: 228px;
+            height: 228px;
+            margin: 521px auto 0 879px;
+        }
+
+        .bubbles-section-2 .bubbles-image-1 {
+            width: 628px;
+            height: 628px;
+            background-image: url(https://images01.nicepage.com/c461c07a441a5d220e8feb1a/f15bf95824015febb49489e4/xcccx.jpg);
+            background-position: 50% 50%;
+            margin: -680px auto 0 429px;
+        }
+
+        .bubbles-section-2 .bubbles-image-2 {
+            width: 276px;
+            height: 276px;
+            background-image: url(https://images01.nicepage.com/c461c07a441a5d220e8feb1a/c56b8d352c2b586e91a72f44/c97af7cb-b869-64a0-5b82-dfa5eec1c690.jpg);
+            background-position: 50% 50%;
+            margin: -596px auto 0 84px;
+        }
+
+        .bubbles-section-2 .bubbles-image-3 {
+            width: 389px;
+            height: 389px;
+            background-image: url(https://images01.nicepage.com/c461c07a441a5d220e8feb1a/da7f4291458b53d2a009642a/fddfdf.jpg);
+            background-position: 50% 50%;
+            margin: 50px auto 0 169px;
+        }
+
+        .bubbles-section-2 .bubbles-shape-2 {
+            width: 119px;
+            height: 119px;
+            margin: -419px auto 0 33px;
+        }
+
+        .bubbles-section-2 .bubbles-text-2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            line-height: 1.8;
+            width: 570px;
+            margin: 333px 285px 0;
+        }
+
+        .bubbles-section-2 .bubbles-text-3 {
+            width: 359px;
+            margin: 30px 391px 0;
+        }
+
+        .bubbles-section-2 .bubbles-btn-1 {
+            background-image: none;
+            border-style: none none solid;
+            padding: 0;
+        }
+
+        .bubbles-section-2 .bubbles-btn-2 {
+            background-image: none;
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            border-style: none;
+            margin: 39px auto 60px 463px;
+            padding: 16px 48px 16px 47px;
+        }
+
+        @media (max-width: 1199px) {
+            .bubbles-section-2 .bubbles-sheet-1 {
+                min-height: 1363px;
+            }
+
+            .bubbles-section-2 .bubbles-shape-1 {
+                width: 212px;
+                height: 212px;
+                margin-left: 712px;
+            }
+
+            .bubbles-section-2 .bubbles-image-1 {
+                width: 595px;
+                height: 595px;
+                margin-top: -664px;
+                margin-left: 312px;
+            }
+
+            .bubbles-section-2 .bubbles-image-2 {
+                margin-top: -587px;
+                margin-left: 8px;
+            }
+
+            .bubbles-section-2 .bubbles-image-3 {
+                margin-top: 88px;
+                margin-left: 151px;
+            }
+
+            .bubbles-section-2 .bubbles-shape-2 {
+                margin-top: -437px;
+                margin-left: 16px;
+            }
+
+            .bubbles-section-2 .bubbles-text-2 {
+                width: auto;
+                margin-top: 358px;
+                margin-left: 185px;
+                margin-right: 185px;
+            }
+
+            .bubbles-section-2 .bubbles-text-3 {
+                width: auto;
+                margin-left: 291px;
+                margin-right: 291px;
+            }
+
+            .bubbles-section-2 .bubbles-btn-2 {
+                margin-bottom: 51px;
+                margin-left: 363px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .bubbles-section-2 .bubbles-sheet-1 {
+                min-height: 1659px;
+            }
+
+            .bubbles-section-2 .bubbles-text-1 {
+                width: auto;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .bubbles-section-2 .bubbles-shape-1 {
+                margin-top: 685px;
+                margin-left: 492px;
+            }
+
+            .bubbles-section-2 .bubbles-image-1 {
+                width: 555px;
+                height: 555px;
+                margin-top: -611px;
+                margin-left: 143px;
+            }
+
+            .bubbles-section-2 .bubbles-image-2 {
+                margin-top: -778px;
+            }
+
+            .bubbles-section-2 .bubbles-image-3 {
+                margin-top: 316px;
+                margin-left: 16px;
+            }
+
+            .bubbles-section-2 .bubbles-shape-2 {
+                width: 103px;
+                height: 103px;
+                margin-top: -665px;
+                margin-left: 24px;
+            }
+
+            .bubbles-section-2 .bubbles-text-2 {
+                width: 570px;
+                margin-top: 602px;
+                margin-left: 75px;
+                margin-right: 75px;
+            }
+
+            .bubbles-section-2 .bubbles-text-3 {
+                width: 358px;
+                margin-left: 181px;
+                margin-right: 181px;
+            }
+
+            .bubbles-section-2 .bubbles-btn-2 {
+                margin-bottom: 59px;
+                margin-left: 253px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .bubbles-section-2 .bubbles-sheet-1 {
+                min-height: 1432px;
+            }
+
+            .bubbles-section-2 .bubbles-text-1 {
+                font-size: 3.75rem;
+            }
+
+            .bubbles-section-2 .bubbles-shape-1 {
+                width: 148px;
+                height: 148px;
+                margin-top: 594px;
+                margin-left: 381px;
+            }
+
+            .bubbles-section-2 .bubbles-image-1 {
+                width: 427px;
+                height: 427px;
+                margin-top: -455px;
+                margin-left: 113px;
+            }
+
+            .bubbles-section-2 .bubbles-image-2 {
+                width: 234px;
+                height: 234px;
+                margin-top: -649px;
+                margin-left: 24px;
+            }
+
+            .bubbles-section-2 .bubbles-image-3 {
+                width: 298px;
+                height: 298px;
+                margin-top: 249px;
+                margin-left: 0;
+            }
+
+            .bubbles-section-2 .bubbles-shape-2 {
+                width: 92px;
+                height: 92px;
+                margin-top: -517px;
+                margin-left: 10px;
+            }
+
+            .bubbles-section-2 .bubbles-text-2 {
+                width: auto;
+                margin-top: 466px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .bubbles-section-2 .bubbles-text-3 {
+                width: auto;
+                margin-left: 91px;
+                margin-right: 91px;
+            }
+
+            .bubbles-section-2 .bubbles-btn-2 {
+                margin-bottom: 60px;
+                margin-left: 163px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .bubbles-section-2 .bubbles-sheet-1 {
+                min-height: 1171px;
+            }
+
+            .bubbles-section-2 .bubbles-text-1 {
+                font-size: 2.5rem;
+                margin-top: 57px;
+            }
+
+            .bubbles-section-2 .bubbles-shape-1 {
+                width: 104px;
+                height: 104px;
+                margin-top: 419px;
+                margin-left: 226px;
+            }
+
+            .bubbles-section-2 .bubbles-image-1 {
+                width: 264px;
+                height: 264px;
+                margin-top: -302px;
+                margin-left: 76px;
+            }
+
+            .bubbles-section-2 .bubbles-image-2 {
+                width: 164px;
+                height: 164px;
+                margin-top: -439px;
+                margin-left: auto;
+            }
+
+            .bubbles-section-2 .bubbles-image-3 {
+                width: 203px;
+                height: 203px;
+                margin-top: 159px;
+                margin-left: 0;
+            }
+
+            .bubbles-section-2 .bubbles-shape-2 {
+                width: 61px;
+                height: 61px;
+                margin-top: -352px;
+                margin-left: 0;
+            }
+
+            .bubbles-section-2 .bubbles-text-2 {
+                margin-top: 315px;
+            }
+
+            .bubbles-section-2 .bubbles-text-3 {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .bubbles-section-2 .bubbles-btn-2 {
+                margin-left: auto;
+                margin-bottom: 57px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="bubbles-align-center bubbles-clearfix bubbles-section-2" id="sec-bbae">
+        <div
+            class="bubbles-clearfix bubbles-sheet bubbles-valign-middle-md bubbles-valign-middle-sm bubbles-valign-middle-xl bubbles-valign-middle-xs bubbles-sheet-1">
+            <h1 class="bubbles-custom-font bubbles-font-pt-sans bubbles-text bubbles-text-default bubbles-text-1">
+                Magazine Mockup projects </h1>
+            <div class="bubbles-palette-3-base bubbles-shape bubbles-shape-circle bubbles-shape-1"></div>
+            <div class="bubbles-image bubbles-image-circle bubbles-preserve-proportions bubbles-image-1"
+                data-image-width="794" data-image-height="665"></div>
+            <div class="bubbles-image bubbles-image-circle bubbles-image-2" data-image-width="1200"
+                data-image-height="801"></div>
+            <div class="bubbles-border-20 bubbles-border-white bubbles-image bubbles-image-circle bubbles-preserve-proportions bubbles-image-3"
+                data-image-width="700" data-image-height="676"></div>
+            <div class="bubbles-shape bubbles-shape-svg bubbles-text-palette-4-base bubbles-shape-2">
+                <svg class="bubbles-svg-link" preserveAspectRatio="none" viewBox="0 0 160 160" style="">
+                    <use xlink:href="#svg-1186"></use>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    xml:space="preserve" class="bubbles-svg-content" viewBox="0 0 160 160" x="0px" y="0px" id="svg-1186"
+                    style="enable-background:new 0 0 160 160;">
+                    <path d="M80,30c27.6,0,50,22.4,50,50s-22.4,50-50,50s-50-22.4-50-50S52.4,30,80,30 M80,0C35.8,0,0,35.8,0,80s35.8,80,80,80
+        s80-35.8,80-80S124.2,0,80,0L80,0z"></path>
+                </svg>
+            </div>
+            <p class="bubbles-text bubbles-text-2">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit.</p>
+            <p class="bubbles-text bubbles-text-3">Images from <a href="https://www.freepik.com/psd/mockup"
+                    class="bubbles-border-1 bubbles-border-black bubbles-btn bubbles-button-link bubbles-button-style bubbles-none bubbles-text-body-color bubbles-btn-1">Freepik</a>
+            </p>
+            <a href="https://nicepage.com/"
+                class="bubbles-active-black bubbles-border-none bubbles-btn bubbles-btn-round bubbles-button-style bubbles-color-scheme-summer-time bubbles-color-style-multicolor-1 bubbles-hover-black bubbles-palette-3-base bubbles-radius-50 bubbles-btn-2">Learn
+                more</a>
+        </div>
+    </section>
+</body>
+
+</html>

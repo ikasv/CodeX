@@ -1,0 +1,1 @@
+select * from vendor where status=1 AND vstatus=1 AND aid LIKE '%,28,%' OR aid LIKE '%,28' OR aid LIKE '28,%' OR aid = '28'

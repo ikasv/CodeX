@@ -1,0 +1,22 @@
+# routes.php
+
+$route['404_override']      =   'error_404';
+
+# Controller
+
+<?php
+
+class Error_404 extends CI_Controller
+{
+    function index()
+    {
+        $data['title'] = '404 Error';
+        $data['description'] = 'Page Not Found';
+        $data['page'] = '404_Error';
+        $this->load->view('header-view', $data);
+        $this->load->view('error_404', $data);
+        $this->load->view('footer-view', $data);
+    }
+}
+
+# view - error_404.php

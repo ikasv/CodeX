@@ -1,0 +1,27 @@
+# SendMail 
+    if(!function_exists('sendMail')):
+        function sendMail($to = 'vikas.softechure@gmail.com', $from = 'sudhir@getmeds.ph', $title = ' Zoho Inventory', $subject = 'Create Customer ( Zoho )', $mail_view = 'Hi this is test mail'){
+            
+            $ci = & get_instance();
+            $ci->load->library('email');
+            
+            $config=array(
+                    'charset'=>'utf-8',
+                    'wordwrap'=> TRUE,
+                    'mailtype' => 'html'
+                    );
+                    
+            $ci->email->initialize($config);
+                    
+            $ci->email->from($from, $title); 
+            $ci->email->to($to);
+            $ci->email->subject($subject); 
+            $ci->email->message($mail_view); 
+            if($ci->email->send()):
+                echo "Email sended";
+            else:
+                echo "Email failed";
+            endif;
+        }
+    endif;
+    # End Send Mail

@@ -1,0 +1,20 @@
+<table
+   data-paging="false"
+   data-searching="false"
+   data-ordering="false"
+>
+
+<table>
+<thead>
+<tr>
+    <th>I'm sortable</th>
+    <th data-orderable="false">I'm not sortable</th>
+</tr>
+</thead>
+
+$('#id-of-my-table').DataTable({
+    "columnDefs": [
+        { "orderable": false, "targets": [0, 4, 5, 6] },
+        { "orderable": true, "targets": [1, 2, 3] }
+    ]
+});

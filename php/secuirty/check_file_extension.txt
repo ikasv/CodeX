@@ -1,0 +1,62 @@
+<?php
+    if(isset($_POST)):
+        echo "<pre>";
+       
+       print_r($_FILES['image']);
+       print_r(checkFile($_FILES['image'], 'images', array('pdf', 'jpeg')));
+    endif;
+
+    function checkFile($input_file, $path, $image = array('jpg', 'png', 'jpeg') ){
+        $file                       =   (object) $input_file;
+        $ext                        =   pathinfo($file->name, PATHINFO_EXTENSION);
+        $file_name_without_ext      =   basename($file->name, '.'.$ext);    
+        $file_name                  =   strtolower(str_replace(' ', '-', $file_name_without_ext)).'_'.time().'.'.$ext;
+        $tmp                        =   $file->tmp_name;
+        $size                       =   getimagesize($file->tmp_name);
+      
+        // return htmlspecialchars(file_get_contents($tmp));
+        $contents = htmlspecialchars(file_get_contents($tmp));
+        $searchfor      = 'echo';
+        $pattern = preg_quote($searchfor, '/');
+        $pattern = "/^.*$pattern.*\$/m";
+
+        if (preg_match_all($pattern, $contents, $matches)):
+            return "Malformed file";
+        else:
+            return 'd';
+        endif;
+
+
+        if(in_array($ext, $image)):
+            
+            $contents = file_get_contents($tmp);
+            $searchfor      = 'echo';
+            $pattern = preg_quote($searchfor, '/');
+            $pattern = "/^.*$pattern.*\$/m";
+
+            if (preg_match_all($pattern, $contents, $matches)):
+                echo "Malformed file";
+            else:
+                    move_uploaded_file($tmp, $path.'/'.$file_name);
+            endif;
+        else:
+            return 'Unable to upload file.';
+        endif;
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Validation</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data"> 
+        <input type="file" name="image">
+        <input type="submit">
+    </form>
+</body>
+</html>

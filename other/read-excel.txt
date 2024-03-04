@@ -1,0 +1,17 @@
+https://docs.laravel-excel.com/3.1/getting-started/installation.html
+
+issue : require ext-gd * -> it is missing from your system. Install or enable PHP's gd extension.
+
+php.ini : ;extensiont:gd -> extensiont:gd
+
+
+web.php
+
+use Maatwebsite\Excel\Facades\Excel;
+
+# Read Excel
+Route::get('read-excel', function() {
+        return Excel::toArray('', public_path('storage/products.csv'));
+});
+
+# End Read Excel

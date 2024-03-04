@@ -1,0 +1,92 @@
+  
+   <div class="form-group col-xl-12 col-md-12 title-sec-wrapper">
+                                    <div class="form-group col-xl-10 col-md-10 set-title">
+                                    
+                                    <h3><u>Gallery Images</u></h3>
+                                    </div>
+                                      <div class="form-group col-xl-2 col-md-2 sec-btn" style="float:right;">
+                                        <input type="button" class="form-control btn btn-info" onclick="addGalleryImage(1)" value="Add More">
+                                    </div>
+                                 
+                                </div>
+                                <div class="form-group col-xl-12 col-md-12">
+                                    <div class="row">     
+                                        <div class="form-group col-xl-12 col-md-12 add-gallery-image-wrapper">
+                                        <?php
+                                            $image_data_one = array();
+                                            if(isset($edit_data['college_id'])){
+                                                $image_data_oneList = mysqli_query($mysql, "select * from gallery where college_id='".$edit_data['college_id']."' AND upload_type='image' AND ifImage_upload_sno='0'");
+                                            if(mysqli_num_rows($image_data_oneList) > 0){
+                                            while($image_data_one = mysqli_fetch_assoc($image_data_oneList)):
+                                        ?>
+                                        <div class="row add-gallery-image-row" data-row="1">
+                                            <div class="form-group col-xl-12 col-md-12" >
+                                                <div class="form-group col-xl-2 col-md-2" >
+                                                    <label>SNO</label>
+                                                    <input type="text" name="img_sno[]" class="form-control sr_no" value="1" readonly disabled>
+                                                </div>
+                                                <div class="form-group col-xl-4 col-md-5" >
+                                                    <label>Image Title</label>
+                                                    <input type="text" name="img_title[]" class="form-control" max="100" placeholder="Enter Image Title" value="<?=isset($image_data_one['title'])?$image_data_one['title']:''?>">
+                                                </div>
+                                                <div class="form-group col-xl-4 col-md-5" >
+                                                    <label>Image</label>
+                                                    <input type="file" name="img_url[]" class="form-control mb-2" accept="image/*"  value="<?=isset($image_data_one['gallery_url'])?$image_data_one['gallery_url']:''?>">
+                                                    <?php if(isset($image_data_one['gallery_url'])):?>
+                                                        <img src="<?= 'https://scholarshiploan.com/images/college/college_gallery/'.$image_data_one['gallery_url'];?>" width=150>
+                                                    <?php endif;?>
+                                                </div>
+                                                <style>
+                                                    .add-gallery-image-wrapper .add-gallery-image-row:first-child .remove-btn-wrapper { display: none ! important; }
+                                                </style>
+                                                <div class="form-group col-xl-2 remove-btn-wrapper">
+                                                    <label></label>
+                                                    <input type="button" class="form-control btn btn-danger remove-btn remove-gallery-image-btn" value="Remove" data-remove="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php endwhile; } } ?> 
+                                    </div>
+                                    </div>
+                                </div>
+#########################################  
+  
+    /* Video */
+    var sr_no = 1;
+    function addVideo(no){
+        var length = $(".add-video-row").last().attr('data-row');
+        let i = ++length;
+        var cloned = $('.add-video-row').last().clone();
+        $('.add-video-wrapper').append(cloned);
+        $(".add-video-row").last().attr('data-row', i);
+        $(".add-video-row").last().addClass('video_row_'+i);
+        $(".add-video-wrapper .add-video-row .remove-btn").last().attr('data-remove', i);
+        $(".add-video-row").last().find('.sr_no').val(i);
+    }
+        
+           $(document).on("click", ".remove-video-btn", function(){
+            $rm_id = $(this).attr('data-remove');
+            // alert("video_row_"+$rm_id);
+            $(".add-video-wrapper .video_row_"+$rm_id).remove();
+       });
+    /* Video End*/
+
+    /* Gallery */
+    var sr_no = 1;
+    function addGalleryImage(no){
+        var length = $(".add-gallery-image-row").last().attr('data-row');
+        let i = ++length;
+        var cloned = $('.add-gallery-image-row').last().clone();
+        $('.add-gallery-image-wrapper').append(cloned);
+        $(".add-gallery-image-row").last().attr('data-row', i);
+        $(".add-gallery-image-row").last().addClass('video_row_'+i);
+        $(".remove-btn").last().attr('data-remove', i);
+        $(".add-gallery-image-row").last().find('.sr_no').val(i);
+    }
+        
+            $(document).on("click", ".remove-gallery-image-btn", function(){
+            $rm_id = $(this).attr('data-remove');
+            //   alert("video_row_"+$rm_id);
+            $(".add-gallery-image-wrapper .video_row_"+$rm_id).remove();
+       });
+    /* Gallery End*/

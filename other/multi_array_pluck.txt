@@ -1,0 +1,32 @@
+public function problem_get()
+ {
+$arrayVar = [
+    ["id" => 1, "name" => "Size", "attribute_value" => "M"],
+    ["id" => 7, "name" => "Capacity", "attribute_value" => "1 L"],
+    ["id" => 1, "name" => "Size", "attribute_value" => "S"],
+    ["id" => 7, "name" => "Capacity", "attribute_value" => "500 ml"],
+];
+    $new_array=array();
+    for($i=0; $i<count($arrayVar); $i++)
+    {
+       $object = array("id"=>$arrayVar[$i]["id"],"name"=>$arrayVar[$i]["name"]);
+       if(!in_array($object,$new_array))
+       {
+         $new_array[]=array("id"=>$arrayVar[$i]["id"],"name"=>$arrayVar[$i]["name"]);
+       }
+    }
+    $final_array=array();
+    for($i=0; $i<count($new_array); $i++)
+    {
+       $attributes=array();
+      for ($j=0;$j<count($arrayVar); $j++)
+      {
+          if($new_array[$i]["id"]==$arrayVar[$j]["id"])
+          {
+            $attributes[]= $arrayVar[$j]["attribute_value"];
+          }
+      }
+      $final_array[]=array("id"=>$new_array[$i]["id"],"name"=>$new_array[$i]["name"],"attributes"=>$attributes);
+    }
+   print_r($final_array);
+ }

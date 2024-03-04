@@ -1,0 +1,15 @@
+$config['protocol']    = 'smtp';
+        $config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = '465';
+        $config['smtp_timeout'] = '7';
+        $config['smtp_user']    = 'example@gmail.com';
+        $config['smtp_pass']    = 'example';
+        $config['charset']    = 'utf-8';
+        $config['newline']    = "\r\n";
+        $config['mailtype'] = 'text'; // or html
+        $config['validation'] = TRUE; // bool whether to validate email or not
+        $this->email->initialize($config);
+       $this->email->from('krishna.softechure@gmail.com', 'Merely herbal');
+      $this->email->to($this->input->post("email"));
+      $this->email->subject('Email Test');
+     $this->email->message('Testing the email class.');

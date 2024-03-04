@@ -1,0 +1,54 @@
+ public function donor_registration_process($id = "")
+     {
+        $data = array(
+                'name'          => $this->input->post('name'),
+                'email'         => $this->input->post('email'),
+                'mobile'        => $this->input->post('mobile'),
+                'state'         => $this->input->post('state'),
+                'district'      => $this->input->post('district'),
+                'city'          => $this->input->post('city'),
+                'address'       => $this->input->post('address'),
+                'ip'            => $this->input->ip_address()
+            );
+
+        if ($id !='') {
+            $st="month_id='".$id."'";
+            $this->Action_model->update_query($data, 'months', $st);
+            redirect('mtadmin/sitedata/month_single/'.$id);
+        }
+        else
+        {
+            $this->db->where('mobile',$data['mobile']);
+            $this->db->or_where('email',$data['email']);
+            $row = $this->db->get('tbl_donor');
+            echo $this->db->last_query();
+            if($row->num_rows() > 0){
+                $row_data = $row->row();
+                $mobile   = $row_data->mobile;
+                $email    = $row_data->email;
+                echo $email." ".$data['email'];
+                if(empty($mobile) || $mobile == $data['mobile']) 
+                { 
+                    $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert">Mobile already registered.</div>');
+                    redirect('admin/donor-registration');
+                }                
+                else if(empty($email) || $email == $data['email']) 
+                { 
+                    $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert">Email already registered.</div>');
+                    redirect('admin/donor-registration');
+                }
+                else
+                {
+                    $this->session->set_flashdata('error_msg', '<div class="alert alert-danger" role="alert"><small>Alreday created account with given email and mobile.</small></div>');
+                    redirect('admin/donor-registration');
+                }
+            }else
+            {
+                $data['modify_at']  = date('Y-m-d h:i:s');
+                $data['created_at'] = date('Y-m-d h:i:s');
+                $this->Action_model->insert_data($data, 'tbl_donor');
+                $this->session->set_flashdata('error_msg', '<div class="alert alert-success">Resgistration Succesfully</div>');
+                redirect('admin/login-donor');
+            }
+        }
+    }

@@ -1,0 +1,5 @@
+<img src="images/loading.gif" data-src="home-section/945935d421cb45238c7f823dd0fb8545.jpeg" class="lazyload" alt="">
+<script src="https://unpkg.com/lazyload@2.0.0-beta.2/lazyload.js"></script>
+<script>
+$(".lazyload").lazyload();
+</script>

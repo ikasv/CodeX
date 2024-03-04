@@ -1,0 +1,76 @@
+if ($request->from_year && $request->to_year && $request->from_month && $request->to_month) {
+
+                # From 
+                $records            =   $records->where(function($query) use ($request ){
+                                            # 1
+                                            $query->where(function($sub_query) use ($request){ 
+                                                
+                                                # 1.2
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('year', '>', (int) $request->from_year);
+                                                });
+                                                
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('month', '>', (int) $request->from_month);
+                                                    $sub_sub_query->orWhere('month', '=', (int) $request->from_month);
+                                                    $sub_sub_query->orWhere('month', '<', (int) $request->from_month);
+                                                });
+                                                # End 1.2
+
+                                            });
+                                            # End 1
+                                            
+                                            # 2
+                                            $query->orWhere(function($sub_query) use ($request){ 
+                                                # 2.1
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('year', '=', (int) $request->from_year);
+                                                });
+                                                
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('month', '>=', (int) $request->from_month);
+                                                });
+                                                # End 2.1
+                                            });
+                                            # End 2
+                     
+                                        });
+                # End From 
+              
+                # To
+                $records            =   $records->where(function($query) use ($request ){
+                                            # 1
+                                            $query->where(function($sub_query) use ($request){ 
+                                                
+                                                # 1.2
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('year', '<', (int) $request->to_year);
+                                                });
+                                                
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('month', '>', (int) $request->to_month);
+                                                    $sub_sub_query->orWhere('month', '=', (int) $request->to_month);
+                                                    $sub_sub_query->orWhere('month', '<', (int) $request->to_month);
+                                                });
+                                                # End 1.2
+
+                                            });
+                                            # End 1
+                                            
+                                            # 2
+                                            $query->orWhere(function($sub_query) use ($request){ 
+                                                # 2.1
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('year', '=', (int) $request->to_year);
+                                                });
+                                                
+                                                $sub_query->where(function($sub_sub_query) use ($request){ 
+                                                    $sub_sub_query->where('month', '<=', (int) $request->to_month);
+                                                });
+                                                # End 2.1
+                                            });
+                                            # End 2
+
+                                        });
+                # End To
+             }

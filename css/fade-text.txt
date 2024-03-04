@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style type="text/css">
+  
+.content{ 
+    opacity: 0;
+    animation: myFade 4s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes myFade {
+     0% {opacity:0}
+    100% {opacity:1}
+}
+
+.fadingEffect {
+    position:absolute;
+    top:0; bottom:0; right:0;
+    width:100%;
+    background:#fff;
+    filter: blur(15px);
+    animation: showHide 14s ;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes showHide { /
+    0% {width:100%}
+    40% {width:0%}
+    60% {width:0%;}
+    100% {width:0%;}
+}
+</style>
+<body>
+
+        <section class="section01">
+            <div class="content">
+                    <h1 class="section01__header-title">iPhone 12 Pro and iPhone 12 Pro Max</h1>
+                    <h2 class="section01__header-subtitle">It’s a leap year.</h2>
+                     <div class="fadingEffect"></div>
+            </div>
+            
+        </section>
+
+</body>
+</html>

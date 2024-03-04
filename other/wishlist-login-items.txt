@@ -1,0 +1,28 @@
+protected function authenticated(Request $request, $user)
+    {
+        if(session()->has('session_id')):
+            # ==> Update wishlist items after login
+            
+                # Get user's wishlist items
+                $exits_wishlists            =   Wishlist::whereUserId($user->id)->get();
+                
+                # Get user's wishlist property ids only
+                $exits_property_ids         =   data_get($exits_wishlists, '*.property_id');
+                
+                # Query Start to update wishlist items
+                $wishlist                   =   Wishlist::whereSessionId(session()->get('session_id'));
+                
+                # If already user added items
+                if(count($exits_property_ids)):
+                    $wishlist->whereNotIn('property_id', $exits_property_ids);
+                endif;
+                    
+                # Update user id and session id to null
+                $wishlist_result            =   $wishlist->update([ 'user_id' => $user->id, 'session_id' => null ]);
+                
+                # Remove all items using current session id
+                Wishlist::whereSessionId(session()->get('session_id'))->delete();
+                
+            # ==> End Update wishlist items after login
+        endif;
+    }

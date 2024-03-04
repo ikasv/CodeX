@@ -1,0 +1,7 @@
+	$this->db->select('pf.*, p.*, pi.file_name');
+			$this->db->from('tbl_products p');
+			$this->db->join('tbl_product_filters pf', 'pf.product_id = p.id', 'left');
+			$this->db->join('product_images pi', 'pi.id = pf.product_id', 'left');
+			$this->db->where_in('filter_id', $total_filter_result);
+			$this->db->group_by('p.id');
+			$filter_result = $this->db->get()->result();

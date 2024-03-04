@@ -1,0 +1,13 @@
+$ch = curl_init();
+            $timeout = 50;
+            curl_setopt($ch, CURLOPT_URL, "http://bsms.programicitsolutions.com/api/send_transactional_sms.php?username=u7147&msg_token=OtsOl5&sender_id=WAGDEV&message=DEAR+$customer_name%2CYOUR+FILE+REGISTERED.%0D%0ALAXMAN+C+KULKARNI%2C+ADVOCATE%0D%0AWAGDEVI+LAW+CHAMBERS%2CXXXX&mobile=6350170362");
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HEADER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $data = curl_exec($ch);
+            if(curl_errno($ch)){
+                $errmsg=curl_error($ch);
+                $this->session->set_flashdata('error_msg', $errmsg);
+            }
+            curl_close($ch);

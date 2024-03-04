@@ -1,0 +1,104 @@
+## css
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+hr.dashed {
+    border-top: 2px dashed #999;
+}
+
+hr.dotted {
+    border-top: 2px dotted #999;
+}
+
+hr.solid {
+    border-top: 2px solid #999;
+}
+
+
+hr.hr-text {
+  position: relative;
+    border: none;
+    height: 1px;
+    background: #999;
+}
+
+hr.hr-text::before {
+    content: attr(data-content);
+    display: inline-block;
+    background: #fff;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #999;
+    border-radius: 30rem;
+    padding: 0.2rem 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+
+body {
+    min-height: 100vh;
+    background-color: #fff; 
+    color: #333;
+}
+.text-uppercase {
+  letter-spacing: .1em;
+}
+## End CSS
+
+
+## HTML
+<div class="container py-5">
+    <!-- For Demo Purpose -->
+    <header class="py-5 text-center">
+        <h1 class="display-4">Bootstrap Divider</h1>
+        <p class="lead mb-0">Some divider variants using &lt;hr&gt; element.	</p>
+        <p class="font-weight-light mb-0">Snippet by <a href="https://bootstrapious.com" class="">
+            <u>Bootstrapious</u></a>
+        </p>
+    </header>
+
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="mb-4">
+                <h6 class=" text-uppercase">Dashed</h6>
+                <!-- Dashed divider -->
+                <hr class="dashed">
+            </div>
+            <div class="mb-4">
+                <h6 class=" text-uppercase">Dotted</h6>
+                <!-- Dotted divider -->
+                <hr class="dotted">
+            </div>
+            <div class="mb-4">
+                <h6 class="text-uppercase">Solid</h6>
+                <!-- Solid divider -->
+                <hr class="solid">
+            </div>
+            <div class="mb-4">
+                <h6 class=" text-uppercase">Text content</h6>
+                <!-- Gradient divider -->
+                <hr data-content="AND" class="hr-text">
+            </div>
+           
+        </div>
+    </div>
+</div>

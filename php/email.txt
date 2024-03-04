@@ -1,0 +1,18 @@
+<?php
+
+if(isset($_POST['email'])):
+    $user_email =  $_POST['email'];
+    
+    // the message
+$msg = " New Sign Up with these email: $user_email ";
+
+$msg = wordwrap($msg, 70);
+
+// send email
+$isSendMail = mail("vikas.softechure@gmail.com","New Sign Up",$msg);
+
+    if($isSendMail):
+        header('Location: thank-you.php');
+    endif;
+endif;
+?>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(function() {
+  function getCounterData(obj) {
+     var minutes = parseInt($('.e-m-minutes', obj).text());
+    var seconds = parseInt($('.e-m-seconds', obj).text());
+    return seconds + (minutes * 60);
+  }
+
+  function setCounterData(s, obj) {
+   var minutes = Math.floor((s % (60 * 60)) / 60);
+    var seconds = Math.floor(s % 60);
+
+    console.log(minutes, seconds);
+
+    $('.e-m-minutes', obj).html(minutes);
+    $('.e-m-seconds', obj).html(seconds);
+  }
+
+  var count = getCounterData($(".counter"));
+
+  var timer = setInterval(function() {
+    count--;
+    if (count == 0) {
+      clearInterval(timer);
+      return;
+    }
+    setCounterData(count, $(".counter"));
+  }, 1000);
+});
+</script>
+</head>
+<body>
+
+<div class="counter" style='color: green;'>
+  <span class='e-m-minutes'>15</span> Minutes |
+  <span class='e-m-seconds'>0</span> Seconds
+</div>
+</body>
+</html>

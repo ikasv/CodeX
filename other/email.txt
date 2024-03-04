@@ -1,0 +1,17 @@
+# Send Mail - Vk
+    if (!function_exists('sendMail')) {
+        function sendMail($mailto = 'vikas.softechure@gmail.com', $mailsubject = 'Mail Subject', $mailhtml = 'html body', $mailfrom = '' ){
+            
+            if($mailfrom == ''):
+                env('MAIL_FROM_ADDRESS');
+            endif;
+            
+            $mail           =   Mail::send(array(), array(), function ($message) use ($mailto ,$mailfrom ,$mailsubject ,$mailhtml ) {
+                                    $message->to($mailto)
+                                    ->subject($mailsubject)
+                                    //   ->from($mailfrom)
+                                    ->setBody($mailhtml, 'text/html');
+            });
+        }
+    }
+    # End Send Mail - Vk

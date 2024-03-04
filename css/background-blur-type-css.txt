@@ -1,0 +1,1 @@
+    #carrer { background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("assets/landing-pages/uit/slider.jpg"); }

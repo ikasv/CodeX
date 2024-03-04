@@ -1,0 +1,12 @@
+<input list="scholarship-data-list" type="text" placeholder="Scholarship" name="search" class="form-control" autocomplete="off"/>
+                                <datalist id="scholarship-data-list">
+                                    <?php
+								        if(mysqli_num_rows($scholarships) > 0){
+									        while($scholarship = mysqli_fetch_assoc($scholarships)){
+									 ?>
+									        <option value="<?= $scholarship['title']?>"></option>
+									  <?php
+									        }
+									    }
+									    ?>
+                                </datalist>

@@ -1,0 +1,106 @@
+<section class="cart-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center" {% if cart.item_count != 0 %}style="display: none;"{% endif %}>
+          <h3 class="text-capitalize margin-top-40">It Appears That Your Cart Is Currently Empty!</h3>
+          <h5 class="margin-bottom-10">Please Continue Shopping ...</h5>
+      </div>
+      
+      <div class="col-md-12"  {% if cart.item_count == 0 %}style="display: none;"{% endif %}>
+            <h2 class="text-center mb-4">YOUR CART</h2>
+        <div class="">
+         
+              {% for item in cart.items %}
+              <div class="row my-4" style="position:relative;">
+                <div class="col-md-2 col-4">  
+                  <a href="{{ item.url }}">
+                      <img class="img-responsive cart-img" src="{{ item | img_url: 'large' }}" alt="{{ item.title | escape }}">
+                  </a>
+                </div>
+                 <div class="col-md-4 col-8">  
+                    <h5>{{ item.title }}</h5>
+                    <label>has been added to your cart </label>
+                </div>
+                 <div class="col-md-3 align-self-center col-8 py-4">  
+                  <div class="increment-decrement-col">
+                  <span class="text-center">Quantity &nbsp;</span>
+                  <input type="number" readonly value="{{ item.quantity }}" size="4" name="updates[]" min="1" id="updates_{{ item.key }}" pattern="[0-9]*" class="quantitiy-value-{{ item.variant.id }}">
+                    <i class="fa-solid fa-angle-up" onclick="Shopify.addItemToCart({{ item.variant.id }}, this.parentNode.querySelector('input[type=number]').value)"></i>
+                    <i class="fa-solid fa-angle-down" onclick="Shopify.removeItemFromCart({{ item.variant.id }}, this.parentNode.querySelector('input[type=number]').value)"></i>
+                  </div>
+                   <div class="mt-2 ajax-error-{{ item.variant.id }}"></div>
+                </div>
+                 <div class="col-md-2 align-self-center col-2 py-4">  
+                <label class="text-center" style="font-size: 22px;"><span class="money money-{{ item.variant.id }}">{{ item.line_price | money }}</span></label>
+                </div>
+                 <div class="col-md-1 align-self-center col-2 py-4">  
+                <label class="text-center" style="font-size: 22px;">
+                  <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="paira-cart-page-delete nav-link remove-from-cart">X</a>
+                  </label>
+                </div>
+              </div>
+                {% endfor %}
+      </div>
+
+        <div class="checkout-wrapper" style="text-align:end;">
+          <div class="money total-price mb-4">{{ cart.total_price | money }}</div> 
+          <div class="checkout"><a href="/checkout" class="btn checkout-btn">CHECK OUT</a></div>
+        </div>
+      </div>
+
+      
+  </div>
+</section>
+    
+<script>
+    Shopify.addItemToCart = async function(id,quantity){
+        await $.ajax({
+            method:'POST',
+            url:'/cart/add.js',
+            data:{ id:id, quantity:1},
+            dataType: 'json',
+            success:function(res){
+              $('.ajax-error-'+id+'').html("<div class='text-success'>Cart updated</div>");
+              $('.quantitiy-value-'+id+'').val(++quantity);
+              $('.money-'+id+'').html(Shopify.formatMoney(res.line_price));
+
+            fetch('/cart.js')
+              .then((resp) => resp.json())
+              .then((data) => {
+                if(data.items.length > 0) {
+                  $('.total-price').html(Shopify.formatMoney(data.total_price));
+                }
+                });
+          },
+          error: function (xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            $('.ajax-error-'+id+'').html("<div class='text-danger'>"+err.description+"</div>");
+        }
+        })
+    };
+    
+    Shopify.removeItemFromCart = async function(id,quantity){
+      quantity = --quantity;
+      if(quantity == 0){
+        location.reload();
+      }
+      await $.ajax({
+            method : 'POST',
+            url : '/cart/change.js',
+            data : { id:id, quantity:(--quantity) },
+            dataType: 'json',
+        success:function(res){
+              $('.ajax-error-'+id+'').html("<div class='text-success'>Cart updated</div>");
+              $('.quantitiy-value-'+id+'').val(quantity);
+
+              $('.total-price').html(Shopify.formatMoney(res.total_price));
+                res.items.map(function(item, i){
+                  if(item.id == id){
+                 $('.money-'+id+'').html(Shopify.formatMoney(item.line_price));
+                  }
+              })
+          },
+        })
+    };
+
+</script>

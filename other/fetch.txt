@@ -1,0 +1,14 @@
+fetch("{{ url('admin/lab-assistant/remove-from-lab-report') }}", {
+                            method:'DELETE',
+                            headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                            
+                            body    : JSON.stringify({ 
+                                                        method  : "DELETE",
+                                                        id:id,
+                                                    })
+                            
+                        }).then((res) => res.json()).then((data) => alert(data));

@@ -1,0 +1,10 @@
+    public function clearCache()
+    {
+        Artisan::call('key:generate');
+        Artisan::call('config:cache');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+        return 'Cache Cleared';
+    }

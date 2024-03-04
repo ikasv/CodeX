@@ -1,0 +1,11 @@
+ $request->validate([
+                'name'              => 'required|max:225',
+                'state_id'          => 'required|integer',
+                'city_id'           => 'required|integer',
+                'status'            => 'integer|between:0,1'
+            ],
+            [
+                'state_id.required'     => 'Please select state',
+                'city_id.required'      => 'Please select city',
+                'status.between'        => 'Status must be active or deactive'
+            ]);

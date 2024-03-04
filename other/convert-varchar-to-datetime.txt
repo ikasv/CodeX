@@ -1,0 +1,2 @@
+UPDATE `product_reviews`
+SET `created_at` = str_to_date( `created_at`, '%d-%m-%Y' );

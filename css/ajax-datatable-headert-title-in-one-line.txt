@@ -1,0 +1,6 @@
+th {
+    padding: 6px;
+    font-size: 14px;
+    clear: both;
+    white-space: nowrap;
+}

@@ -1,0 +1,7 @@
+ul li {
+    list-style:none;
+    background-image: url('{{ 'li-icon.png' | asset_url }}');
+    background-repeat: no-repeat;
+    line-height: 30px;
+    padding-left: 35px;
+}

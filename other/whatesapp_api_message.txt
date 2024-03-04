@@ -1,0 +1,14 @@
+curl --location --request POST 'https://graph.facebook.com/v15.0/PHONE_NUMBER_ID/messages' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer access_token' \
+--data-raw '{
+    "messaging_product": "whatsapp",
+    "to": "{{7254995746}}",
+    "type": "template",
+    "template": {
+        "name": "hello_world",
+        "language": {
+            "code": "en_US"
+        }
+    }
+}

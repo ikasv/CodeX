@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Http\Controllers\Admin\LabTest\Package;
+
+use App\Http\Controllers\Controller;
+use App\Models\LabPackage;
+use Illuminate\Http\Request;
+
+class PackageController extends Controller
+{
+    # Global 
+    public $index_view                  =   "admin.pages.lab_test.package.index";
+    public $create_or_edit_view         =   "admin.pages.lab_test.package.single";
+    
+    public $index_route                 =   "admin::lab::lab-packages.index";
+    
+    public $permission_key              =   "lab_test";
+    public $table_name                  =   "lab_packages";
+    
+    # ==> Model 
+    public function eloquentModel(){
+        return new LabPackage();
+    }
+    # ==> !Model 
+    
+    # End Global 
+
+    public function index()
+    {
+        $this->authorize('permissions', [$this->permission_key, 'view']);
+
+        $records            =   $this->eloquentModel()->get();
+
+        return view($this->index_view, compact('records'));
+    }
+    
+    public function create()
+    {
+        $this->authorize('permissions', [$this->permission_key, 'create']);
+
+        return view($this->create_or_edit_view);
+    }
+    
+    
+    public function store()
+    {
+        $this->authorize('permissions', [$this->permission_key, 'create']);
+
+        $back_msg                       =   "";
+
+        request()->validate([
+            'name'                  =>  "required|max:225|unique:$this->table_name,name,".request()->id,
+            'description'           =>  'required'
+        ]);
+
+        $this->eloquentModel()->updateOrCreate(
+            [
+                'id'                => request()->id
+            ],
+            [
+                'name'              => request()->name,
+                'description'       => request()->description,
+                'status'            => request()->status
+            ]
+        );
+
+        if(request()->id):
+            $back_msg                       =   "Record updated successfully";
+        else:
+            $back_msg                       =   "New record added successfully";
+        endif;
+
+        return redirect()->route($this->index_route)->with('back_msg', "<div class='alert alert-success'>$back_msg</div>");
+    }
+
+    public function show($id)
+    {
+        $this->authorize('permissions', [$this->permission_key, 'view']);
+    }
+
+    public function edit($id)
+    {
+        $this->authorize('permissions', [$this->permission_key, 'edit']);
+        
+        $record    = $this->eloquentModel()->find($id);
+        
+        return view($this->create_or_edit_view, compact('record'));
+    }
+    
+    public function update(Request $request, $id)
+    {
+        
+    }
+    
+    public function destroy($id)
+    {
+        $this->authorize('permissions', [$this->permission_key, 'delete']);
+        $record    = $this->eloquentModel()->find($id);
+        $record->delete();
+        return back()->with('back_msg', "<div class='alert alert-success'>Record deleted successfully</div>");
+   }
+}

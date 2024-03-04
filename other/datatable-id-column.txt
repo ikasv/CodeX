@@ -1,0 +1,9 @@
+{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+
+{
+	className:'text-center',
+	data: 'id',
+	render: function (data, type, row, meta) { 
+		return meta.row + meta.settings._iDisplayStart + 1;
+	}
+}

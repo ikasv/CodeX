@@ -1,0 +1,2 @@
+UPDATE airports SET name = replace(name, 'Intl', 'International')
+UPDATE airports SET name = replace(name, 'Arpt', 'Airport')

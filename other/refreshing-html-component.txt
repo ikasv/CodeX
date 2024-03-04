@@ -1,0 +1,16 @@
+ $(".select_day").click(function() {
+
+        var loadingGif = $("#loading-gif");
+        var current_block = $("#time-slot-col");
+
+        loadingGif.show();
+        current_block.hide();
+        $("#select_time_slot").load("{{ url()->current() }} #select_time_slot", function(response, status, xhr) {
+            
+            if (status == 'success') {
+                loadingGif.hide();
+                current_block.show();
+
+            }
+        });
+    });

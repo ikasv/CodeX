@@ -1,0 +1,11 @@
+ 'buttons': [
+                'colvis',
+                {
+                    extend: 'csv',
+                    title: 'Client Report',
+                    footer: true,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                }
+            ],

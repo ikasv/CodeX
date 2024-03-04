@@ -1,0 +1,28 @@
+<?php
+
+class FirstPlugin
+{
+    public static function view($view)
+    {
+        include(__DIR__ . '/view/front_view/' . $view . '.php');
+    }
+
+    public static function adminView($view)
+    {
+        include(__DIR__ . '/view/admin_view/' . $view . '.php');
+    }
+
+    public static function appendFrontCss($file_name)
+    {
+        echo  '<style>';
+        include(__DIR__ . '/assets/front/css/' . $file_name . '.css');
+        echo  '</style>';
+    }
+
+    public static function appendAdminCss($file_name)
+    {
+        echo  '<style>';
+        include(__DIR__ . '/assets/admin/css/' . $file_name . '.css');
+        echo  '</style>';
+    }
+}

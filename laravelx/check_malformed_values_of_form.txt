@@ -1,0 +1,43 @@
+<?php
+
+    function isAnyPostValueMalformed($post_data){
+            $word   =   "script";
+            $pattern = "/<?php|?>|<script>|</script>|&lt;script&gt;/im";
+
+            foreach ($post_data as $key => $value) {
+                if (preg_match_all($pattern, $value, $matches)){
+                    return true;
+                }
+             }
+        return false;
+    }
+ 
+    if(isset($_POST['submit'])):
+
+        if(isAnyPostValueMalformed($_POST)):
+            echo 'Malformed found in value';
+        else:
+            echo 'Values are safe';
+        endif;
+    endif;
+
+?>
+
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Malformed files</title>
+ </head>
+ <body>
+ <form method="post" enctype="multipart/form-data"> 
+        <input type="text" name="name"><br>
+        <input type="email" name="email"><br>
+        <input type="text" name="mobile"><br>
+        <textarea name="message" ></textarea><br>
+        <input type="submit" name="submit">
+    </form>
+ </body>
+ </html>

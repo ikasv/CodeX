@@ -1,0 +1,12 @@
+/**
+ * @package First_Plugin
+ * @version 1.0.0
+ */
+/*
+Plugin Name: First Plugin
+Plugin URI: https://example.com/
+Description: My First Plugin
+Author: Vikas Mehra
+Version: 1.0.0
+Author URI: https://example.com/
+*/

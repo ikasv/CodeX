@@ -1,0 +1,17 @@
+https://medium.com/js-dojo/build-a-website-using-nuxt-contentful-a-step-by-step-guide-b75217ccdfa
+
+Github:
+npm init nuxt-app@latest <my-project>
+
+In Folder Contentful :
+vue init nuxt/starter nuxt-contentful-demo
+
+cd
+
+vue init nuxt-community/starter-template my-project
+
+npm install
+
+npm run dev
+
+npm install --save contentful

@@ -1,0 +1,5 @@
+accept="image/*"
+
+accept="video/mp4,video/x-m4v,video/*"
+
+accept="image/png, image/jpeg, application/pdf, application/msword,.docx

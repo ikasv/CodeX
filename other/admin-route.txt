@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
+
+Route::get('/login', [AdminController::class, 'login'])->name('admin::login');
+Route::post('/login-process', [AdminController::class, 'login_process']);
+
+Route::group(['as' => 'admin::', 'middleware' => 'auth:admin'], function(){
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/all-users', [AdminController::class, 'allUsers'])->name('all-users');
+    Route::get('/booking-details', [AdminController::class, 'bookingDetails'])->name('booking-details');
+    Route::get('/site-setting', [AdminController::class, 'siteSetting'])->name('site-setting');
+    Route::post('/site-setting-form', [AdminController::class, 'siteSettingForm'])->name('site-setting-form');
+    Route::get('/booking', [AdminController::class, 'booking'])->name('booking');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+});
+
+///
+
+# Admin
+	Route::get('', [AdminAuthController::class, 'index']);
+	Route::post('/login-process', [AdminAuthController::class, 'login_process']);
+	# End Admin
+
+	Route::group(['as' => 'admin::', 'middleware' => 'auth:admin'], function(){
+		Route::get("/",[AdminController::class,'index']);
+
+		# Resources
+		Route::resources([
+			'properties' 		=>  PropertyController::class,
+			'deals' 			=>  DealController::class,
+			'subscriptions' 	=>  SubscriptionController::class,
+			'categories' 		=>  CategoryController::class,
+		]);
+		# End Resources
+
+		Route::post("logout", [AdminAuthController::class,'logout']);
+	});

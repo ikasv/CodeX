@@ -1,0 +1,6 @@
+DELETE FROM test
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM test
+    GROUP BY name
+);

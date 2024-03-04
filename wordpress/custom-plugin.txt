@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @package First_Plugin
+ * @version 1.0.0
+ */
+/*
+Plugin Name: First Plugin
+Plugin URI: https://example.com/
+Description: My First Plugin
+Author: Vikas Mehra
+Version: 1.0.0
+Author URI: https://example.com/
+*/
+
+require_once('FirstPlugin.php');
+
+# Create Database Table
+register_activation_hook(__FILE__, 'myPluginCreateTable');
+
+function myPluginCreateTable()
+{
+    global $wpdb;
+    $charset_collate = $wpdb->get_charset_collate();
+    $table_name = $wpdb->prefix . 'my_plugin_table';
+    $sql = "CREATE TABLE `$table_name` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(220) DEFAULT NULL,
+    `mobile` bigint DEFAULT NULL,
+    `email` varchar(220) DEFAULT NULL,
+    `subject` varchar(220) DEFAULT NULL,
+    `message` text DEFAULT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    PRIMARY KEY(id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    ";
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+        dbDelta($sql);
+    }
+}
+# End Create Database Table
+
+# Menu
+function showPluginMenu()
+{
+    add_menu_page(
+        __('Vk Contact', 'textdomain'),
+        'Vk Contact',
+        'manage_options', //  The capability required for this menu to be displayed to the user.
+        'vkcontact',
+        'menu_view',
+        'dashicons-welcome-learn-more'
+    );
+
+    add_submenu_page(
+        'vkcontact',
+        __('Vk Contact - Form List', 'textdomain'),
+        __('Form List', 'textdomain'),
+        'manage_options',
+        'vkcontactformlist',
+        'submenu_view'
+    );
+}
+
+add_action('admin_menu', 'showPluginMenu');
+
+function menu_view()
+{
+    // FirstPlugin::appendAdminCss('style');
+    FirstPlugin::adminView('home');
+}
+
+function submenu_view()
+{
+    FirstPlugin::adminView('form-list');
+}
+# End Menu
+
+function home()
+{
+    FirstPlugin::appendFrontCss('style');
+    FirstPlugin::view('home');
+}
+
+function main()
+{
+    ob_start();
+    home();
+    return ob_get_clean();
+}
+
+// add_action('vk_text', 'main');
+add_shortcode('vk-contact', 'main');

@@ -1,0 +1,21 @@
+	$config                         = array();
+		$config['upload_path']          = './public/images/gallery_category/';
+		$config['allowed_types']        = 'png|jpg|jpeg';
+		$config['max_size']             = 10*1024;
+		$config['remove_spaces']        = TRUE;
+		$this->load->library('upload', $config);
+
+		# Image Upload
+			if (!empty($_FILES['image']['name'])):
+				if ( ! $this->upload->do_upload('image')):
+					$error = array('error' => $this->upload->display_errors());
+					$this->session->set_flashdata('error_msg', $error['error']);
+				else:
+					$data = array('upload_data' => $this->upload->data());
+					$file_name = $this->upload->data('file_name'); 
+				endif;
+			else:
+				$this->db->where('id', $id);
+				$file_name =  $this->db->get('gallery_category')->row()->image;
+			endif;
+		# End Image Upload

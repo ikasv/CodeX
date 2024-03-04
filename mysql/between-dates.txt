@@ -1,0 +1,2 @@
+"SELECT * FROM logs WHERE date BETWEEN '" . $from_date . "' AND  '" . $to_date . "'
+ORDER by id DESC"

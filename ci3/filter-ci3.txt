@@ -1,0 +1,167 @@
+	public function dfilterProductList()
+	{
+		if ($this->input->post()) :
+			$filter_loop = $this->input->post('filter');
+			
+			$total_filter_result = array();
+			$arr = array();
+			$products_html = '';
+
+			# -> Filter
+			$filter_data = array();
+			foreach ($filter_loop as $key => $i) :
+				foreach ($i as $key1 => $s) :
+					$total_filter_result[]			= $s;
+				endforeach;
+			endforeach;
+			# <- Filter
+			
+			$this->db->select('pf.*, p.*, pi.file_name');
+			$this->db->from('tbl_products p');
+			$this->db->join('tbl_product_filters pf', 'pf.product_id = p.id', 'left');
+			$this->db->join('product_images pi', 'pi.id = pf.product_id', 'left');
+			$this->db->where_in('filter_id', empty($total_filter_result) ? '0' : $total_filter_result);
+			$this->db->group_by('p.id');
+			$filter_result = $this->db->get()->result();
+
+			// echo "<pre>";
+			// print_r($filter_result);
+
+// 			echo $this->db->last_query();die;
+			
+			$stock = $cart = $wishlist = "";
+			foreach ($filter_result as $row) {
+				if ($row->stock_status) {
+					$stock = '<li><font color="green">In Stock</font></li>';
+				} else {
+					$stock = '<li><font color="red">Out of Stock</font></li>';
+				}
+
+				if ($row->stock_status) {
+					$cart = '<i class="fa fa-shopping-cart" style="margin-right:4px;" onclick="addtocart(' . $row->id . ')"></i>';
+				}
+
+				if (!$row->wishlist_status) {
+					$wishlist = '<i class="fa fa-heart-o" id="wish-list-btn-' . $row->id . '" onclick="addtowish(' . $row->id . ')"></i>';
+				}
+
+				$products_html .=  '<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="padding:0;">
+			<div class="right_product_box">
+			<a href="' . base_url('') . 'product/detail/' . $row->slug . '"><img src="' . base_url('skin/front/images/product-default-img.png') . '" alt="img"></a>
+			<ul class="menu">
+			<li><a href="' . base_url('product/detail/' . $row->slug) . '" title="' . $row->product_name . '">' . substr($row->product_name, 0, 40) . '</a></li>
+			<li><a href="#">Rs ' . $row->price . '</a></li>
+			' . $stock . '
+			</ul>
+
+			<div class="pro-bottom-part">
+			<img src="' . base_url('skin/front/images/0-star.png') . '" alt="img" class="star2">
+			<div class="read_btn">
+			' . $cart . '
+			' . $wishlist . '
+			</div>
+			<div class="pro-small-loader" id="pro-small-loader-' . $row->id . '"></div>
+			</div>
+			</div>
+			</div>
+		  ';
+			}
+
+			$arr = array('status' => 'true', 'products' => $products_html, 'total_products' => count($filter_result), 'product_unavialable_msg' => "<div class='text-center'><h1>Products Unavailable.</h1></div>");
+	else :
+			$arr = array('status' => 'false', 'message' => 'error');
+	endif;
+		echo json_encode($arr);
+		// print_r($filter_result);
+	}
+}
+
+
+
+################################
+
+     <?php
+
+        $this->db->select('*');
+        $this->db->from('tbl_product_category_filter_names pcfn');
+        $this->db->join('tbl_filter_category fc', 'fc.id = pcfn.filter_name_id', 'left');
+        $this->db->where('pcfn.product_category_id', $product_category_id);
+        $filter_category_list_sidebar  = $this->db->get()->result();
+        ?>
+
+     <style>
+    .filter-category-title {
+        cursor: pointer;
+    }
+    
+     .hide{
+        display:none !important;
+    }
+     </style>
+
+     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 product-list-left" style="padding:0;">
+         <button type="button" class="btn btn-primary" style="margin: 10px 0;" onclick="toggleFilter()"><span id="filter-btn-label">Hide Filters</span></button>
+ 
+         <form action="<?= base_url('admin/filter/product_filter_process'); ?>" method="post" id="dynamic-filter-form">
+             <div class="row">
+                 <div class="col-md-12">
+                     <h2>Filters</h2>
+                     
+                     <?php
+                        $i = 0;
+                        foreach ($filter_category_list_sidebar as $row) :
+
+                        ?>
+                     <div class="row">
+                         <div class="col-md-12">
+                             <div class="filter-category">
+                                 <h4 class="filter-category-title" data-toggle="collapse"
+                                     data-target="#demo_<?= $i; ?>"><?= $row->title; ?>
+                                     <span>></span>
+                                 </h4>
+                             </div>
+                         </div>
+                         <div id="demo_<?= $i; ?>" class="collapse in">
+                             <?php
+                                    // get Filter list
+                                    $filter_list  = $this->db->order_by('name', 'asc')->get_where('tbl_filter', array('filter_category_id' => $row->id))->result();
+                                    foreach ($filter_list as $row1) :
+                                    ?>
+                             <div class="col-md-12">
+                                 <div class="filters-list">
+                                     <div class="form-groupd">
+                                         <input type="checkbox" class="filter-box-chk"
+                                             name="filter[<?= $row->id; ?>][<?= $row1->id; ?>]" id="<?= $row1->id; ?>"
+                                             value="<?= $row1->id; ?>">
+                                         <label for="<?= $row1->id; ?>"><?= $row1->name; ?></label>
+                                     </div>
+                                 </div>
+                             </div>
+                             <?php endforeach; ?>
+                         </div>
+                     </div>
+                     <?php $i++;
+                        endforeach; ?>
+                     <!-- <div class="col-md-12">
+                         <input type="submit" value="Submit">
+                     </div> -->
+                 </div>
+             </div>
+         </form>
+     </div>
+     
+      <script>
+     function toggleFilter(){
+          var toggleFilterForm = document.getElementById('dynamic-filter-form');
+          var toggleButtonLabel = document.getElementById('filter-btn-label');
+          toggleFilterForm.classList.toggle("hide");
+          
+          if (toggleFilterForm.classList.contains('hide')) {
+              toggleButtonLabel.innerHTML = "Show Filter";
+            }
+            else{
+              toggleButtonLabel.innerHTML = "Hide Filter";
+            }
+          
+     }
+     </script>

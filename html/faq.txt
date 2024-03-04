@@ -1,0 +1,179 @@
+   <!-- FAQ -->
+        <section class="faq">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <h3 class="text-center p-2">FAQ's</h3>
+                        <div class="panel-group wrap" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel">
+                                <div class="panel-heading active" role="tab" id="headingOne">
+                                    <h4 class="panel-title" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+
+                                        What are the benefits of Plus membership?
+                                        <i class="fa fa-angle-up"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse show" role="tabpanel"
+                                    aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li>All chronic customer accounts will be Promoted to Plus</li>
+                                            <li>Always free & priority delivery for Plus members (Same day delivery in
+                                                NCR) </li>
+                                            <li>Free teleconsultation and 10% direct discount, and 10% of wallet money
+                                                can be
+                                                utilised on each purchase irrespective of order value</li>
+                                            <li>25% Cashback in Getmeds credits on each purchase</li>
+                                            <li>Additional 200 Getmeds cash on referring other patients</li>
+                                            <li>1 Year membership cost 1000 PHP currently for a promotional period will
+                                                be offered
+                                                FREE only to chronic customers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of panel -->
+
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title" class="collapsed" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                        How do I use cashback during orders?
+                                        <i class="fa fa-angle-up"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                    aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li>25% will be credited in a wallet, but only 10% of total wallet credit
+                                                will be used with a
+                                                plus membership.</li>
+                                            <li>200 Getmeds cash will be given after referred user order has been
+                                                delivered.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of panel -->
+
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title" class="collapsed" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        Can I renew my Getmeds Plus Membership?
+                                        <i class="fa fa-angle-up"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                    aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        Yes, you can. We will remind you once your current membership is about to
+                                        expire.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="headingFour">
+                                    <h4 class="panel-title" class="collapsed" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour">
+                                        Can I cancel my Getmeds Plus Membership after I have purchased it?
+                                        <i class="fa fa-angle-up"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                                    aria-labelledby="headingFour">
+                                    <div class="panel-body">
+                                        No. Once enrolled, you will not be able to cancel your Getmeds Plus membership.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="headingFive">
+                                    <h4 class="panel-title" class="collapsed" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseFive" aria-expanded="false"
+                                        aria-controls="collapseFive">
+                                        What is the validity of the cashback received in the Getmeds Wallet?
+                                        <i class="fa fa-angle-up"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
+                                    aria-labelledby="headingFive">
+                                    <div class="panel-body">
+                                        Any Cashback earned through the Getmeds Plus Membership will not have an expiry
+                                        date.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="headingSix">
+                                    <h4 class="panel-title" class="collapsed" role="button" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapseSix" aria-expanded="false"
+                                        aria-controls="collapseSix">
+                                        Can I use other offers/coupons along with the Getmeds Plus Cashback?
+                                        <i class="fa fa-angle-up"></i>
+                                    </h4>
+                                </div>
+                                <div id="collapseSix" class="panel-collapse collapse" role="tabpanel"
+                                    aria-labelledby="headingSix">
+                                    <div class="panel-body">
+                                        Yes, you can use any other offers/coupons along with the Getmeds Plus
+                                        membership.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of panel -->
+                        </div>
+                        <!-- end of #accordion -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End FAQ -->
+		
+		
+		// Accordian
+    $(document).ready(function() {
+        (function($) {
+            $.fn.clickToggle = function(func1, func2) {
+                var funcs = [func1, func2];
+                this.data('toggleclicked', 0);
+                this.click(function() {
+                    var data = $(this).data();
+                    var tc = data.toggleclicked;
+                    $.proxy(funcs[tc], this)();
+                    data.toggleclicked = (tc + 1) % 2;
+                });
+                return this;
+            };
+        }(jQuery));
+
+
+        $('.faq .panel-heading').clickToggle(function() {
+                $(this).addClass('active');
+                if ($('.faq .panel-heading:eq(0)').has('.active')) {
+                    $('.faq .panel-heading:eq(0)').removeClass('active');
+                } else {
+                    $('.faq .panel-heading:eq(0)').addClass('active');
+                }
+            },
+            function() {
+                $(this).removeClass('active');
+                if ($('.faq .panel-heading:eq(0)').has('.active')) {
+                    $('.faq .panel-heading:eq(0)').addClass('active');
+                } else {
+                    $('.faq .panel-heading:eq(0)').removeClass('active');
+                }
+            });
+
+    });
+    // End Accordian

@@ -1,0 +1,42 @@
+
+    'guards' => [
+     
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customer',
+        ]
+    ],
+
+
+    'providers' => [
+        'customer' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
+
+    ],
+
+# Customer Auth
+
+    # View 
+    Route::get('/user-register', [AuthController::class, 'register'])->name('customer-register');
+    Route::get('/verify-email', [AuthController::class, 'verify_email'])->name('verify-email');
+    Route::get('/user-login', [AuthController::class, 'login'])->name('customer-login');
+    Route::get('/user-login-via-mobile-otp', [AuthController::class, 'login_via_mobile_otp'])->name('customer-login-via-mobile-otp');
+    Route::get('/user-forget-password', [AuthController::class, 'forget_password'])->name('customer-forget-password');
+    Route::get('/user-change-password', [AuthController::class, 'change_password'])->name('customer-change-password');
+    Route::get('/user-logout', [AuthController::class, 'logout'])->name('customer-logout');
+    # !View 
+
+    # Process 
+    Route::post('/customer-register-process', [AuthController::class, 'register_process'])->name('customer-register-process');
+    Route::post('/verify-email-process', [AuthController::class, 'verify_email_process'])->name('verify-email-process');
+    Route::post('/login-via-credentials-process', [AuthController::class, 'login_process'])->name('login-via-credentials-process');
+    Route::post('/send-otp-to-mobile', [AuthController::class, 'verify_mobile'])->name('check_and_send_otp_to_mobile');
+    Route::post('/verify-mobile-otp-process', [AuthController::class, 'verify_mobile_otp_process'])->name('verify-mobile-otp-process');
+    Route::post('/customer-change-password-process', [AuthController::class, 'change_password_process'])->name('customer-change-password-process');
+    # !Process 
+
+# End Customer Auth
+
+

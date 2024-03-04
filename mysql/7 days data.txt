@@ -1,0 +1,14 @@
+SELECT * FROM Table_Name
+WHERE connect_time >= DATE_ADD(CURDATE(),INTERVAL -7 DAY);
+or
+
+SELECT * FROM Table_Name
+WHERE connect_time >= DATE_SUB(CURDATE(),INTERVAL 7 DAY);
+Without those functions, you can also do
+
+SELECT * FROM Table_Name
+WHERE connect_time >= (CURDATE() + INTERVAL -7 DAY);
+or
+
+SELECT * FROM Table_Name
+WHERE connect_time >= (CURDATE() - INTERVAL 7 DAY);

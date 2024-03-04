@@ -1,0 +1,72 @@
+
+
+.center {
+    text-align: center;
+  }
+  
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+  
+  .pagination a.active {
+    background-color: #2e79ba;
+    color: white;
+    border: 1px solid #2e79ba;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+
+  .pagination a.disabled {
+    background: #e3e3e3;
+    cursor: not-allowed;
+}
+
+#################################
+import { Link, useSearchParams } from "react-router-dom";
+import "./Pagination.css";
+
+export default function Pagination(prop) {
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  let paginate                          =   prop.paginate;
+  let page                              = searchParams.get("page") ?? 1;
+  let next_page                         =  ((paginate?.links.length - 2) > page ) ? '?page='+ ( parseInt(page) + 1 ) : '';
+  let prev_page                         = ( page > 1 ) ? '?page='+ (parseInt(page) - 1) : '';
+
+
+  return (
+    <>
+    {
+      paginate?.links.length > 3 &&
+    
+    <section className="pagiantion-section">
+      <div className="center">
+        <div className="pagination">
+          {paginate?.links.map((link, i) => {
+            if(i == 0){
+                return <Link to={ prev_page } key={i} className={ prev_page == '' ? 'disabled' : '' }>&laquo;</Link>;
+              }else if(i == ( paginate.links.length - 1)){
+                return (<Link to={ next_page } key={i} className={ next_page == '' ? 'disabled' : '' } >&raquo;</Link>);
+              }else{
+                return (
+                  <Link to={ "/news?page="+i} className={ link.active ? 'active' : '' } key={i}>{ link.label }</Link>
+                  );
+              }
+          })}
+        </div>
+      </div>
+      </section>
+      }
+    </>
+  );
+}

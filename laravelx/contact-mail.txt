@@ -1,0 +1,16 @@
+<?php
+    include 'include/header.php';
+    $error                  = '';
+    $success                = '';
+    if(isset($_POST["submit-form"])){
+        
+       $msg                =   "Name:{$_POST['username']}\nCompany:{$_POST['company']}\nPhone:{$_POST['phone']}\nMessage:{$_POST['message']}";
+      
+        $mail = mail("vikas.softechure@gmail.com","My subject",$msg, "Alwar online");
+        if($mail){
+             $success   =   "Email successfully sent.";
+        }else {
+            $error      =   "Email not sent.";
+        }
+    }
+?>

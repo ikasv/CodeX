@@ -1,0 +1,21 @@
+.htaccess
+
+Options -MultiViews
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.html [QSA,L]
+	
+index.js
+	import React from 'react';
+	import ReactDOM from 'react-dom';
+	import App from './App';
+	import { BrowserRouter } from 'react-router-dom';
+
+	ReactDOM.render(
+	<BrowserRouter basename="/herbal"> 
+		<App />
+	</BrowserRouter>
+	, document.getElementById('root'));
+
+package.json
+	"homepage": "https://www.website4test.com/herbal",
